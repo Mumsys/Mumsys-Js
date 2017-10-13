@@ -24,13 +24,14 @@
  *
  * @param {Object} params Parameters to set the item properties
  */
-function Mumsys_Generic_Item(params) {
+function Mumsys_Generic_Item( params ) 
+{
     /**
      * Incomming properties to be used.
      * @private
      * @var Object
      */
-    this.__itemProps = {};
+    this.__itemProps = { };
 
     /**
      * Private flag to detect if item was modified or not.
@@ -38,18 +39,18 @@ function Mumsys_Generic_Item(params) {
      */
     this.__m = false;
 
-    if (params instanceof Object) {
+    if ( params instanceof Object ) {
         this.__itemProps = params;
 
-        if (undefined !== params.id) {
-            this.set('id', params.id);
+        if ( undefined !== params.id ) {
+            this.set( 'id', params.id );
         }
     } else {
         var message = 'Invalid parameters';
-        throw new Error(message);
+        throw new Error( message );
     }
 
-    this.setModified(false);
+    this.setModified( false );
 };
 
 
