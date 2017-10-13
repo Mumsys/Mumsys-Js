@@ -14,7 +14,6 @@ QUnit.test("Mumsys_Generic_Item.js tests", function (assert)
         var errA = new Mumsys_Generic_Item();
         
     } catch (e) {
-        console.log( e);
         assert.ok(
                 (e.message == 'Invalid parameters'), 
                 "Exception message: Passed!"
