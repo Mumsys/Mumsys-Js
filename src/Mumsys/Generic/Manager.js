@@ -49,7 +49,7 @@ function Mumsys_Generic_Manager(url = false)
      * @private Private property: Use public methodes
      * @type Boolean
      */
-    this._loaded = false;
+    this.__loaded = false;
 
     /**
      * Map as memory keeper to speed up item searches
@@ -143,13 +143,15 @@ Mumsys_Generic_Manager.prototype.getItems = function () {
  * 
  * The first match will return.
  * Alternativly you can also fetch an item by given array index as "idx" for 
- * the key. Be sure your data does not contain a idx key/property!
+ * the key. 
+ * Warning: Be sure your data does not contain a idx key/property!
+ * Note: Checks are type save! Be sure checking for integer, string...
  *
  * E.g:
  * getItem('idx', 0); // returns the first element of the item list
  * getItem('idx', -1);// returns the last  element of the item list
  * getItem('idx', 1); // returns the item with the internal key = 1
- * getItem('id', 3);  // returns the item with id=3 or undefind if not exists
+ * getItem('id', 3);  // returns the item with id=3 or undefined if not exists
  *
  * @param {String|integer} key Item property to look for. E.g: 'id'
  * @param {Mixed} value Value you are looking for
@@ -208,7 +210,7 @@ Mumsys_Generic_Manager.prototype.clear = function ()
  */
 Mumsys_Generic_Manager.prototype.isLoaded = function ()
 {
-    return this._loaded;
+    return this.__loaded;
 };
 
 
@@ -218,10 +220,10 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
  * Warning: This methods load records and keeps existing data when loading 
  * again. This can endup in very bad performance which huge lists of data!
  * You may call clear() method befor load again. Also loading duplicate items 
- * will fail if item ID alsoready exists.
+ * will fail if item ID also exists.
  *
  * Parameters must be given like your backend to request the right address, 
- * eg: {"program":"a","controller":"b","action":"c"} or othe methodes
+ * eg: {"program":"a","controller":"b","action":"c"} or other methodes
  * Server reponse must be a jsonrpc 2.0 result containing the list of items as
  * follow:
  * obj.result.list[ Mumsys_Generic_Item, Mumsys_Generic_Item, ... ]
@@ -232,30 +234,30 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
  *
  * Request params to be set:
  * <pre>
- *  - url: {String} Url to request to, Default; 'jsonrpc.php'<br>
- *  - async: {Boolean} Use asyc request or not; Default: true<br>
- *  - type: {String} Request type. Default: 'GET'<br>
- *  - contentType: {String} Default: 'application/json'<br>
+ *  - url: {String} Url to request to, Default; 'jsonrpc.php'
+ *  - async: {Boolean} Use asyc request or not; Default: true
+ *  - type: {String} Request type. Default: 'GET'
+ *  - contentType: {String} Default: 'application/json'
  *  - dataType: {String} Default: 'json'
  * </pre>
  * Feel free also to overwrite jQuerys success, error callbacks
  *
- * @param {Object} params Mixed request parameters
- * @param {Object} requestParams Parameters to overwrite the ajax request defaults or to
- * extend for jquery.
+ * @param {Object} data Mixed request parameters/ data
+ * @param {Object} requestParams Parameters to overwrite the ajax request 
+ * defaults or to extend for jQuery.ajax().
  *
  * @return {void}
  * @throws {Exception} On errors in response
  */
- Mumsys_Generic_Manager.prototype.loadItems = function (params, requestParams=false)
+ Mumsys_Generic_Manager.prototype.loadItems = function ( data, requestParams = false )
  {
     /**
      * Request parameters. (finals for the server request)
-     * @type {Object} Scalar key/value pairs
+     * @type {Object} Mixed key/value pairs
      */
     var _reParams;
     var _this = this;
-    this._loaded = false;
+    this.__loaded = false;
 
     var defaultParams = {
         url: this.__url
@@ -270,7 +272,7 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
                 for ( var i = 0; i < obj.result.list.length; i++ ) {
                     _this.addItem( _this.createItem( obj.result.list[i] ) );
                 }
-                _this._loaded = true;
+                _this.__loaded = true;
             }
         , error: function ( obj/*, textStatus, errorThrown */)
             {
@@ -278,7 +280,7 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
             }
     };
 
-   _reParams = this._buildParams(defaultParams, params, requestParams);
+   _reParams = this._buildParams(defaultParams, data, requestParams);
 
     jQuery.ajax( _reParams ).done( function ( obj ) {
         Mumsys.checkJsonRpcResponce( obj );
@@ -293,8 +295,8 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
  *
  * default request parameters:
  * <pre>
- *  - url: {String} Url to request to, Default; 'jsonrpc.php'<br>
- *  - type: {String} Request type. Default: 'POST'<br>
+ *  - url: {String} Url to request to, Default; 'jsonrpc.php'
+ *  - type: {String} Request type. Default: 'POST'
  *  - error: {function} Callback for errors
  * </pre>
  *
@@ -306,7 +308,7 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
  *
  * @throws {alert} If json response is in error
  */
-Mumsys_Generic_Manager.prototype.saveItem = function (item, params, requestParams=false)
+Mumsys_Generic_Manager.prototype.saveItem = function ( item, params, requestParams = false )
 {
     if (params.item !== undefined) {
         var message = 'params.item property already defined';
@@ -320,17 +322,18 @@ Mumsys_Generic_Manager.prototype.saveItem = function (item, params, requestParam
         var defaultParams = {
             url: this.__url
             , type: 'POST'
-            , fail: function (obj, textStatus, errorThrown) {
-                console.log("fail textStatus", textStatus);
-                console.log("fail errorThrown", errorThrown);
-                
-                Mumsys.checkJsonRpcResponce(jQuery.parseJSON(obj.responseText));
-            }
+            , fail: function (obj, textStatus, errorThrown) 
+                {
+                    console.log("fail textStatus", textStatus);
+                    console.log("fail errorThrown", errorThrown);
+
+                    Mumsys.checkJsonRpcResponce(jQuery.parseJSON(obj.responseText));
+                }
         };
 
         var reqParams = this._buildParams(defaultParams, params, requestParams);
         jQuery.ajax( reqParams ).done( function ( obj )
-        {
+            {
                 Mumsys.checkJsonRpcResponce( obj );
                 if (obj.result.item.id !== undefined) {
                     item.set('id', obj.result.item.id);
