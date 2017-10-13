@@ -42,7 +42,7 @@ function Mumsys_Generic_Manager(url = false)
      * @private Private property
      * @type Array
      */
-    this._itemList = [];
+    this.__itemList = [];
 
     /**
      * Private flag to detect if loading of data is finished.
@@ -55,7 +55,7 @@ function Mumsys_Generic_Manager(url = false)
      * Map as memory keeper to speed up item searches
      * @type Object
      */
-    this._map = {};
+    this.__map = {};
 }
 
 
@@ -88,16 +88,16 @@ Mumsys_Generic_Manager.prototype.addItem = function (item)
     {
         var id = item.get('id');
 
-        if (id !== undefined && this._map[ id ] !== undefined) {
+        if (id !== undefined && this.__map[ id ] !== undefined) {
             var message = '"id" (' + id + ') is unique and already exists';
             throw new Error(message);
         }
 
         if (id !== undefined) {
-            this._map[ id ] = this._itemList.length;
+            this.__map[ id ] = this.__itemList.length;
         }
 
-        this._itemList.push(item);
+        this.__itemList.push(item);
     } else {
         throw new Error('Invalid item');
     }
@@ -114,17 +114,17 @@ Mumsys_Generic_Manager.prototype.removeItem = function (id)
     var _tmp = [];
     var _tmpmap = {};
     
-    for (var i = 0; i < this._itemList.length; i++) 
+    for (var i = 0; i < this.__itemList.length; i++) 
     {
-        itemID = this._itemList[i].get('id');
+        itemID = this.__itemList[i].get('id');
         if (itemID !== id) {
-            _tmp.push(this._itemList[i]);
+            _tmp.push(this.__itemList[i]);
             _tmpmap[ itemID ] = i;
         }
     }
     
-    this._itemList = _tmp;
-    this._map = _tmpmap;
+    this.__itemList = _tmp;
+    this.__map = _tmpmap;
 };
 
 
@@ -134,7 +134,7 @@ Mumsys_Generic_Manager.prototype.removeItem = function (id)
  * @returns {Array} List of Mumsys_Generic_Item items
  */
 Mumsys_Generic_Manager.prototype.getItems = function () {
-    return this._itemList;
+    return this.__itemList;
 };
 
 
@@ -165,27 +165,27 @@ Mumsys_Generic_Manager.prototype.getItem = function ( key, value, defreturn )
     {
         if ( value === -1 )
         {
-            if ( ( this._itemList.length - 1 ) < 0 ) {
+            if ( ( this.__itemList.length - 1 ) < 0 ) {
                 var k = 0;
             } else {
-                var k = this._itemList.length - 1;
+                var k = this.__itemList.length - 1;
             }
 
-            return this._itemList[ k ];
+            return this.__itemList[ k ];
         } else {
-            return this._itemList[ value ];
+            return this.__itemList[ value ];
         }
 
-        return this._itemList[ value ];
+        return this.__itemList[ value ];
     }
     
-    if (key === 'id' && this._map[ key ] !== undefined) {
-        return this._itemList[ this._map[ key ] ];
+    if (key === 'id' && this.__map[ key ] !== undefined) {
+        return this.__itemList[ this.__map[ key ] ];
     }
     
-    for ( var i = 0; i < this._itemList.length; i++ ) {
-        if ( this._itemList[i].get(key) === value ) {
-            return this._itemList[i];
+    for ( var i = 0; i < this.__itemList.length; i++ ) {
+        if ( this.__itemList[i].get(key) === value ) {
+            return this.__itemList[i];
         }
     }
 
@@ -198,8 +198,8 @@ Mumsys_Generic_Manager.prototype.getItem = function ( key, value, defreturn )
  */
 Mumsys_Generic_Manager.prototype.clear = function ()
 {
-    this._itemList = [];
-    this._map = {};
+    this.__itemList = [];
+    this.__map = {};
 };
 
 
@@ -291,7 +291,8 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
 /**
  * Save a generic item.
  *
- * Note: the backend must check the "item" parameter where the item properties will be set to.
+ * Note: the backend must check the "item" parameter where the item properties 
+ * will be set to.
  *
  * default request parameters:
  * <pre>
