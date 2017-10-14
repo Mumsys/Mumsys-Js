@@ -370,9 +370,7 @@ Mumsys_Generic_Manager.prototype._buildParams = function (defaultParams, dataPar
             }
         }
         for ( var key in requestParams ) {
-            if ( requestParams[key] === null ) {
-                // reset, dont use!
-            } else {
+            if ( requestParams[key] !== null ) {
                 obj[key] = requestParams[key];
             }
         }
