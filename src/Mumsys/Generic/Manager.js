@@ -307,7 +307,7 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
  *
  * @returns {Object} Returns the updated generic item
  *
- * @throws {alert} If json response is in error
+ * @throws {Exception} If json response is in error
  */
 Mumsys_Generic_Manager.prototype.saveItem = function ( item, params, requestParams = false )
 {
