@@ -1,3 +1,16 @@
+/**
+ * Mumsys_Generic_Item tests
+ * for MUMSYS Library for Multi User Management System (MUMSYS)
+ *
+ * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
+ * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @author Florian Blasel <flobee.code@gmail.com>
+ *
+ * @category    Mumsys
+ * @package     Library
+ * @subpackage  Generic
+ */
+
 QUnit.test("Mumsys_Generic_Item.js tests", function (assert)
 {
     var _expected, _mesgOut = '';
