@@ -29,12 +29,10 @@ function Mumsys_Generic_Manager(url = false)
      * @private Private property
      * @type {string}
      */
-    this.__url = '';
+    this.__url = 'jsonrpc.php';
     
     if (url) {
         this.__url = url;
-    } else {
-        this.__url = 'jsonrpc.php';
     }
     
     /**
