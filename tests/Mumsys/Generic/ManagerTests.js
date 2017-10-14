@@ -1,4 +1,18 @@
-//QUnit.module( "Mumsys Generic", function() 
+/**
+ * Mumsys_Generic_Manager tests
+ * for MUMSYS Library for Multi User Management System (MUMSYS)
+ *
+ * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
+ * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @author Florian Blasel <flobee.code@gmail.com>
+ *
+ * @category    Mumsys
+ * @package     Library
+ * @subpackage  Generic
+ */
+
+
+////QUnit.module( "Mumsys Generic", function() 
 //{ 
 //  QUnit.test("Mums ...
 QUnit.test("Mumsys_Generic_Manager.js tests", function (assert)
