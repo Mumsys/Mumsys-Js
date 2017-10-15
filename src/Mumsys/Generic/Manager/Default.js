@@ -170,13 +170,15 @@ class Mumsys_Generic_Manager_Default
      * getItem('idx', 0); // returns the first element of the item list
      * getItem('idx', -1);// returns the last  element of the item list
      * getItem('idx', 1); // returns the item with the internal key = 1
-     * getItem('id', 3);  // returns the item with id=3 or undefined if not exists
+     * getItem('id', 3);  // returns the item with id=3 or undefined if not set
      *
      * @param {String|integer} key Item property to look for. E.g: 'id'
      * @param {Mixed} value Value you are looking for
-     * @param {mixed|null} defreturn Default (null) return value if item was not found
+     * @param {mixed|null} defreturn Default (null) return value if item was not 
+     * found
      * 
-     * @return {Mumsys_Generic_Item_Default|defreturn} Generic item or undefined for not found
+     * @return {Mumsys_Generic_Item_Default|defreturn} Generic item or undefined 
+     * for not found
      */
     getItem ( key, value, defreturn )
     {
@@ -227,7 +229,8 @@ class Mumsys_Generic_Manager_Default
     /**
      * Returns the status flag if loading of data was successful.
      *
-     * @returns {Boolean} true on success or false on failure or on not finished yet
+     * @returns {Boolean} true on success or false on failure or on not finished 
+     * yet
      */
     isLoaded()
     {
@@ -240,16 +243,16 @@ class Mumsys_Generic_Manager_Default
      *
      * Warning: This methods load records and keeps existing data when loading 
      * again. This can endup in very bad performance which huge lists of data!
-     * You may call clear() method befor load again. Also loading duplicate items 
-     * will fail if item ID also exists.
+     * You may call clear() method befor load again. Also loading duplicate 
+     * items will fail if item ID also exists.
      *
      * Parameters must be given like your backend to request the right address, 
      * eg: {"program":"a","controller":"b","action":"c"} or other methodes
-     * Server reponse must be a jsonrpc 2.0 result containing the list of items as
-     * follow:
-     * obj.result.list[ Mumsys_Generic_Item_Default, Mumsys_Generic_Item_Default, ... ]
+     * Server reponse must be a jsonrpc 2.0 result containing the list of items 
+     * as follow:
+     * obj.result.list[ .._Generic_Item_.., .._Generic_Item_.., ... ]
      *  |    |      |
-     *  |    |      + --- array containing objects to be initialised as generic item
+     *  |    |      + --- array containing objects to initialise generic item's
      *  |    + ---------- json rpc api "result" property
      *  + --------------- response object
      *
@@ -310,10 +313,10 @@ class Mumsys_Generic_Manager_Default
 
 
     /**
-     * Save a generic item.
+     * Save a generic item. Wrapper method for jQuery.ajax()
      *
-     * Note: the backend must check the "item" parameter where the item properties 
-     * will be set to.
+     * Note: the backend must check the "item" parameter where the item 
+     * properties will be set to.
      *
      * default request parameters:
      * <pre>
@@ -324,7 +327,8 @@ class Mumsys_Generic_Manager_Default
      *
      * @param {Mumsys_Generic_Item_Default} Generic item object
      * @param {Object} params Request parameters to the server
-     * @param {Object} requestParams Parameters to overwrite the ajax request defaults of jQuery.
+     * @param {Object} requestParams Parameters to overwrite the ajax request 
+     * defaults of jQuery.
      *
      * @returns {Object} Returns the updated generic item
      *
@@ -349,11 +353,15 @@ class Mumsys_Generic_Manager_Default
                         console.log("fail textStatus", textStatus);
                         console.log("fail errorThrown", errorThrown);
 
-                        Mumsys.checkJsonRpcResponce(jQuery.parseJSON(obj.responseText));
+                        Mumsys.checkJsonRpcResponce(
+                            jQuery.parseJSON(obj.responseText)
+                        );
                     }
             };
 
-            var reqParams = this._buildParams(defaultParams, params, requestParams);
+            var reqParams = this._buildParams(
+                defaultParams, params, requestParams
+            );
             jQuery.ajax( reqParams ).done( function ( obj )
                 {
                     Mumsys.checkJsonRpcResponce( obj );
@@ -373,10 +381,12 @@ class Mumsys_Generic_Manager_Default
     /**
      * Returns a build parameter object for the jquery ajax request.
      *
-     * @param {object} defaultParams Parameters for the jquery ajax request ($.ajax( params )...)
+     * @param {object} defaultParams Parameters for the jquery ajax request 
+     * ($.ajax( params )...)
      * @param {object} dataParams Your data to request or send
-     * @param {object} requestParams Parameters to overwrite or reset keys of the default
-     * parameters or to add additionals jquery ajax() request can handle.
+     * @param {object} requestParams Parameters to overwrite or reset keys of 
+     * the default parameters or to add additionals jquery ajax() request can 
+     * handle.
      *
      * @returns {object} Parameters to be set to the jquery ajax request.
      */
