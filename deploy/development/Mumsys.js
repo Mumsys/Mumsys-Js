@@ -199,7 +199,6 @@ class Mumsys_Generic_Item_Default
      * 
      * @param {Object} params Mixes parameters to set the item properties
      * 
-     * @param {type} params
      * @returns {Mumsys_Generic_Item}
      */
     constructor(params) 
