@@ -16,7 +16,7 @@
 /**
  * @deprecated Use Generic/Item/Default.js
  * @since version 3.0.0
- * 
+ *  
  * Generic item (item interface, DTO).
  *
  * Item proprties are managed in this class and always are acceassible through 
