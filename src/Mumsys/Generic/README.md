@@ -82,9 +82,9 @@ The answer must be a jsonrpc response and must be as follow:
     }
 
 Now the new item returns with the new value and will be updated in the manager to be 
-available vor the next change or action.
+available for the next step.
 
-Thats all.
+Thats all. A very simple but powerful option to handle data.
 
 
     
