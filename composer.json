@@ -1,8 +1,19 @@
 {
     "name": "flobee/mumsys-js",
     "description": "Mumsys Js - Javascript Library, Currently containing some DTO/DAO classes (managers using jQuery)",
+    "license": "LGPL3",
+    "type": "library",
+    "keywords": ["javascript","DTO", "DAO"],
+    "homepage": "https://github.com/flobee/mumsys-js",
+    "authors": [
+        {
+            "name": "Florian Blasel",
+            "email": "flobee.code@gmail.com",
+            "homepage": "http://flobee.cgix.de",
+            "role": "Developer"
+        }
+    ],
     "require": {
-        "php": "^7.0 || ^7.1 || ^7.2",
         "tedivm/jshrink": "^1.2"
     }
 }
