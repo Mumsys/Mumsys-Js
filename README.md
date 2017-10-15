@@ -1,4 +1,4 @@
-# Mumsys Js
+# mumsys-js
 MUMSYS Javascript Library
 
 Currently only DTO/DAO objects available.
