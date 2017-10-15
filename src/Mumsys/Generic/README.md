@@ -48,6 +48,7 @@ The list shows e.g. some rows of your database. Well formed.
 myManager now includes 4 Objects implementing the Mumsys_Generic_Item_Default class/
 interface. Now you can work with it e.g. Showing the list, some forms to change the data.
 E.g:
+
     var item1 = myManager.getItem("id", 5);
     // Example using jQuery
     $('#myform id').val( item1.get("id") );
@@ -68,6 +69,7 @@ Whats happend now:
 If the item values has changes a real request performs to the given url.
 It send the data to the server e.g. as post request. You save the data.
 The answer must be a jsonrpc response and must be as follow:
+
     {
         "jsonrpc":"2.0",
         "result":{
