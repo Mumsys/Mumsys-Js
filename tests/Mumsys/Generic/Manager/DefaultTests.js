@@ -1,5 +1,5 @@
 /**
- * Mumsys_Generic_Manager tests
+ * Mumsys_Generic_Manager_Default tests
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
@@ -14,7 +14,7 @@
 ////QUnit.module( "Mumsys Generic", function() 
 //{ 
 //  QUnit.test("Mums ...
-QUnit.test("Mumsys_Generic_Manager.js tests", function (assert)
+QUnit.test("Mumsys_Generic_Manager_Default.js tests", function (assert)
 {
     /**
      * @type String
@@ -32,10 +32,10 @@ QUnit.test("Mumsys_Generic_Manager.js tests", function (assert)
     ];
 
     /**
-     * @class Mumsys_Generic_Manager
-     * @type Mumsys_Generic_Manager
+     * @class Mumsys_Generic_Manager_Default
+     * @type Mumsys_Generic_Manager_Default
      */
-    var _obj = new Mumsys_Generic_Manager();
+    var _obj = new Mumsys_Generic_Manager_Default();
 
     //
     // setup
@@ -48,18 +48,17 @@ QUnit.test("Mumsys_Generic_Manager.js tests", function (assert)
     //
 
     assert.ok(1 == "1", "Init test Passed!");
-    
 
     //
     // construction
-    assert.ok((_obj instanceof Mumsys_Generic_Manager), "Construction: Passed!");
-    assert.equal(_obj.getVersion(), '3.0.0', "getVersion(): Passed!");
+    assert.ok((_obj instanceof Mumsys_Generic_Manager_Default), "Construction: Passed!");
+    assert.equal(Mumsys_Generic_Manager_Default.getVersion(), '3.0.0', "static::getVersion(): Passed!");
     assert.equal(_obj.getItems().length, _items.length, "getItems() length: Passed!");
 
     //
     // creatItem()
     var newItem = _obj.createItem({"id": 5, "name": "name 5"});
-    assert.ok( (newItem instanceof Mumsys_Generic_Item), "createItem() instance: Passed!");
+    assert.ok( (newItem instanceof Mumsys_Generic_Item_Default), "createItem() instance: Passed!");
     try {
         _obj.createItem("Wrong");
     } catch (e) {

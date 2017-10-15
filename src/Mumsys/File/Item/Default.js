@@ -7,18 +7,31 @@
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
- * @package     Library
+ * @package     Js
  * @subpackage  File
  */
 
+"use strict";
 
 /**
  * Mumsys default file item.
  *
- * @type object Mumsys default file item
+ * @category    Mumsys
+ * @package     Js
+ * @subpackage  File
  */
 class Mumsys_File_Item_Default
 {
+    /**
+     * Returns the version ID.
+     * @returns {String} Version ID
+     */
+    static getVersion() 
+    {
+        return '3.0.0';
+    }
+    
+    
     /**
      * Initialize the object.
      *

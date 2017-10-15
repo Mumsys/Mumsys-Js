@@ -1,5 +1,5 @@
 /**
- * Mumsys_Generic_Item tests
+ * Mumsys_Generic_Item_Default tests
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
@@ -11,28 +11,28 @@
  * @subpackage  Generic
  */
 
-QUnit.test("Mumsys_Generic_Item.js tests", function (assert)
+QUnit.test("Mumsys_Generic_Item_Default.js tests", function (assert)
 {
     var _expected, _mesgOut = '';
 
     var props = {"id": 3, "name": "Item 3"};
-
-    var _obj = new Mumsys_Generic_Item(props);
+    
+    var _obj = new Mumsys_Generic_Item_Default(props);
 
     assert.ok(1 == "1", "Passed!");
 
-
+    //
     // construction
-    assert.equal(_obj.getVersion(), '3.0.0', "getVersion(): Passed!");
+    assert.ok( (_obj instanceof Mumsys_Generic_Item_Default), "instance Mumsys_Generic_Item_Default: Passed!");
+    assert.equal(Mumsys_Generic_Item_Default.getVersion(), '3.0.0', "static::getVersion(): Passed!");
     try {
-        var errA = new Mumsys_Generic_Item();
-        
+        var errA = new Mumsys_Generic_Item_Default();
     } catch (e) {
         assert.ok(
-                (e.message == 'Invalid parameters'), 
-                "Exception message: Passed!"
+            (e.message == 'Invalid parameters'),
+            "Exception message: Passed!"
         );
-        assert.ok((e.name=="Error"), "Expected exception: Passed!");
+        assert.ok((e.name==="Error"), "Expected exception: Passed!");
     }
 
     //

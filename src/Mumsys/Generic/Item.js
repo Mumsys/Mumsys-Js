@@ -7,12 +7,16 @@
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
- * @package     Library
+ * @package     Js
  * @subpackage  Generic
  */
 
+"use strict";
 
 /**
+ * @deprecated Use Generic/Item/Default.js
+ * @since version 3.0.0
+ * 
  * Generic item (item interface, DTO).
  *
  * Item proprties are managed in this class and always are acceassible through 
@@ -31,7 +35,7 @@ function Mumsys_Generic_Item( params )
      * @private
      * @var Object
      */
-    this.__itemProps = { };
+    this.__itemProps = {};
 
     /**
      * Private flag to detect if item was modified or not.
@@ -51,6 +55,16 @@ function Mumsys_Generic_Item( params )
     }
 
     this.setModified( false );
+};
+
+
+/**
+ * Returns the version ID.
+ * @returns {String} Version ID
+ */
+Mumsys_Generic_Item.prototype.getVersion = function ()
+{
+    return '3.0.0';
 };
 
 
@@ -100,7 +114,7 @@ Mumsys_Generic_Item.prototype.set = function (key, val)
     }
 };
 
-
+    
 /**
  * Returns the item properties.
  *
