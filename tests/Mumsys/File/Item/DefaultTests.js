@@ -7,10 +7,9 @@
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
- * @package     Library
+ * @package     Js
  * @subpackage  File
  */
-
 
 QUnit.test("Mumsys_File_Item_Default.js tests", function (assert)
 {
@@ -29,7 +28,7 @@ QUnit.test("Mumsys_File_Item_Default.js tests", function (assert)
     /**
      * @type Mumsys_File_Item_Default
      */
-    var obj = new Mumsys_File_Item_Default(props);
+    var _obj = new Mumsys_File_Item_Default(props);
 
     assert.ok(1 == "1", "Passed!");
 
@@ -40,33 +39,34 @@ QUnit.test("Mumsys_File_Item_Default.js tests", function (assert)
         (objTest1 instanceof Mumsys_File_Item_Default),
         "instanceof Mumsys_File_Item_Default: Passed!"
     );
+    assert.equal(Mumsys_File_Item_Default.getVersion(), '3.0.0', "static::getVersion(): Passed!");
 
     //
     // get path()
-    assert.equal( obj.path, props.path, "get path: Passed!");
+    assert.equal( _obj.path, props.path, "get path: Passed!");
     
     //
     // get name()
-    assert.equal( obj.name, props.filename, "get name: Passed!");
+    assert.equal( _obj.name, props.filename, "get name: Passed!");
     
     //
     // get size()
-    assert.equal( obj.size, props.filesize, "get size: Passed!");
+    assert.equal( _obj.size, props.filesize, "get size: Passed!");
     
     //
     // get filetype()
-    assert.equal( obj.type, props.filetype, "get type: Passed!");
+    assert.equal( _obj.type, props.filetype, "get type: Passed!");
     
     //
     // get mimetype()
-    assert.equal( obj.mimetype, props.mimetype, "get mimetype: Passed!");
+    assert.equal( _obj.mimetype, props.mimetype, "get mimetype: Passed!");
     
     //
     // get location()
-    assert.equal( obj.location, props.path + '/' + props.filename, "get location: Passed!" );
+    assert.equal( _obj.location, props.path + '/' + props.filename, "get location: Passed!" );
 
     // get unknown
-    assert.equal( obj.unknown, undefined, "get unknown: Passed!" );
-    obj.unknown = true;
-    assert.equal( obj.unknown, true, "set unknown: Passed!" );
+    assert.equal( _obj.unknown, undefined, "get unknown: Passed!" );
+    _obj.unknown = true;
+    assert.equal( _obj.unknown, true, "set unknown: Passed!" );
 });

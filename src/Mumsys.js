@@ -7,26 +7,38 @@
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
- * @package     Library
+ * @package     Js
  */
+
+"use strict";
 
 /**
  * Mumsys object.
  * 
- * @type object Mumsys object
+ * Helpers: http://jshint.com/
+ * 
+ * @category    Mumsys
+ * @package     Js
  */
-class Mumsys {
+class Mumsys 
+{
+    /**
+     * Returns the version ID.
+     * @returns {String} Version ID
+     */
+    static getVersion() 
+    {
+        return '3.0.0';
+    }
+
+    
     /**
      *  Initilizes the Mumsys object.
      *  
      * @returns {Mumsys} Mumsys object
      */
-    constructor() 
+    constructor()
     {
-        /**
-         * @type string Version ID
-         */
-        this.version = '3.0.0';
     }
     
     /**

@@ -7,12 +7,16 @@
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
- * @package     Library
+ * @package     Js
  * @subpackage  Generic
  */
 
+"use strict";
 
 /**
+ * @deprecated Use Generic/Manager/Default.js
+ * @since version 3.0.0
+ * 
  * Generic manager (data container and data access handler DAO).
  *
  * Loads lists of items, handles and saves items in a generic way.
@@ -23,7 +27,7 @@
  * @param url Location to send post/get requests. Default 'jsonrpc.php'
  */
 function Mumsys_Generic_Manager(url = false)
-{
+{    
     /**
      * Location to send/get requests results.
      * @private Private property
@@ -47,7 +51,7 @@ function Mumsys_Generic_Manager(url = false)
      * @private Private property: Use public methodes
      * @type Boolean
      */
-    this.__loaded = false;
+    this.__flags = {"isLoaded": false};
 
     /**
      * Map as memory keeper to speed up item searches
@@ -55,6 +59,16 @@ function Mumsys_Generic_Manager(url = false)
      */
     this.__map = {};
 }
+
+
+/**
+ * Returns the version ID.
+ * @returns {String} Version ID
+ */
+Mumsys_Generic_Manager.prototype.getVersion = function ()
+{
+    return '3.0.0';
+};
 
 
 /**
@@ -114,7 +128,7 @@ Mumsys_Generic_Manager.prototype.removeItem = function (id)
     
     for (var i = 0; i < this.__itemList.length; i++) 
     {
-        itemID = this.__itemList[i].get('id');
+        var itemID = this.__itemList[i].get('id');
         if (itemID !== id) {
             _tmp.push(this.__itemList[i]);
             _tmpmap[ itemID ] = i;
@@ -208,7 +222,7 @@ Mumsys_Generic_Manager.prototype.clear = function ()
  */
 Mumsys_Generic_Manager.prototype.isLoaded = function ()
 {
-    return this.__loaded;
+    return this.__flags.isLoaded;
 };
 
 
@@ -255,7 +269,7 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
      */
     var _reParams;
     var _this = this;
-    this.__loaded = false;
+    this.__flags.isLoaded = false;
 
     var defaultParams = {
         url: this.__url
@@ -270,7 +284,7 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
                 for ( var i = 0; i < obj.result.list.length; i++ ) {
                     _this.addItem( _this.createItem( obj.result.list[i] ) );
                 }
-                _this.__loaded = true;
+                _this.__flags.isLoaded = true;
             }
         , error: function ( obj/*, textStatus, errorThrown */)
             {
@@ -363,15 +377,15 @@ Mumsys_Generic_Manager.prototype._buildParams = function (defaultParams, dataPar
 
     if ( requestParams )
     {
-        for ( var key in defaultParams )
+        for ( var keyA in defaultParams )
         {
-            if ( requestParams[key] === undefined ) {
-                obj[key] = defaultParams[key];
+            if ( requestParams[keyA] === undefined ) {
+                obj[keyA] = defaultParams[keyA];
             }
         }
-        for ( var key in requestParams ) {
-            if ( requestParams[key] !== null ) {
-                obj[key] = requestParams[key];
+        for ( var keyB in requestParams ) {
+            if ( requestParams[keyB] !== null ) {
+                obj[keyB] = requestParams[keyB];
             }
         }
 
