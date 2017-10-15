@@ -20,7 +20,7 @@ For distribution/ builds you can use composer:
 For own builds (requires php 5.6+, 7.* cli version):
 
     composer require flobee/mumsys-js
-    cd verndor/flobee/mumsys-js
+    cd vendor/flobee/mumsys-js
     composer install
 
 to the get dependencies for builds.
