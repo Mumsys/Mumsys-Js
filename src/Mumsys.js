@@ -17,8 +17,8 @@
  * 
  * Helpers: http://jshint.com/
  * 
- * @category    Mumsys
- * @package     Js
+ * @category Mumsys
+ * @package  Js
  */
 class Mumsys 
 {
