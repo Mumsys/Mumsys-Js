@@ -65,4 +65,8 @@ QUnit.test("Mumsys_File_Item_Default.js tests", function (assert)
     // get location()
     assert.equal( obj.location, props.path + '/' + props.filename, "get location: Passed!" );
 
+    // get unknown
+    assert.equal( obj.unknown, undefined, "get unknown: Passed!" );
+    obj.unknown = true;
+    assert.equal( obj.unknown, true, "set unknown: Passed!" );
 });
