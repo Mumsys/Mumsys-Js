@@ -1,6 +1,6 @@
 {
     "name": "flobee/mumsys-js",
-    "description": "Mumsys Js - Javascript Library, Currently containing some DTO/DAO classes (managers using jQuery)",
+    "description": "Mumsys Js - Javascript Library, Currently containing some DTO/DAO classes (managers using jQuery.ajax() for server requests using jsonrpc 2.0 API)",
     "license": "LGPL3",
     "type": "library",
     "keywords": ["javascript","DTO", "DAO"],
