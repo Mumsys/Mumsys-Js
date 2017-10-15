@@ -97,7 +97,7 @@ class Mumsys_Generic_Manager_Default
     /**
      * Adds a generic item interface to the list of items to work with.
      *
-     * @param {Mumsys_Generic_Item_Default} Generic item to add
+     * @param {Mumsys_Generic_Item_Default} item Generic item to add
      */
     addItem (item)
     {
@@ -125,7 +125,7 @@ class Mumsys_Generic_Manager_Default
     /**
      * Remove an item by given id from memory/ current item list.
      *
-     * @param {string|integer} id Unique ID of the item (array index)
+     * @param {string|integer} id Unique ID of the item
      */
     removeItem(id)
     {
@@ -174,8 +174,8 @@ class Mumsys_Generic_Manager_Default
      *
      * @param {String|integer} key Item property to look for. E.g: 'id'
      * @param {Mixed} value Value you are looking for
-     * @param {mixed|null} defreturn Default (null) return value if item was not 
-     * found
+     * @param {mixed|null} defreturn Default return value if item was not 
+     * found. Optional, otherwise undefined will return
      * 
      * @return {Mumsys_Generic_Item_Default|defreturn} Generic item or undefined 
      * for not found
@@ -316,7 +316,7 @@ class Mumsys_Generic_Manager_Default
      * Save a generic item. Wrapper method for jQuery.ajax()
      *
      * Note: the backend must check the "item" parameter where the item 
-     * properties will be set to.
+     * properties will be send to. ( Dont set params.item!)
      *
      * default request parameters:
      * <pre>
@@ -325,7 +325,7 @@ class Mumsys_Generic_Manager_Default
      *  - error: {function} Callback for errors
      * </pre>
      *
-     * @param {Mumsys_Generic_Item_Default} Generic item object
+     * @param {Mumsys_Generic_Item_Default} item Generic item object
      * @param {Object} params Request parameters to the server
      * @param {Object} requestParams Parameters to overwrite the ajax request 
      * defaults of jQuery.
@@ -396,8 +396,7 @@ class Mumsys_Generic_Manager_Default
 
         if ( requestParams )
         {
-            for ( var keyA in defaultParams )
-            {
+            for ( var keyA in defaultParams ) {
                 if ( requestParams[keyA] === undefined ) {
                     obj[keyA] = defaultParams[keyA];
                 }
