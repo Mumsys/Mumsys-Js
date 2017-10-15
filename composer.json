@@ -13,7 +13,7 @@
             "role": "Developer"
         }
     ],
-    "require": {
+    "require-dev": {
         "tedivm/jshrink": "^1.2"
     }
 }
