@@ -15,7 +15,7 @@
 
 /**
  * @deprecated Use Generic/Manager/Default.js
- * @since version 3.0.0
+ * @since version 3.0.0 
  * 
  * Generic manager (data container and data access handler DAO).
  *
