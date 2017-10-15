@@ -327,14 +327,14 @@ class Mumsys_Generic_Manager_Default
      *
      * @param {Mumsys_Generic_Item_Default} item Generic item object
      * @param {Object} params Request parameters to the server
-     * @param {Object} requestParams Parameters to overwrite the ajax request 
+     * @param {Object} requestOptions Parameters to overwrite the ajax request 
      * defaults of jQuery.
      *
      * @returns {Object} Returns the updated generic item
      *
      * @throws {Exception} If json response is in error
      */
-    saveItem( item, params, requestParams = false )
+    saveItem( item, params, requestOptions = false )
     {
         if (params.item !== undefined) {
             var message = 'params.item property already defined';
@@ -347,7 +347,7 @@ class Mumsys_Generic_Manager_Default
 
             var defaultParams = {
                 url: this.__url
-                , type: 'POST'
+                , type: "POST"
                 , fail: function (obj, textStatus, errorThrown) 
                     {
                         console.log("fail textStatus", textStatus);
@@ -360,7 +360,7 @@ class Mumsys_Generic_Manager_Default
             };
 
             var reqParams = this._buildParams(
-                defaultParams, params, requestParams
+                defaultParams, params, requestOptions
             );
             jQuery.ajax( reqParams ).done( function ( obj )
                 {
