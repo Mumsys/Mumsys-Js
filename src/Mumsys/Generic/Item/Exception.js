@@ -24,16 +24,17 @@
  * @type Mumsys_Exception
  * 
  */
-class Mumsys_Generic_Item_Exception extends Mumsys_Exception
+class Mumsys_Generic_Item_Exception
+    extends Mumsys_Exception
 {
     /**
      * Returns the version ID.
      * 
      * @returns {String} Version ID
      */
-    static getVersion() 
+    static getVersion()
     {
         return '3.0.0';
     }
-    
+
 }
