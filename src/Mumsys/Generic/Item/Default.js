@@ -78,7 +78,7 @@ class Mumsys_Generic_Item_Default
             }
         } else {
             var message = 'Invalid parameters';
-            throw new Mumsys_Generic_Item_Exception( message );
+            throw new Mumsys_Generic_Exception( message );
         }
 
         this.setModified( false );
@@ -190,7 +190,7 @@ class Mumsys_Generic_Item_Default
     {
         if ( newID != undefined && oldID != undefined && oldID != newID ) {
             var message = 'New item ID "' + newID + '" differs from old ID "' + oldID + '"';
-            throw new Mumsys_Generic_Item_Exception( message );
+            throw new Mumsys_Generic_Exception( message );
         }
 
         return newID;
