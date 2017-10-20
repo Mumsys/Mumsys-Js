@@ -28,7 +28,7 @@ QUnit.test("Mumsys.js test", function (assert)
                 (e.message == 'Invalid json rpc resopnse'), 
                 "checkJsonRpcResponce() error message: Passed!"
         );
-        assert.ok((e.name=="Error"), "checkJsonRpcResponce() expected exception: Passed!");
+        assert.ok((e.name=="Mumsys_Exception"), "checkJsonRpcResponce() expected exception: Passed!");
     }
     
 

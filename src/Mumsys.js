@@ -28,7 +28,7 @@ class Mumsys
      */
     static getVersion()
     {
-        return '3.0.0';
+        return '3.1.0';
     }
 
     /**
@@ -52,7 +52,7 @@ class Mumsys
     {
         if ( !( response instanceof Object ) ) {
             var message = 'Invalid json rpc resopnse';
-            throw new Error( message );
+            throw new Mumsys_Exception( message );
         }
     }
     
