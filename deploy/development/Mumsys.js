@@ -1,6 +1,58 @@
 "use strict";
 /**
- * Mumsys_Generic_Item
+ * Mumsys_Exception
+ * for MUMSYS Library for Multi User Management System (MUMSYS)
+ *
+ * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
+ * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @author Florian Blasel <flobee.code@gmail.com>
+ *
+ * @category    Mumsys
+ * @package     Js
+ */
+
+
+/**
+ * Default mumsys exception and exception expanding.
+ * 
+ * @extends Error
+ * @type Mumsys_Exception
+ */
+class Mumsys_Exception extends Error
+{
+    /**
+     * Returns the version ID.
+     * @returns {String} Version ID
+     */
+    static getVersion()
+    {
+        return '3.0.0';
+    }
+
+    /**
+     * Initialize the mumsys exception.
+     * 
+     * @param {String} message Exception message
+     * @returns {Extend_Exceptions}
+     */
+    constructor( message )
+    {
+        super( message );
+
+        this.name = this.constructor.name;
+
+        if ( typeof Error.captureStackTrace === 'function' ) {
+            Error.captureStackTrace( this, this.constructor );
+        } else {
+            this.stack = ( new Error( message ) ).stack;
+        }
+    }
+
+}
+
+
+/**
+ * Mumsys
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
@@ -26,12 +78,11 @@ class Mumsys
      * Returns the version ID.
      * @returns {String} Version ID
      */
-    static getVersion() 
+    static getVersion()
     {
-        return '3.0.0';
+        return '3.1.0';
     }
 
-    
     /**
      *  Initilizes the Mumsys object.
      *  
@@ -40,7 +91,7 @@ class Mumsys
     constructor()
     {
     }
-    
+
     /**
      * Checks json rpc 2.0 responce for validity.
      * 
@@ -51,9 +102,9 @@ class Mumsys
      */
     static checkJsonRpcResponce( response )
     {
-        if (!(response instanceof Object)) {
+        if ( !( response instanceof Object ) ) {
             var message = 'Invalid json rpc resopnse';
-            throw new Error(message);
+            throw new Mumsys_Exception( message );
         }
     }
     
@@ -388,7 +439,7 @@ class Mumsys_Generic_Manager_Default
      * 
      * @returns {Mumsys_Generic_Manager_Default}
      */
-    constructor(url = false)
+    constructor( url = false )
     {
         /**
          * Location to send/get requests results.
@@ -397,7 +448,7 @@ class Mumsys_Generic_Manager_Default
          */
         this.__url = 'jsonrpc.php';
 
-        if (url) {
+        if ( url ) {
             this.__url = url;
         }
 
@@ -413,13 +464,13 @@ class Mumsys_Generic_Manager_Default
          * @private Private property: Use public methodes
          * @type Bo o lea n
          */
-        this.__flags = {"isLoaded": false};
+        this.__flags = { "isLoaded": false };
 
         /**
          * Map as memory keeper to speed up item searches
          * @type Object
          */
-        this.__map = {};
+        this.__map = { };
     }
 
 
@@ -430,13 +481,13 @@ class Mumsys_Generic_Manager_Default
      *
      * @returns {Mumsys_Generic_Item_Default} Generic item object
      */
-    createItem(props)
+    createItem( props )
     {
-        if (props instanceof Object) {
-            return new Mumsys_Generic_Item_Default(props);
+        if ( props instanceof Object ) {
+            return new Mumsys_Generic_Item_Default( props );
         } else {
             var message = 'Invalid properties';
-            throw new Error(message);
+            throw new Error( message );
         }
     }
 
@@ -448,23 +499,23 @@ class Mumsys_Generic_Manager_Default
      */
     addItem (item)
     {
-        if (item instanceof Mumsys_Generic_Item_Default)
+        if ( item instanceof Mumsys_Generic_Item_Default )
         {
-            var id = item.get('id');
+            var id = item.get( 'id' );
 
-            if (id !== undefined && this.__map[ id ] !== undefined) {
+            if ( id !== undefined && this.__map[ id ] !== undefined ) {
                 var message = '"id" (' + id + ') is unique and already exists';
-                throw new Error(message);
+                throw new Error( message );
             }
 
-            if (id !== undefined) {
+            if ( id !== undefined ) {
                 this.__map[ id ] = this.__itemList.length;
             }
 
-            this.__itemList.push(item);
+            this.__itemList.push( item );
         } 
         else {
-            throw new Error('Invalid item');
+            throw new Error( 'Invalid item' );
         }
     }
 
@@ -474,16 +525,16 @@ class Mumsys_Generic_Manager_Default
      *
      * @param {string|integer} id Unique ID of the item
      */
-    removeItem(id)
+    removeItem( id )
     {
         var _tmp = [];
-        var _tmpmap = {};
+        var _tmpmap = { };
 
-        for (var i = 0; i < this.__itemList.length; i++) 
+        for ( var i = 0; i < this.__itemList.length; i++ )
         {
-            var itemID = this.__itemList[i].get('id');
-            if (itemID !== id) {
-                _tmp.push(this.__itemList[i]);
+            var itemID = this.__itemList[i].get( 'id' );
+            if ( itemID !== id ) {
+                _tmp.push( this.__itemList[i] );
                 _tmpmap[ itemID ] = i;
             }
         }
@@ -498,7 +549,7 @@ class Mumsys_Generic_Manager_Default
      *
      * @returns {Array} List of Mumsys_Generic_Item_Default items
      */
-    getItems() 
+    getItems()
     {
         return this.__itemList;
     }
@@ -549,12 +600,12 @@ class Mumsys_Generic_Manager_Default
             return this.__itemList[ value ];
         }
 
-        if (key === 'id' && this.__map[ key ] !== undefined) {
+        if ( key === 'id' && this.__map[ key ] !== undefined ) {
             return this.__itemList[ this.__map[ key ] ];
         }
 
         for ( var i = 0; i < this.__itemList.length; i++ ) {
-            if ( this.__itemList[i].get(key) === value ) {
+            if ( this.__itemList[i].get( key ) === value ) {
                 return this.__itemList[i];
             }
         }
@@ -683,7 +734,7 @@ class Mumsys_Generic_Manager_Default
      */
     saveItem( item, params, requestOptions = false )
     {
-        if (params.item !== undefined) {
+        if ( params.item !== undefined ) {
             var message = 'params.item property already defined';
             throw new Error( message );
         }
@@ -695,7 +746,7 @@ class Mumsys_Generic_Manager_Default
             var defaultParams = {
                 url: this.__url
                 , type: "POST"
-                , fail: function (obj, textStatus, errorThrown) 
+                , fail: function ( obj, textStatus, errorThrown ) 
                     {
                         console.log("fail textStatus", textStatus);
                         console.log("fail errorThrown", errorThrown);
@@ -737,7 +788,7 @@ class Mumsys_Generic_Manager_Default
      *
      * @returns {object} Parameters to be set to the jquery ajax request.
      */
-    _buildParams (defaultParams, dataParams, requestParams)
+    _buildParams( defaultParams, dataParams, requestParams )
     {
         var obj = {};
 
@@ -754,8 +805,8 @@ class Mumsys_Generic_Manager_Default
                     obj[keyB] = requestParams[keyB];
                 }
             }
-
-        } else {
+        } 
+        else {
             obj = defaultParams;
         }
 
