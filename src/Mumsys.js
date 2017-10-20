@@ -1,5 +1,5 @@
 /**
- * Mumsys_Generic_Item
+ * Mumsys
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
