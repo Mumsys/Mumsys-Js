@@ -19,10 +19,6 @@
  * @category    Mumsys
  * @package     Js
  * @subpackage  Generic
- * 
- * @extends Error
- * @type Mumsys_Exception
- * 
  */
 class Mumsys_Generic_Item_Exception
     extends Mumsys_Exception
