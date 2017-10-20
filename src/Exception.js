@@ -21,6 +21,14 @@
 class Mumsys_Exception extends Error
 {
     /**
+     * Default error code for technical errors, no futher reason,
+     * discribed in the error message.
+     * 
+     * @var constant
+     */
+//    const ERRCODE_DEFAULT = 1;
+    
+    /**
      * Returns the version ID.
      * @returns {String} Version ID
      */
@@ -33,19 +41,22 @@ class Mumsys_Exception extends Error
      * Initialize the mumsys exception.
      * 
      * @param {String} message Exception message
+     * @param {String|integer} code Exception code or number
+     * 
      * @returns {Extend_Exceptions}
      */
-    constructor( message )
+    constructor( message, code = 1 )
     {
         super( message );
 
         this.name = this.constructor.name;
+        this.code = code;
 
         if ( typeof Error.captureStackTrace === 'function' ) {
             Error.captureStackTrace( this, this.constructor );
         } else {
             this.stack = ( new Error( message ) ).stack;
-        }
+    }
     }
 
 }
