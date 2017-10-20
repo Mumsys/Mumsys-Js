@@ -32,7 +32,7 @@ QUnit.test("Mumsys_Generic_Item_Default.js tests", function (assert)
             (e.message == 'Invalid parameters'),
             "Exception message: Passed!"
         );
-        assert.ok((e.name==="Error"), "Expected exception: Passed!");
+        assert.ok((e.name==="Mumsys_Generic_Item_Exception"), "Expected exception: Passed!");
     }
 
     //
@@ -47,7 +47,7 @@ QUnit.test("Mumsys_Generic_Item_Default.js tests", function (assert)
         _mesgOut = 'set() Exception thrown when manipulate item ID: Passed!';
         assert.equal(e.message, _expected, _mesgOut);
 
-        assert.equal(e.name, "Error", "set() Expected exception: Passed!");
+        assert.equal(e.name, "Mumsys_Generic_Item_Exception", "set() Expected exception: Passed!");
     }
     _obj.set('id', 3);
     assert.equal(_obj.get('id'), 3, "set() same ID: Passed!");
