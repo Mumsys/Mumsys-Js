@@ -18,7 +18,7 @@ QUnit.test("Mumsys.js test", function (assert)
     assert.ok( (document.location.href.search("^file") === -1), "Warning: url file:// use http://");
     
     assert.ok( (_obj instanceof Mumsys), "Mumsys::construct: Passed!");
-    assert.equal(Mumsys.getVersion(), '3.0.0', "getVersion(): Passed!");
+    assert.equal(Mumsys.getVersion(), '3.1.0', "getVersion(): Passed!");
     
     try {
         var errA = Mumsys.checkJsonRpcResponce(true);
