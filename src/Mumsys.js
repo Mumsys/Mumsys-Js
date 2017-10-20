@@ -46,7 +46,7 @@ class Mumsys
      * @param {Object} response object
      * 
      * @return {void} 
-     * @throws {Error} If response seems to be invalid
+     * @throws {Mumsys_Exception} If response seems to be invalid
      */
     static checkJsonRpcResponce( response )
     {
