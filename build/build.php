@@ -26,8 +26,11 @@ $include = array(
     'src/Exception.js',
     'src/Mumsys.js',
     'src/Mumsys/File/Item/Default.js',
+
+    'src/Mumsys/Generic/Exception.js',
     'src/Mumsys/Generic/Item/Default.js',
     'src/Mumsys/Generic/Manager/Default.js',
+
     // to be removed, not supported
     'src/Mumsys/Generic/Item.js',
     'src/Mumsys/Generic/Manager.js',
