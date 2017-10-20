@@ -14,7 +14,7 @@
 "use strict";
 
 /**
- * Default mumsys exception and exception expanding.
+ * Default mumsys generic item exception.
  * 
  * @category    Mumsys
  * @package     Js
