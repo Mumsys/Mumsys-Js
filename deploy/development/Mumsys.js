@@ -198,6 +198,43 @@ class Mumsys_File_Item_Default
 
 
 /**
+ * Mumsys_Generic_Exception
+ * for MUMSYS Library for Multi User Management System (MUMSYS)
+ *
+ * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
+ * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @author Florian Blasel <flobee.code@gmail.com>
+ *
+ * @category    Mumsys
+ * @package     Js
+ * @subpackage  Generic
+ */
+
+
+/**
+ * Mumsys generic exception.
+ * 
+ * @category    Mumsys
+ * @package     Js
+ * @subpackage  Generic
+ */
+class Mumsys_Generic_Exception
+    extends Mumsys_Exception
+{
+    /**
+     * Returns the version ID.
+     * 
+     * @returns {String} Version ID
+     */
+    static getVersion()
+    {
+        return '3.0.0';
+    }
+
+}
+
+
+/**
  * Mumsys_Generic_Item_Default
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
@@ -241,7 +278,7 @@ class Mumsys_Generic_Item_Default
      */
     static getVersion() 
     {
-        return '3.0.0';
+        return '3.1.0';
     }
     
     
@@ -276,7 +313,7 @@ class Mumsys_Generic_Item_Default
             }
         } else {
             var message = 'Invalid parameters';
-            throw new Error( message );
+            throw new Mumsys_Generic_Exception( message );
         }
 
         this.setModified( false );
@@ -388,7 +425,7 @@ class Mumsys_Generic_Item_Default
     {
         if ( newID != undefined && oldID != undefined && oldID != newID ) {
             var message = 'New item ID "' + newID + '" differs from old ID "' + oldID + '"';
-            throw new Error( message );
+            throw new Mumsys_Generic_Exception( message );
         }
 
         return newID;
@@ -427,7 +464,7 @@ class Mumsys_Generic_Manager_Default
      */
     static getVersion() 
     {
-        return '3.0.0';
+        return '3.1.0';
     }
     
     
@@ -487,7 +524,7 @@ class Mumsys_Generic_Manager_Default
             return new Mumsys_Generic_Item_Default( props );
         } else {
             var message = 'Invalid properties';
-            throw new Error( message );
+            throw new Mumsys_Generic_Exception( message );
         }
     }
 
@@ -505,7 +542,7 @@ class Mumsys_Generic_Manager_Default
 
             if ( id !== undefined && this.__map[ id ] !== undefined ) {
                 var message = '"id" (' + id + ') is unique and already exists';
-                throw new Error( message );
+                throw new Mumsys_Generic_Exception( message );
             }
 
             if ( id !== undefined ) {
@@ -515,7 +552,7 @@ class Mumsys_Generic_Manager_Default
             this.__itemList.push( item );
         } 
         else {
-            throw new Error( 'Invalid item' );
+            throw new Mumsys_Generic_Exception( 'Invalid item' );
         }
     }
 
@@ -669,7 +706,7 @@ class Mumsys_Generic_Manager_Default
      * defaults or to extend for jQuery.ajax().
      *
      * @return {void}
-     * @throws {Exception} On errors in response
+     * @throws {Mumsys_Exception} On errors in response
      */
      loadItems( data, requestParams = false )
      {
@@ -730,13 +767,13 @@ class Mumsys_Generic_Manager_Default
      *
      * @returns {Object} Returns the updated generic item
      *
-     * @throws {Exception} If json response is in error
+     * @throws {Mumsys_Exception} If json response is in error
      */
     saveItem( item, params, requestOptions = false )
     {
         if ( params.item !== undefined ) {
             var message = 'params.item property already defined';
-            throw new Error( message );
+            throw new Mumsys_Exception( message );
         }
 
         if (item.isModified())
