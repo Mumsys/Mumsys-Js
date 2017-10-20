@@ -24,7 +24,7 @@ QUnit.test("Mumsys_Generic_Item_Default.js tests", function (assert)
     //
     // construction
     assert.ok( (_obj instanceof Mumsys_Generic_Item_Default), "instance Mumsys_Generic_Item_Default: Passed!");
-    assert.equal(Mumsys_Generic_Item_Default.getVersion(), '3.0.0', "static::getVersion(): Passed!");
+    assert.equal(Mumsys_Generic_Item_Default.getVersion(), '3.1.0', "static::getVersion(): Passed!");
     try {
         var errA = new Mumsys_Generic_Item_Default();
     } catch (e) {

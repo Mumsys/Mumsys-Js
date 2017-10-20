@@ -52,7 +52,7 @@ QUnit.test("Mumsys_Generic_Manager_Default.js tests", function (assert)
     //
     // construction
     assert.ok((_obj instanceof Mumsys_Generic_Manager_Default), "Construction: Passed!");
-    assert.equal(Mumsys_Generic_Manager_Default.getVersion(), '3.0.0', "static::getVersion(): Passed!");
+    assert.equal(Mumsys_Generic_Manager_Default.getVersion(), '3.1.0', "static::getVersion(): Passed!");
     assert.equal(_obj.getItems().length, _items.length, "getItems() length: Passed!");
 
     //
@@ -65,7 +65,7 @@ QUnit.test("Mumsys_Generic_Manager_Default.js tests", function (assert)
         _mesgOut = 'createItem() Exception: Passed!';
         _expected = 'Invalid properties';
         assert.equal(e.message, _expected, _mesgOut);
-        assert.equal(e.name, "Error", "createItem() Expected exception: Passed!");
+        assert.equal(e.name, "Mumsys_Generic_Exception", "createItem() Expected exception: Passed!");
     }
 
     //
@@ -77,7 +77,7 @@ QUnit.test("Mumsys_Generic_Manager_Default.js tests", function (assert)
         _mesgOut = 'addItem() exists exception: Passed!';
         _expected = '"id" (5) is unique and already exists';
         assert.equal(e.message, _expected, _mesgOut);
-        assert.equal(e.name, "Error", "addItem() Expected exception: Passed!");
+        assert.equal(e.name, "Mumsys_Generic_Exception", "addItem() Expected exception: Passed!");
     }
     try {
         _obj.addItem("no valid item");
@@ -85,7 +85,7 @@ QUnit.test("Mumsys_Generic_Manager_Default.js tests", function (assert)
         _mesgOut = 'addItem() ivalid item: Passed!';
         _expected = 'Invalid item';
         assert.equal(e.message, _expected, _mesgOut);
-        assert.equal(e.name, "Error", "addItem() Expected exception: Passed!");
+        assert.equal(e.name, "Mumsys_Generic_Exception", "addItem() Expected exception: Passed!");
     }
     // check item count now
     assert.equal(_obj.getItems().length, 5, "getItems() count after add item: Passed!");

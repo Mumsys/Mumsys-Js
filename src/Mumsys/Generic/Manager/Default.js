@@ -29,7 +29,7 @@ class Mumsys_Generic_Manager_Default
      */
     static getVersion() 
     {
-        return '3.0.0';
+        return '3.1.0';
     }
     
     
@@ -89,7 +89,7 @@ class Mumsys_Generic_Manager_Default
             return new Mumsys_Generic_Item_Default( props );
         } else {
             var message = 'Invalid properties';
-            throw new Error( message );
+            throw new Mumsys_Generic_Exception( message );
         }
     }
 
@@ -107,7 +107,7 @@ class Mumsys_Generic_Manager_Default
 
             if ( id !== undefined && this.__map[ id ] !== undefined ) {
                 var message = '"id" (' + id + ') is unique and already exists';
-                throw new Error( message );
+                throw new Mumsys_Generic_Exception( message );
             }
 
             if ( id !== undefined ) {
@@ -117,7 +117,7 @@ class Mumsys_Generic_Manager_Default
             this.__itemList.push( item );
         } 
         else {
-            throw new Error( 'Invalid item' );
+            throw new Mumsys_Generic_Exception( 'Invalid item' );
         }
     }
 
@@ -271,7 +271,7 @@ class Mumsys_Generic_Manager_Default
      * defaults or to extend for jQuery.ajax().
      *
      * @return {void}
-     * @throws {Exception} On errors in response
+     * @throws {Mumsys_Exception} On errors in response
      */
      loadItems( data, requestParams = false )
      {
@@ -332,13 +332,13 @@ class Mumsys_Generic_Manager_Default
      *
      * @returns {Object} Returns the updated generic item
      *
-     * @throws {Exception} If json response is in error
+     * @throws {Mumsys_Exception} If json response is in error
      */
     saveItem( item, params, requestOptions = false )
     {
         if ( params.item !== undefined ) {
             var message = 'params.item property already defined';
-            throw new Error( message );
+            throw new Mumsys_Exception( message );
         }
 
         if (item.isModified())
