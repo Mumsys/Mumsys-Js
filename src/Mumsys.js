@@ -26,12 +26,11 @@ class Mumsys
      * Returns the version ID.
      * @returns {String} Version ID
      */
-    static getVersion() 
+    static getVersion()
     {
         return '3.0.0';
     }
 
-    
     /**
      *  Initilizes the Mumsys object.
      *  
@@ -40,7 +39,7 @@ class Mumsys
     constructor()
     {
     }
-    
+
     /**
      * Checks json rpc 2.0 responce for validity.
      * 
@@ -51,9 +50,9 @@ class Mumsys
      */
     static checkJsonRpcResponce( response )
     {
-        if (!(response instanceof Object)) {
+        if ( !( response instanceof Object ) ) {
             var message = 'Invalid json rpc resopnse';
-            throw new Error(message);
+            throw new Error( message );
         }
     }
     
