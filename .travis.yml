@@ -23,4 +23,4 @@ before_script:
     - php composer.phar install --dev --no-interaction
     - php ./build/build.php
 
-script: qunit 'tests/*test.js'
+script: qunit 'tests/*Tests.js'
