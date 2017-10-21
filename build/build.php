@@ -23,8 +23,8 @@
 chdir(__DIR__ . '/../');
 
 $include = array(
-    'src/Exception.js',
     'src/Mumsys.js',
+    'src/Mumsys/Exception.js',
 
     'src/Mumsys/File/Item/Exception.js',
     'src/Mumsys/File/Item/Default.js',
