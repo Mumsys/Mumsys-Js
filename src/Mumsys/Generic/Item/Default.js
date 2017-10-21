@@ -43,7 +43,7 @@ class Mumsys_Generic_Item_Default
      */
     static getVersion() 
     {
-        return '3.1.0';
+        return '3.1.1';
     }
     
     

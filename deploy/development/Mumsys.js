@@ -4,7 +4,7 @@
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @copyright Copyright (c) 2017 by Florian Blasel
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
@@ -21,6 +21,15 @@
 class Mumsys_Exception extends Error
 {
     /**
+     * Default error code for technical errors, no futher reason,
+     * discribed in the error message.
+     * 
+     * @var constant
+     */
+    static get ERRCODE_DEFAULT() { return 1; }
+    
+
+    /**
      * Returns the version ID.
      * @returns {String} Version ID
      */
@@ -33,19 +42,23 @@ class Mumsys_Exception extends Error
      * Initialize the mumsys exception.
      * 
      * @param {String} message Exception message
+     * @param {String|integer} code Exception code or number; Optional, 
+     * Default: 0
+     * 
      * @returns {Extend_Exceptions}
      */
-    constructor( message )
+    constructor( message, code = 0 )
     {
         super( message );
 
         this.name = this.constructor.name;
+        this.code = code;
 
         if ( typeof Error.captureStackTrace === 'function' ) {
             Error.captureStackTrace( this, this.constructor );
         } else {
             this.stack = ( new Error( message ) ).stack;
-        }
+    }
     }
 
 }
@@ -98,7 +111,7 @@ class Mumsys
      * @param {Object} response object
      * 
      * @return {void} 
-     * @throws {Error} If response seems to be invalid
+     * @throws {Mumsys_Exception} If response seems to be invalid
      */
     static checkJsonRpcResponce( response )
     {
@@ -112,11 +125,48 @@ class Mumsys
 
 
 /**
+ * Mumsys_File_Item_Exception
+ * for MUMSYS Library for Multi User Management System (MUMSYS)
+ *
+ * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
+ * @copyright Copyright (c) 2017 by Florian Blasel
+ * @author Florian Blasel <flobee.code@gmail.com>
+ *
+ * @category    Mumsys
+ * @package     Js
+ * @subpackage  File
+ */
+
+
+/**
+ * Mumsys generic item exception.
+ * 
+ * @category    Mumsys
+ * @package     Js
+ * @subpackage  File
+ */
+class Mumsys_File_Item_Exception
+    extends Mumsys_Exception
+{
+    /**
+     * Returns the version ID.
+     * 
+     * @returns {String} Version ID
+     */
+    static getVersion()
+    {
+        return '3.0.0';
+    }
+
+}
+
+
+/**
  * Mumsys_File_Item_Default
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @copyright Copyright (c) 2017 by Florian Blasel
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
@@ -183,15 +233,18 @@ class Mumsys_File_Item_Default
     /**
      * Returns the location of the file.
      *
-     * @type string|void Location of the file or undefined if path or name are not set.
+     * @return {String} Location of the file (depending on type: a path +/ or 
+     * with the file name)
+     * @throws {Mumsys_File_Item_Exception} If whether path nor file was set
      */
     get location()
     {
         if (this.path !== undefined && this.name !== undefined) {
             return this.path + '/' + this.name;
         }
-
-        return;
+        
+        var message = 'No path or file was set to get the location';
+        throw new Mumsys_File_Item_Exception(message, Mumsys_Exception.ERRCODE_DEFAULT);
     }
 
 }
@@ -202,7 +255,7 @@ class Mumsys_File_Item_Default
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @copyright Copyright (c) 2017 by Florian Blasel
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
@@ -235,11 +288,85 @@ class Mumsys_Generic_Exception
 
 
 /**
+ * Mumsys_Generic_Item_Exception
+ * for MUMSYS Library for Multi User Management System (MUMSYS)
+ *
+ * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
+ * @copyright Copyright (c) 2017 by Florian Blasel
+ * @author Florian Blasel <flobee.code@gmail.com>
+ *
+ * @category    Mumsys
+ * @package     Js
+ * @subpackage  Generic
+ */
+
+
+/**
+ * Mumsys generic item exception.
+ * 
+ * @category    Mumsys
+ * @package     Js
+ * @subpackage  Generic
+ */
+class Mumsys_Generic_Item_Exception
+    extends Mumsys_Generic_Exception
+{
+    /**
+     * Returns the version ID.
+     * 
+     * @returns {String} Version ID
+     */
+    static getVersion()
+    {
+        return '3.0.0';
+    }
+
+}
+
+
+/**
+ * Mumsys_Generic_Manager_Exception
+ * for MUMSYS Library for Multi User Management System (MUMSYS)
+ *
+ * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
+ * @copyright Copyright (c) 2017 by Florian Blasel
+ * @author Florian Blasel <flobee.code@gmail.com>
+ *
+ * @category    Mumsys
+ * @package     Js
+ * @subpackage  Generic
+ */
+
+
+/**
+ * Mumsys generic manager exception.
+ * 
+ * @category    Mumsys
+ * @package     Js
+ * @subpackage  Generic
+ */
+class Mumsys_Generic_Manager_Exception
+    extends Mumsys_Generic_Exception
+{
+    /**
+     * Returns the version ID.
+     * 
+     * @returns {String} Version ID
+     */
+    static getVersion()
+    {
+        return '3.0.0';
+    }
+
+}
+
+
+/**
  * Mumsys_Generic_Item_Default
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @copyright Copyright (c) 2017 by Florian Blasel
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
@@ -278,7 +405,7 @@ class Mumsys_Generic_Item_Default
      */
     static getVersion() 
     {
-        return '3.1.0';
+        return '3.1.1';
     }
     
     
@@ -288,8 +415,9 @@ class Mumsys_Generic_Item_Default
      * @param {Object} params Mixes parameters to set the item properties
      * 
      * @returns {Mumsys_Generic_Item}
+     * @throws {Mumsys_Generic_Item_Exception} If params not of type object
      */
-    constructor(params) 
+    constructor( params ) 
     {
         /**
          * Incomming properties to be used.
@@ -313,7 +441,7 @@ class Mumsys_Generic_Item_Default
             }
         } else {
             var message = 'Invalid parameters';
-            throw new Mumsys_Generic_Exception( message );
+            throw new Mumsys_Generic_Item_Exception( message );
         }
 
         this.setModified( false );
@@ -328,7 +456,7 @@ class Mumsys_Generic_Item_Default
      *
      * @returns {mixed} Item property
      */
-    get ( key, defVal ) {
+    get( key, defVal ) {
         if ( this.__itemProps[key] === undefined ) {
             return defVal;
         } else {
@@ -416,16 +544,22 @@ class Mumsys_Generic_Item_Default
     /**
      * Returns the item ID property if item ID seems not to be manipulated.
      * 
-     * @param {integer|string} oldID Old item ID
-     * @param {integer|string} newID new item ID
+     * @param {integer|string|null} oldID Old item ID
+     * @param {integer|string|null} newID N ew item ID
      * 
      * @returns {string|integer} New ID
+     * @throws {Mumsys_Generic_Item_Exception} If ID differs
      */
     _checkId( oldID, newID )
     {
-        if ( newID != undefined && oldID != undefined && oldID != newID ) {
+        if ( newID === undefined || oldID === undefined ) {
+            var message = 'Invalid ID given: old: "'+ oldID +'", new: "'+ newID +'"';
+            throw new Mumsys_Generic_Item_Exception( message );
+        }
+        
+        if ( newID !== null && oldID !== null && oldID !== newID ) {
             var message = 'New item ID "' + newID + '" differs from old ID "' + oldID + '"';
-            throw new Mumsys_Generic_Exception( message );
+            throw new Mumsys_Generic_Item_Exception( message );
         }
 
         return newID;
@@ -439,7 +573,7 @@ class Mumsys_Generic_Item_Default
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @copyright Copyright (c) 2017 by Florian Blasel
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
@@ -497,9 +631,10 @@ class Mumsys_Generic_Manager_Default
         this.__itemList = [];
 
         /**
-         * Private flag to detect if loading of data is finished.
+         * Private flags to detect:
+         *  - if loading of data is finished.
          * @private Private property: Use public methodes
-         * @type Bo o lea n
+         * @type {Object}
          */
         this.__flags = { "isLoaded": false };
 
@@ -507,7 +642,7 @@ class Mumsys_Generic_Manager_Default
          * Map as memory keeper to speed up item searches
          * @type Object
          */
-        this.__map = { };
+        this.__map = {};
     }
 
 
@@ -517,6 +652,7 @@ class Mumsys_Generic_Manager_Default
      * @param {Object} props Properties to initialize the item
      *
      * @returns {Mumsys_Generic_Item_Default} Generic item object
+     * @throws {Mumsys_Generic_Manager_Exception} If props not of type object
      */
     createItem( props )
     {
@@ -524,7 +660,7 @@ class Mumsys_Generic_Manager_Default
             return new Mumsys_Generic_Item_Default( props );
         } else {
             var message = 'Invalid properties';
-            throw new Mumsys_Generic_Exception( message );
+            throw new Mumsys_Generic_Manager_Exception( message );
         }
     }
 
@@ -534,7 +670,7 @@ class Mumsys_Generic_Manager_Default
      *
      * @param {Mumsys_Generic_Item_Default} item Generic item to add
      */
-    addItem (item)
+    addItem( item )
     {
         if ( item instanceof Mumsys_Generic_Item_Default )
         {
@@ -542,7 +678,7 @@ class Mumsys_Generic_Manager_Default
 
             if ( id !== undefined && this.__map[ id ] !== undefined ) {
                 var message = '"id" (' + id + ') is unique and already exists';
-                throw new Mumsys_Generic_Exception( message );
+                throw new Mumsys_Generic_Manager_Exception( message );
             }
 
             if ( id !== undefined ) {
@@ -552,7 +688,7 @@ class Mumsys_Generic_Manager_Default
             this.__itemList.push( item );
         } 
         else {
-            throw new Mumsys_Generic_Exception( 'Invalid item' );
+            throw new Mumsys_Generic_Manager_Exception( 'Invalid item' );
         }
     }
 
@@ -565,7 +701,7 @@ class Mumsys_Generic_Manager_Default
     removeItem( id )
     {
         var _tmp = [];
-        var _tmpmap = { };
+        var _tmpmap = {};
 
         for ( var i = 0; i < this.__itemList.length; i++ )
         {
@@ -767,13 +903,14 @@ class Mumsys_Generic_Manager_Default
      *
      * @returns {Object} Returns the updated generic item
      *
+     * @throws {Mumsys_Generic_Manager_Exception} If params.item already exists
      * @throws {Mumsys_Exception} If json response is in error
      */
     saveItem( item, params, requestOptions = false )
     {
         if ( params.item !== undefined ) {
             var message = 'params.item property already defined';
-            throw new Mumsys_Exception( message );
+            throw new Mumsys_Generic_Manager_Exception( message );
         }
 
         if (item.isModified())
@@ -851,6 +988,7 @@ class Mumsys_Generic_Manager_Default
 
         return obj;
     }
+
 }
 
 
@@ -859,7 +997,7 @@ class Mumsys_Generic_Manager_Default
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @copyright Copyright (c) 2017 by Florian Blasel
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
@@ -1037,7 +1175,7 @@ Mumsys_Generic_Item.prototype._checkId = function (oldID, newID)
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @copyright Copyright (c) 2017 by Florian Blasel
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys

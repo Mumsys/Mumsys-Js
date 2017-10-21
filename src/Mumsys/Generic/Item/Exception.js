@@ -1,5 +1,5 @@
 /**
- * Mumsys_Generic_Exception
+ * Mumsys_Generic_Item_Exception
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
@@ -14,14 +14,14 @@
 "use strict";
 
 /**
- * Mumsys generic exception.
+ * Mumsys generic item exception.
  * 
  * @category    Mumsys
  * @package     Js
  * @subpackage  Generic
  */
-class Mumsys_Generic_Exception
-    extends Mumsys_Exception
+class Mumsys_Generic_Item_Exception
+    extends Mumsys_Generic_Exception
 {
     /**
      * Returns the version ID.

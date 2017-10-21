@@ -3,7 +3,7 @@
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @copyright Copyright (c) 2017 by Florian Blasel
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
@@ -62,9 +62,10 @@ class Mumsys_Generic_Manager_Default
         this.__itemList = [];
 
         /**
-         * Private flag to detect if loading of data is finished.
+         * Private flags to detect:
+         *  - if loading of data is finished.
          * @private Private property: Use public methodes
-         * @type Bo o lea n
+         * @type {Object}
          */
         this.__flags = { "isLoaded": false };
 
@@ -72,7 +73,7 @@ class Mumsys_Generic_Manager_Default
          * Map as memory keeper to speed up item searches
          * @type Object
          */
-        this.__map = { };
+        this.__map = {};
     }
 
 
@@ -82,6 +83,7 @@ class Mumsys_Generic_Manager_Default
      * @param {Object} props Properties to initialize the item
      *
      * @returns {Mumsys_Generic_Item_Default} Generic item object
+     * @throws {Mumsys_Generic_Manager_Exception} If props not of type object
      */
     createItem( props )
     {
@@ -89,7 +91,7 @@ class Mumsys_Generic_Manager_Default
             return new Mumsys_Generic_Item_Default( props );
         } else {
             var message = 'Invalid properties';
-            throw new Mumsys_Generic_Exception( message );
+            throw new Mumsys_Generic_Manager_Exception( message );
         }
     }
 
@@ -99,7 +101,7 @@ class Mumsys_Generic_Manager_Default
      *
      * @param {Mumsys_Generic_Item_Default} item Generic item to add
      */
-    addItem (item)
+    addItem( item )
     {
         if ( item instanceof Mumsys_Generic_Item_Default )
         {
@@ -107,7 +109,7 @@ class Mumsys_Generic_Manager_Default
 
             if ( id !== undefined && this.__map[ id ] !== undefined ) {
                 var message = '"id" (' + id + ') is unique and already exists';
-                throw new Mumsys_Generic_Exception( message );
+                throw new Mumsys_Generic_Manager_Exception( message );
             }
 
             if ( id !== undefined ) {
@@ -117,7 +119,7 @@ class Mumsys_Generic_Manager_Default
             this.__itemList.push( item );
         } 
         else {
-            throw new Mumsys_Generic_Exception( 'Invalid item' );
+            throw new Mumsys_Generic_Manager_Exception( 'Invalid item' );
         }
     }
 
@@ -130,7 +132,7 @@ class Mumsys_Generic_Manager_Default
     removeItem( id )
     {
         var _tmp = [];
-        var _tmpmap = { };
+        var _tmpmap = {};
 
         for ( var i = 0; i < this.__itemList.length; i++ )
         {
@@ -332,13 +334,14 @@ class Mumsys_Generic_Manager_Default
      *
      * @returns {Object} Returns the updated generic item
      *
+     * @throws {Mumsys_Generic_Manager_Exception} If params.item already exists
      * @throws {Mumsys_Exception} If json response is in error
      */
     saveItem( item, params, requestOptions = false )
     {
         if ( params.item !== undefined ) {
             var message = 'params.item property already defined';
-            throw new Mumsys_Exception( message );
+            throw new Mumsys_Generic_Manager_Exception( message );
         }
 
         if (item.isModified())
@@ -416,4 +419,5 @@ class Mumsys_Generic_Manager_Default
 
         return obj;
     }
+
 }
