@@ -68,7 +68,12 @@ function saveContent( $list, $target )
 
 
 saveContent($includeSource, $buildFile);
-saveContent(array('tests/jquery-1.12.4.js') + array($buildFile) + $includeTests, $testsFile);
+
+$testfiles = array('tests/jquery-1.12.4.js', $buildFile) + $includeTests;
+echo '<pre>';
+print_r($testfiles);
+echo '</pre>';
+saveContent($testfiles, $testsFile);
 
 
 
