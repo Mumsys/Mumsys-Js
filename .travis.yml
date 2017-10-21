@@ -13,6 +13,7 @@ before_install:
 #    - gem install sass
 #    - gem install compass
 #    - gem install jsduck
+    - npm install -g qunitjs
     - npm install -g grunt
     - npm install -g grunt-cli
     - npm install
@@ -22,4 +23,4 @@ before_script:
     - php composer.phar install --dev --no-interaction
     - php ./build/build.php
 
-script: grunt test --verbose --force
+script: qunit 'tests/*test.js'
