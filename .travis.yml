@@ -13,7 +13,8 @@ before_install:
 #    - gem install sass
 #    - gem install compass
 #    - gem install jsduck
-    - npm install -g qunitjs
+    - npm install jquery@1.12.4 
+    - npm install -g qunitjs@2.4.0
     - npm install -g grunt
     - npm install -g grunt-cli
     - npm install
