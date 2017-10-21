@@ -10,9 +10,9 @@ env:
 sudo: false
 
 before_install:
-    - gem install sass
-    - gem install compass
-    - gem install jsduck
+#    - gem install sass
+#    - gem install compass
+#    - gem install jsduck
     - npm install -g grunt
     - npm install -g grunt-cli
     - npm install

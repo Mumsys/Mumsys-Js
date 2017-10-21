@@ -50,17 +50,15 @@ foreach($include as $file)
 {
     $content .= file_get_contents($file) . "\n\n";
 }
-
 $newcontent = '"use strict";' . "\n" .  str_replace('"use strict";' . "\n", '', $content);
-
-
 file_put_contents($buildFile, $newcontent);
 
 
 include('vendor/autoload.php');
 $minifiedCode = \JShrink\Minifier::minify($newcontent, array('flaggedComments' => false));
-
 file_put_contents($minifyFile, $minifiedCode);
 
 
+echo $buildFile . ' done.' . PHP_EOL;
+echo $minifyFile . ' done.' . PHP_EOL;
 echo 'done.' . PHP_EOL;
