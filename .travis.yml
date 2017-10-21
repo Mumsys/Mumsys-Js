@@ -1,4 +1,24 @@
+language: php
+
+php:
+    - 7.0
+
+env:
+  global:
+  - CI_HOME=$TRAVIS_BUILD_DIR
+
+sudo: false
+
+before_install:
+    - gem install sass
+    - gem install compass
+    - gem install jsduck
+    - npm install -g grunt-cli
+    - npm install
+    - curl -s https://getcomposer.org/installer | php --
+
 before_script:
-  - sudo npm install -g grunt
+    - php composer.phar install --dev --no-interaction
+    - php ./build/build.php
 
 script: grunt test --verbose --force
