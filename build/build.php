@@ -19,10 +19,13 @@
  * run: # php ./build/build.php
  */
 
-
 chdir(__DIR__ . '/../');
 
-$include = array(
+$buildFile = 'deploy/development/Mumsys.js';
+$minifyFile = 'deploy/production/Mumsys.min.js';
+$testsFile = 'tests/AllTests.all.js';
+
+$includeSource = array(
     'src/Mumsys.js',
     'src/Mumsys/Exception.js',
 
@@ -34,31 +37,48 @@ $include = array(
     'src/Mumsys/Generic/Manager/Exception.js',
     'src/Mumsys/Generic/Item/Default.js',
     'src/Mumsys/Generic/Manager/Default.js',
-
     // to be removed, not supported
     'src/Mumsys/Generic/Item.js',
     'src/Mumsys/Generic/Manager.js',
 );
 
+$includeTests = array(
+    'tests/MumsysTests.js',
+    'tests/Mumsys/File/Item/DefaultTests.js',
+    'tests/Mumsys/Generic/Item/DefaultTests.js',
+    'tests/Mumsys/Generic/Manager/DefaultTests.js',
+    // to be removed, not supported
+    'tests/Mumsys/Generic/ItemTests.js',
+    'tests/Mumsys/Generic/ManagerTests.js',
+);
 
-$buildFile = 'deploy/development/Mumsys.js';
-$minifyFile = 'deploy/production/Mumsys.min.js';
 
 
-$content = '';
-foreach($include as $file)
+function saveContent( $list, $target )
 {
-    $content .= file_get_contents($file) . "\n\n";
+    $content = '';
+    foreach ( $list as $file ) {
+        $content .= file_get_contents($file) . "\n\n";
+    }
+    $newcontent = '"use strict";' . "\n"
+        . str_replace('"use strict";' . "\n", '', $content);
+
+    file_put_contents($target, $newcontent);
 }
-$newcontent = '"use strict";' . "\n" .  str_replace('"use strict";' . "\n", '', $content);
-file_put_contents($buildFile, $newcontent);
+
+
+saveContent($includeSource, $buildFile);
+saveContent(array($buildFile) + $includeTests, $testsFile);
+
 
 
 include('vendor/autoload.php');
-$minifiedCode = \JShrink\Minifier::minify($newcontent, array('flaggedComments' => false));
+$minifiedCode = \JShrink\Minifier::minify(file_get_contents($buildFile), array('flaggedComments' => false));
 file_put_contents($minifyFile, $minifiedCode);
 
 
-echo $buildFile . ' done.' . PHP_EOL;
-echo $minifyFile . ' done.' . PHP_EOL;
+
+echo $buildFile . PHP_EOL;
+echo $minifyFile . PHP_EOL;
+echo $testsFile . PHP_EOL;
 echo 'done.' . PHP_EOL;

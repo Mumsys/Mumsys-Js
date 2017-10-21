@@ -32,7 +32,7 @@ module.exports = function(grunt) {
                 white:  false,
                 maxcomplexity: 4,
                 globals: {
-                    Kort: true,
+                    Kort: false,
                     Ext: true,
                     L: true,
                     UrlLib: true,
