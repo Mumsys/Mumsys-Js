@@ -1,7 +1,10 @@
 language: php
-
 php:
     - 7.0
+
+language: node_js
+node_js:
+  - "0.10"
 
 sudo: false
 
