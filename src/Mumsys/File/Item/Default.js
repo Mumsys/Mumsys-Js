@@ -28,7 +28,7 @@ class Mumsys_File_Item_Default
      */
     static getVersion() 
     {
-        return '3.0.0';
+        return '3.0.1';
     }
     
     
