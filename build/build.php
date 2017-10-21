@@ -43,7 +43,6 @@ $includeSource = array(
 );
 
 $includeTests = array(
-    'tests/jquery-1.12.4.js',
     'tests/MumsysTests.js',
     'tests/Mumsys/File/Item/DefaultTests.js',
     'tests/Mumsys/Generic/Item/DefaultTests.js',
@@ -69,7 +68,7 @@ function saveContent( $list, $target )
 
 
 saveContent($includeSource, $buildFile);
-saveContent(array($buildFile) + $includeTests, $testsFile);
+saveContent(array('tests/jquery-1.12.4.js') + array($buildFile) + $includeTests, $testsFile);
 
 
 
