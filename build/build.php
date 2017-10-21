@@ -42,15 +42,15 @@ $includeSource = array(
     'src/Mumsys/Generic/Manager.js',
 );
 
-$includeTests = array(
-    'tests/MumsysTests.js',
-    'tests/Mumsys/File/Item/DefaultTests.js',
-    'tests/Mumsys/Generic/Item/DefaultTests.js',
-    'tests/Mumsys/Generic/Manager/DefaultTests.js',
-    // to be removed, not supported
-    'tests/Mumsys/Generic/ItemTests.js',
-    'tests/Mumsys/Generic/ManagerTests.js',
-);
+//$includeTests = array(
+//    'tests/MumsysTests.js',
+//    'tests/Mumsys/File/Item/DefaultTests.js',
+//    'tests/Mumsys/Generic/Item/DefaultTests.js',
+//    'tests/Mumsys/Generic/Manager/DefaultTests.js',
+//    // to be removed, not supported
+//    'tests/Mumsys/Generic/ItemTests.js',
+//    'tests/Mumsys/Generic/ManagerTests.js',
+//);
 
 
 
@@ -64,12 +64,18 @@ function saveContent( $list, $target )
         . str_replace('"use strict";' . "\n", '', $content);
 
     file_put_contents($target, $newcontent);
+
+    return $newcontent;
 }
 
 
-saveContent($includeSource, $buildFile);
+if ( saveContent($includeSource, $buildFile) ) {
+    echo $buildFile . PHP_EOL;
+}
 
-//saveContent($includeTests, $testsFile);
+//if ( saveContent($includeTests, $testsFile) ) {
+//    echo $testsFile . PHP_EOL;
+//}
 
 
 include('vendor/autoload.php');
@@ -79,5 +85,5 @@ file_put_contents($minifyFile, $minifiedCode);
 
 echo $buildFile . PHP_EOL;
 echo $minifyFile . PHP_EOL;
-echo $testsFile . PHP_EOL;
+
 echo 'done.' . PHP_EOL;
