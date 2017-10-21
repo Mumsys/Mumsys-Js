@@ -3,7 +3,7 @@
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @copyright Copyright (c) 2017 by Florian Blasel
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
@@ -53,8 +53,9 @@ class Mumsys_Generic_Item_Default
      * @param {Object} params Mixes parameters to set the item properties
      * 
      * @returns {Mumsys_Generic_Item}
+     * @throws {Mumsys_Generic_Item_Exception} If params not of type object
      */
-    constructor(params) 
+    constructor( params ) 
     {
         /**
          * Incomming properties to be used.
@@ -78,7 +79,7 @@ class Mumsys_Generic_Item_Default
             }
         } else {
             var message = 'Invalid parameters';
-            throw new Mumsys_Generic_Exception( message );
+            throw new Mumsys_Generic_Item_Exception( message );
         }
 
         this.setModified( false );
@@ -93,7 +94,7 @@ class Mumsys_Generic_Item_Default
      *
      * @returns {mixed} Item property
      */
-    get ( key, defVal ) {
+    get( key, defVal ) {
         if ( this.__itemProps[key] === undefined ) {
             return defVal;
         } else {
@@ -181,16 +182,22 @@ class Mumsys_Generic_Item_Default
     /**
      * Returns the item ID property if item ID seems not to be manipulated.
      * 
-     * @param {integer|string} oldID Old item ID
-     * @param {integer|string} newID new item ID
+     * @param {integer|string|null} oldID Old item ID
+     * @param {integer|string|null} newID N ew item ID
      * 
      * @returns {string|integer} New ID
+     * @throws {Mumsys_Generic_Item_Exception} If ID differs
      */
     _checkId( oldID, newID )
     {
-        if ( newID != undefined && oldID != undefined && oldID != newID ) {
+        if ( newID === undefined || oldID === undefined ) {
+            var message = 'Invalid ID given: old: "'+ oldID +'", new: "'+ newID +'"';
+            throw new Mumsys_Generic_Item_Exception( message );
+        }
+        
+        if ( newID !== null && oldID !== null && oldID !== newID ) {
             var message = 'New item ID "' + newID + '" differs from old ID "' + oldID + '"';
-            throw new Mumsys_Generic_Exception( message );
+            throw new Mumsys_Generic_Item_Exception( message );
         }
 
         return newID;
