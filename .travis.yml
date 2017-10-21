@@ -1,36 +1,36 @@
-language: php
-php:
-    - 7.0
-
-#language: node_js
-#node_js:
-#  - "0.10"
-#  - "stable"
-
-sudo: false
-
-env:
-  - JQUERY=1.12.4
-#  - JQUERY=1.11.0
-  
-install:
-  - npm install
-  - npm install jquery@$JQUERY
-  - npm install -g qunitjs@2.4.0
-  - npm install qunit-phantomjs-runner
-
-
-before_install:
-#    - gem install sass
-#    - gem install compass
-#    - gem install jsduck
-#    - npm install -g grunt
-#    - npm install -g grunt-cli
-#    - npm install
-    - curl -s https://getcomposer.org/installer | php --
-
-before_script:
-    - php composer.phar install --dev --no-interaction
-    - php ./build/build.php
-
-script: phantomjs vendor/flobee/qunit-phantomjs-runner/runner.js tests/run-tests-development.html
+#language: php
+#php:
+#    - 7.0
+#
+##language: node_js
+##node_js:
+##  - "0.10"
+##  - "stable"
+#
+#sudo: false
+#
+#env:
+#  - JQUERY=1.12.4
+##  - JQUERY=1.11.0
+#  
+#install:
+#  - npm install
+#  - npm install jquery@$JQUERY
+#  - npm install -g qunitjs@2.4.0
+#  - npm install qunit-phantomjs-runner
+#
+#
+#before_install:
+##    - gem install sass
+##    - gem install compass
+##    - gem install jsduck
+##    - npm install -g grunt
+##    - npm install -g grunt-cli
+##    - npm install
+#    - curl -s https://getcomposer.org/installer | php --
+#
+#before_script:
+#    - php composer.phar install --dev --no-interaction
+#    - php ./build/build.php
+#
+#script: phantomjs vendor/flobee/qunit-phantomjs-runner/runner.js tests/run-tests-development.html
