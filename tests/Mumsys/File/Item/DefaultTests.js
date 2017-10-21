@@ -39,7 +39,10 @@ QUnit.test("Mumsys_File_Item_Default.js tests", function (assert)
         (objTest1 instanceof Mumsys_File_Item_Default),
         "instanceof Mumsys_File_Item_Default: Passed!"
     );
-    assert.equal(Mumsys_File_Item_Default.getVersion(), '3.0.0', "static::getVersion(): Passed!");
+
+    //
+    // getVersion()
+    assert.equal(Mumsys_File_Item_Default.getVersion(), '3.0.1', "static::getVersion(): Passed!");
 
     //
     // get path()
