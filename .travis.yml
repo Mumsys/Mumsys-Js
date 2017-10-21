@@ -3,18 +3,23 @@ language: php
 php:
     - 7.0
 
-env:
-  global:
-  - CI_HOME=$TRAVIS_BUILD_DIR
-
 sudo: false
+
+env:
+  - JQUERY=1.12.4
+  - JQUERY=1.11.0
+  
+install:
+  - npm install
+  - npm install jquery@$JQUERY
+  - npm install -g qunitjs@2.4.0
+
 
 before_install:
 #    - gem install sass
 #    - gem install compass
 #    - gem install jsduck
-    - npm install jquery@1.12.4 
-    - npm install -g qunitjs@2.4.0
+    
     - npm install -g grunt
     - npm install -g grunt-cli
     - npm install
