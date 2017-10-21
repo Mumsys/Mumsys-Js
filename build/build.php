@@ -23,7 +23,7 @@ chdir(__DIR__ . '/../');
 
 $buildFile = 'deploy/development/Mumsys.js';
 $minifyFile = 'deploy/production/Mumsys.min.js';
-$testsFile = 'tests/AllTests.all.js';
+$testsFile = 'tests/AllTests.travis.js';
 
 $includeSource = array(
     'src/Mumsys.js',
@@ -43,6 +43,7 @@ $includeSource = array(
 );
 
 $includeTests = array(
+    'tests/jquery-1.12.4.js',
     'tests/MumsysTests.js',
     'tests/Mumsys/File/Item/DefaultTests.js',
     'tests/Mumsys/Generic/Item/DefaultTests.js',
