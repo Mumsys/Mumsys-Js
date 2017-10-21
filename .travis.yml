@@ -10,7 +10,7 @@ sudo: false
 
 env:
   - JQUERY=1.12.4
-  - JQUERY=1.11.0
+#  - JQUERY=1.11.0
   
 install:
   - npm install
