@@ -3,7 +3,7 @@
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @copyright Copyright (c) 2017 by Florian Blasel
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
@@ -26,8 +26,9 @@ class Mumsys_Exception extends Error
      * 
      * @var constant
      */
-//    const ERRCODE_DEFAULT = 1;
+    static get ERRCODE_DEFAULT() { return 1; }
     
+
     /**
      * Returns the version ID.
      * @returns {String} Version ID
@@ -41,11 +42,12 @@ class Mumsys_Exception extends Error
      * Initialize the mumsys exception.
      * 
      * @param {String} message Exception message
-     * @param {String|integer} code Exception code or number
+     * @param {String|integer} code Exception code or number; Optional, 
+     * Default: 0
      * 
      * @returns {Extend_Exceptions}
      */
-    constructor( message, code = 1 )
+    constructor( message, code = 0 )
     {
         super( message );
 

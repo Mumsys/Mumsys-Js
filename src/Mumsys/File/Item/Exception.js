@@ -1,5 +1,5 @@
 /**
- * Mumsys_Generic_Exception
+ * Mumsys_File_Item_Exception
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
@@ -8,19 +8,19 @@
  *
  * @category    Mumsys
  * @package     Js
- * @subpackage  Generic
+ * @subpackage  File
  */
 
 "use strict";
 
 /**
- * Mumsys generic exception.
+ * Mumsys generic item exception.
  * 
  * @category    Mumsys
  * @package     Js
- * @subpackage  Generic
+ * @subpackage  File
  */
-class Mumsys_Generic_Exception
+class Mumsys_File_Item_Exception
     extends Mumsys_Exception
 {
     /**

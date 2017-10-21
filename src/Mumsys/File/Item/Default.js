@@ -3,7 +3,7 @@
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @copyright Copyright (c) 2017 by Florian Blasel
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
@@ -71,15 +71,18 @@ class Mumsys_File_Item_Default
     /**
      * Returns the location of the file.
      *
-     * @type string|void Location of the file or undefined if path or name are not set.
+     * @return {String} Location of the file (depending on type: a path +/ or 
+     * with the file name)
+     * @throws {Mumsys_File_Item_Exception} If whether path nor file was set
      */
     get location()
     {
         if (this.path !== undefined && this.name !== undefined) {
             return this.path + '/' + this.name;
         }
-
-        return;
+        
+        var message = 'No path or file was set to get the location';
+        throw new Mumsys_File_Item_Exception(message, Mumsys_Exception.ERRCODE_DEFAULT);
     }
 
 }

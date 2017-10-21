@@ -64,6 +64,19 @@ QUnit.test("Mumsys_File_Item_Default.js tests", function (assert)
     //
     // get location()
     assert.equal( _obj.location, props.path + '/' + props.filename, "get location: Passed!" );
+    var oLocTest = new Mumsys_File_Item_Default({});
+    try {
+        oLocTest.location
+    } catch ( e ) {
+        _mesgOut = 'get location() Exception: Passed!';
+        _expected = 'No path or file was set to get the location';
+        assert.equal( e.message, _expected, _mesgOut );
+        assert.equal( e.name, "Mumsys_File_Item_Exception", "get location() expected exception: Passed!" );
+        assert.equal( e.code, 1, "expected exception code: Passed!" );
+    }
+        
+    
+    
 
     // get unknown
     assert.equal( _obj.unknown, undefined, "get unknown: Passed!" );
