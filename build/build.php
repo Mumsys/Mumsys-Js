@@ -69,18 +69,12 @@ function saveContent( $list, $target )
 
 saveContent($includeSource, $buildFile);
 
-$testfiles = array('tests/jquery-1.12.4.js', $buildFile) + $includeTests;
-echo '<pre>';
-print_r($testfiles);
-echo '</pre>';
-saveContent($testfiles, $testsFile);
-
+//saveContent($includeTests, $testsFile);
 
 
 include('vendor/autoload.php');
 $minifiedCode = \JShrink\Minifier::minify(file_get_contents($buildFile), array('flaggedComments' => false));
 file_put_contents($minifyFile, $minifiedCode);
-
 
 
 echo $buildFile . PHP_EOL;

@@ -5,6 +5,7 @@ php:
 #language: node_js
 #node_js:
 #  - "0.10"
+#  - "stable"
 
 sudo: false
 
@@ -16,6 +17,7 @@ install:
   - npm install
   - npm install jquery@$JQUERY
   - npm install -g qunitjs@2.4.0
+  - npm install qunit-phantomjs-runner
 
 
 before_install:
@@ -31,4 +33,4 @@ before_script:
     - php composer.phar install --dev --no-interaction
     - php ./build/build.php
 
-script: qunit 'tests/AllTests.travis.js'
+script: phantomjs vendor/qunit-phantomjs-runner/runner.js tests/run-tests-development.html
