@@ -13,9 +13,14 @@
             "role": "Developer"
         }
     ],
-    
     "require-dev": {
         "php": "5.6.* || 7.*",
-        "tedivm/jshrink": "^1.2"
+        "tedivm/jshrink": "^1.2",
+        "phing/phing": "^2",
+        "friendsofphp/php-cs-fixer": "^2",
+        "phpunit/phpunit": "^5",
+        "sebastian/phpcpd": "^2.0",
+        "phploc/phploc": "^4.0",
+        "pdepend/pdepend": "2.x"
     }
 }
