@@ -21,8 +21,8 @@
 
 chdir(__DIR__ . '/../');
 
-$buildFile = 'deploy/development/Mumsys.js';
-$minifyFile = 'deploy/production/Mumsys.min.js';
+$buildFile = 'dist/Mumsys.js';
+$minifyFile = 'dist/Mumsys.min.js';
 $testsFile = 'tests/AllTests.travis.js';
 
 $includeSource = array(
@@ -82,8 +82,6 @@ include('vendor/autoload.php');
 $minifiedCode = \JShrink\Minifier::minify(file_get_contents($buildFile), array('flaggedComments' => false));
 file_put_contents($minifyFile, $minifiedCode);
 
-
-echo $buildFile . PHP_EOL;
 echo $minifyFile . PHP_EOL;
 
 echo 'done.' . PHP_EOL;

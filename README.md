@@ -5,8 +5,8 @@ Currently only DTO/DAO objects available.
 
 Server request require jQuery.ajax()
 
-Build files in deploy/production (without comments, minified version) or 
-deploy/development for a single file including comments/ documentation.
+Build files in dist/Mumsys.min.js (without comments, minified version) or 
+dist/Mumsys.js for a single file including comments/ documentation.
 
 Development goes in single files at src/.
 
