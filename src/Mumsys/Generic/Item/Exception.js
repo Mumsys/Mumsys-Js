@@ -33,4 +33,4 @@ class Mumsys_Generic_Item_Exception
         return '3.0.0';
     }
 
-}
+};

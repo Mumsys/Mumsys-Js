@@ -44,7 +44,7 @@ class Mumsys_File_Item_Default
      *
      * @returns {Mumsys_File_Item_Default}
      */
-    constructor(params)
+    constructor( params )
     {
         /**
          * @type string
@@ -77,12 +77,12 @@ class Mumsys_File_Item_Default
      */
     get location()
     {
-        if (this.path !== undefined && this.name !== undefined) {
+        if ( this.path !== undefined && this.name !== undefined ) {
             return this.path + '/' + this.name;
         }
-        
+
         var message = 'No path or file was set to get the location';
-        throw new Mumsys_File_Item_Exception(message, Mumsys_Exception.ERRCODE_DEFAULT);
+        throw new Mumsys_File_Item_Exception( message, Mumsys_Exception.ERRCODE_DEFAULT );
     }
 
 }

@@ -11,6 +11,8 @@
  * @subpackage  File
  */
 
+"use strict";
+
 QUnit.test("Mumsys_File_Item_Default.js tests", function (assert)
 {
     /**
@@ -22,16 +24,13 @@ QUnit.test("Mumsys_File_Item_Default.js tests", function (assert)
         "filename": "somefile.png",
         "filesize": 1024,
         "filetype": "file",
-        "mimetype": "image/png",
+        "mimetype": "image/png"
     };
 
     /**
      * @type Mumsys_File_Item_Default
      */
     var _obj = new Mumsys_File_Item_Default(props);
-
-    assert.ok(1 == "1", "Passed!");
-
 
     // construction
     var objTest1 = new Mumsys_File_Item_Default(props);
@@ -42,46 +41,44 @@ QUnit.test("Mumsys_File_Item_Default.js tests", function (assert)
 
     //
     // getVersion()
-    assert.equal(Mumsys_File_Item_Default.getVersion(), '3.0.1', "static::getVersion(): Passed!");
+    assert.equal( Mumsys_File_Item_Default.getVersion(), '3.0.1', "static::getVersion(): Passed!" );
 
     //
     // get path()
-    assert.equal( _obj.path, props.path, "get path: Passed!");
-    
+    assert.equal( _obj.path, props.path, "get path: Passed!" );
+
     //
     // get name()
-    assert.equal( _obj.name, props.filename, "get name: Passed!");
-    
+    assert.equal( _obj.name, props.filename, "get name: Passed!" );
+
     //
     // get size()
-    assert.equal( _obj.size, props.filesize, "get size: Passed!");
-    
+    assert.equal( _obj.size, props.filesize, "get size: Passed!" );
+
     //
     // get filetype()
-    assert.equal( _obj.type, props.filetype, "get type: Passed!");
-    
+    assert.equal( _obj.type, props.filetype, "get type: Passed!" );
+
     //
     // get mimetype()
-    assert.equal( _obj.mimetype, props.mimetype, "get mimetype: Passed!");
-    
+    assert.equal( _obj.mimetype, props.mimetype, "get mimetype: Passed!" );
+
     //
     // get location()
     assert.equal( _obj.location, props.path + '/' + props.filename, "get location: Passed!" );
-    var oLocTest = new Mumsys_File_Item_Default({});
+    var oLocTest = new Mumsys_File_Item_Default( { } );
     try {
-        oLocTest.location
+        oLocTest.location;
     } catch ( e ) {
         var _mesgOut = 'get location() Exception: Passed!',
             _expected = 'No path or file was set to get the location'
-        ;
+            ;
         assert.equal( e.message, _expected, _mesgOut );
         assert.equal( e.name, "Mumsys_File_Item_Exception", "get location() expected exception: Passed!" );
         assert.equal( e.code, 1, "expected exception code: Passed!" );
     }
-        
-    
-    
 
+    //
     // get unknown
     assert.equal( _obj.unknown, undefined, "get unknown: Passed!" );
     _obj.unknown = true;

@@ -58,7 +58,7 @@ class Mumsys_Exception extends Error
             Error.captureStackTrace( this, this.constructor );
         } else {
             this.stack = ( new Error( message ) ).stack;
-    }
+        }
     }
 
 }

@@ -13,142 +13,137 @@
 
 //QUnit.module( "Generic", function() 
 //{ 
-    QUnit.test("Mumsys_Generic_Manager_Default.js tests", function (assert)
-    {
-        /**
-         * @type String
-         */
-        var _expected, _mesgOut = '';
+QUnit.test( "Mumsys_Generic_Manager_Default.js tests", function ( assert )
+{
+    /**
+     * @type String
+     */
+    var _expected, _mesgOut = '';
 
-        /**
-         * @type Array
-         */
-        var _items = [
-            {"id": 1, "name": "name 1"},
-            {"id": 2, "name": "name 2"},
-            {"id": 3, "name": "name 3"},
-            {"id": 4, "name": "name 4"}
-        ];
+    /**
+     * @type Array
+     */
+    var _items = [
+        { "id": 1, "name": "name 1" },
+        { "id": 2, "name": "name 2" },
+        { "id": 3, "name": "name 3" },
+        { "id": 4, "name": "name 4" }
+    ];
 
-        /**
-         * @class Mumsys_Generic_Manager_Default
-         * @type Mumsys_Generic_Manager_Default
-         */
-        var _obj = new Mumsys_Generic_Manager_Default();
+    /**
+     * @class Mumsys_Generic_Manager_Default
+     * @type Mumsys_Generic_Manager_Default
+     */
+    var _obj = new Mumsys_Generic_Manager_Default();
 
-        //
-        // setup
-        _items.forEach(function (data, i) {
-            _obj.addItem( _obj.createItem( data ) );
-        });
+    //
+    // setup
+    _items.forEach( function ( data, i ) {
+        _obj.addItem( _obj.createItem( data ) );
+    } );
 
-        //
-        // tests
-        //
+    //
+    // construction
+    assert.ok( ( _obj instanceof Mumsys_Generic_Manager_Default ), "Construction: Passed!" );
+    assert.equal( Mumsys_Generic_Manager_Default.getVersion(), '3.1.0', "static::getVersion(): Passed!" );
+    assert.equal( _obj.getItems().length, _items.length, "getItems() length: Passed!" );
 
-        assert.ok(1 == "1", "Init test Passed!");
+    //
+    // creatItem()
+    var newItem = _obj.createItem( { "id": 5, "name": "name 5" } );
+    assert.ok( ( newItem instanceof Mumsys_Generic_Item_Default ), "createItem() instance: Passed!" );
+    try {
+        _obj.createItem( "Wrong" );
+    } catch ( e ) {
+        _mesgOut = 'createItem() Exception: Passed!';
+        _expected = 'Invalid properties';
+        assert.equal( e.message, _expected, _mesgOut );
+        assert.equal( e.name, "Mumsys_Generic_Manager_Exception", "createItem() Expected exception: Passed!" );
+    }
 
-        //
-        // construction
-        assert.ok((_obj instanceof Mumsys_Generic_Manager_Default), "Construction: Passed!");
-        assert.equal(Mumsys_Generic_Manager_Default.getVersion(), '3.1.0', "static::getVersion(): Passed!");
-        assert.equal(_obj.getItems().length, _items.length, "getItems() length: Passed!");
+    //
+    // addItem()
+    assert.ok( ( _obj.addItem( newItem ) === undefined ), "addItem(item): Passed!" );
+    try {
+        _obj.addItem( newItem );
+    } catch ( e ) {
+        _mesgOut = 'addItem() exists exception: Passed!';
+        _expected = '"id" (5) is unique and already exists';
+        assert.equal( e.message, _expected, _mesgOut );
+        assert.equal( e.name, "Mumsys_Generic_Manager_Exception", "addItem() Expected exception: Passed!" );
+    }
+    try {
+        _obj.addItem( "no valid item" );
+    } catch ( e ) {
+        _mesgOut = 'addItem() ivalid item: Passed!';
+        _expected = 'Invalid item';
+        assert.equal( e.message, _expected, _mesgOut );
+        assert.equal( e.name, "Mumsys_Generic_Manager_Exception", "addItem() Expected exception: Passed!" );
+    }
+    // check item count now
+    assert.equal( _obj.getItems().length, 5, "getItems() count after add item: Passed!" );
 
-        //
-        // creatItem()
-        var newItem = _obj.createItem({"id": 5, "name": "name 5"});
-        assert.ok( (newItem instanceof Mumsys_Generic_Item_Default), "createItem() instance: Passed!");
-        try {
-            _obj.createItem("Wrong");
-        } catch (e) {
-            _mesgOut = 'createItem() Exception: Passed!';
-            _expected = 'Invalid properties';
-            assert.equal(e.message, _expected, _mesgOut);
-            assert.equal(e.name, "Mumsys_Generic_Manager_Exception", "createItem() Expected exception: Passed!");
-        }
+    //
+    // removeItem()
+    _obj.removeItem( 5 );
+    assert.equal( _obj.getItems().length, 4, "removeItem(): Passed!" );
 
-        //
-        // addItem()
-        assert.ok( (_obj.addItem(newItem) === undefined), "addItem(item): Passed!");
-        try {
-            _obj.addItem(newItem);
-        } catch (e) {
-            _mesgOut = 'addItem() exists exception: Passed!';
-            _expected = '"id" (5) is unique and already exists';
-            assert.equal(e.message, _expected, _mesgOut);
-            assert.equal(e.name, "Mumsys_Generic_Manager_Exception", "addItem() Expected exception: Passed!");
-        }
-        try {
-            _obj.addItem("no valid item");
-        } catch (e) {
-            _mesgOut = 'addItem() ivalid item: Passed!';
-            _expected = 'Invalid item';
-            assert.equal(e.message, _expected, _mesgOut);
-            assert.equal(e.name, "Mumsys_Generic_Manager_Exception", "addItem() Expected exception: Passed!");
-        }
-        // check item count now
-        assert.equal(_obj.getItems().length, 5, "getItems() count after add item: Passed!");
+    //
+    // getItems()
+    var items = _obj.getItems();
+    for ( var i = 0; i < _obj.getItems().length; i++ ) {
+        assert.equal( items[i].get( 'id' ), ( i + 1 ), "getItems() for ID " + ( i + 1 ) + ": Passed!" );
+    }
 
-        //
-        // removeItem()
-        _obj.removeItem(5);
-        assert.equal(_obj.getItems().length, 4, "removeItem(): Passed!");
+    //
+    // getItem()
+    assert.equal( _obj.getItem( "idx", 0 ).getProperties(), _items[0], "getItem(idx,0): Passed!" );
+    assert.equal( _obj.getItem( "idx", 1 ).getProperties(), _items[1], "getItem(idx,1): Passed!" );
+    assert.equal( _obj.getItem( "idx", 3 ).getProperties(), _items[3], "getItem(idx,3): Passed!" );
+    assert.equal( _obj.getItem( "idx", -1 ).getProperties(), _items[3], "getItem(idx,-1): Passed!" );
 
-        //
-        // getItems()
-        var items = _obj.getItems();
-        for(var i=0; i<_obj.getItems().length; i++) {
-            assert.equal(items[i].get('id'), (i+1), "getItems() for ID "+(i+1)+": Passed!");
-        }
+    assert.equal( _obj.getItem( "id", 4 ).getProperties(), _items[3], "getItem(id,4): Passed!" );
+    assert.equal( _obj.getItem( "name", 'name 1' ).getProperties(), _items[0], "getItem(name,name 1): Passed!" );
 
-        //
-        // getItem()
-        assert.equal( _obj.getItem("idx", 0).getProperties(), _items[0], "getItem(idx,0): Passed!");
-        assert.equal( _obj.getItem("idx", 1).getProperties(), _items[1], "getItem(idx,1): Passed!");
-        assert.equal( _obj.getItem("idx", 3).getProperties(), _items[3], "getItem(idx,3): Passed!");
-        assert.equal( _obj.getItem("idx", -1).getProperties(), _items[3], "getItem(idx,-1): Passed!");
+    assert.equal( _obj.getItem( "none", 123, false ), false, "getItem() default return: Passed!" );
 
-        assert.equal( _obj.getItem("id", 4).getProperties(), _items[3], "getItem(id,4): Passed!");
-        assert.equal( _obj.getItem("name", 'name 1').getProperties(), _items[0], "getItem(name,name 1): Passed!");
+    //
+    // clear()
+    _obj.clear();
+    assert.equal( _obj.getItems().length, 0, "clear(): Passed!" );
 
-        assert.equal( _obj.getItem("none", 123, false), false, "getItem() default return: Passed!");
+    //
+    // isLoaded()
+    assert.equal( _obj.isLoaded(), false, "isLoaded()::false Passed!" );
 
-        //
-        // clear()
-        _obj.clear();
-        assert.equal(_obj.getItems().length, 0, "clear(): Passed!");
+    //
+    // loadItems()
+    _obj.loadItems( { }, { "url": "testfiles/genericItemList.200.json", "async": false } );
+    assert.equal( _obj.getItems().length, 8, "loadItems(): Passed!" );
+    assert.equal( _obj.isLoaded(), true, "loadItems(), isLoaded()::true: Passed!" );
+    /** @todo loadItems() error  to be implemented */
+    // _obj.loadItems({}, {"url":"testfiles/notExists.js","async":false});
 
-        //
-        // isLoaded()
-        assert.equal(_obj.isLoaded(), false, "isLoaded()::false Passed!");
+    //
+    // saveItem()
+    var expected = _obj.getItem( "id", 3 );
+    var jqParams = {
+        "url": "testfiles/genericSaveItemResponse.200.json",
+        "async": false,
+        "type": "GET",
+        "dataType": 'json'
+    };
+    
+    var rquestParams = { };
+    var actual = _obj.saveItem( expected, rquestParams, jqParams );
+    assert.equal( actual, expected, "saveItem() not changed: Passed!" );
+    assert.equal( expected.isModified(), false, "saveItem() item.isModified()::false: Passed!" );
+    // real request
+    expected.set( "id", null );
+    assert.equal( expected.isModified(), true, "saveItem() item.isModified(): Passed!" );
+    var actual = _obj.saveItem( expected, rquestParams, jqParams );
+    assert.equal( actual, expected, "saveItem() real request: Passed!" );
 
-        //
-        // loadItems()
-        _obj.loadItems({}, {"url":"testfiles/genericItemList.js","async":false});
-        assert.equal(_obj.getItems().length, 8, "loadItems(): Passed!");
-        assert.equal(_obj.isLoaded(), true, "loadItems(), isLoaded()::true: Passed!");
-        /** @todo loadItems() error  to be implemented */
-        // _obj.loadItems({}, {"url":"testfiles/notExists.js","async":false});
-
-        //
-        // saveItem()
-        var expected = _obj.getItem("id", 3);
-        var jqParams = {
-            "url":"testfiles/genericSaveItemResponse.js",
-            "async": false, 
-            "type": "GET",
-            "dataType": 'json'
-        };
-        var rquestParams = {};
-        var actual = _obj.saveItem(expected, rquestParams, jqParams);
-        assert.equal(actual, expected, "saveItem() not changed: Passed!");
-        assert.equal(expected.isModified(), false, "saveItem() item.isModified()::false: Passed!");
-        // real request
-        expected.set("id", null);
-        assert.equal(expected.isModified(), true, "saveItem() item.isModified(): Passed!");
-        var actual = _obj.saveItem(expected, rquestParams, jqParams);
-        assert.equal(actual, expected, "saveItem() real request: Passed!");
-
-    });
+} );
 //
 //});

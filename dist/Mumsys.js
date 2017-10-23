@@ -118,7 +118,7 @@ class Mumsys_Exception extends Error
             Error.captureStackTrace( this, this.constructor );
         } else {
             this.stack = ( new Error( message ) ).stack;
-    }
+        }
     }
 
 }
@@ -145,8 +145,8 @@ class Mumsys_Exception extends Error
  * @package     Js
  * @subpackage  File
  */
-class Mumsys_File_Item_Exception
-    extends Mumsys_Exception
+class Mumsys_File_Item_Exception 
+    extends Mumsys_Exception 
 {
     /**
      * Returns the version ID.
@@ -158,7 +158,7 @@ class Mumsys_File_Item_Exception
         return '3.0.0';
     }
 
-}
+};
 
 
 /**
@@ -206,7 +206,7 @@ class Mumsys_File_Item_Default
      *
      * @returns {Mumsys_File_Item_Default}
      */
-    constructor(params)
+    constructor( params )
     {
         /**
          * @type string
@@ -239,12 +239,12 @@ class Mumsys_File_Item_Default
      */
     get location()
     {
-        if (this.path !== undefined && this.name !== undefined) {
+        if ( this.path !== undefined && this.name !== undefined ) {
             return this.path + '/' + this.name;
         }
-        
+
         var message = 'No path or file was set to get the location';
-        throw new Mumsys_File_Item_Exception(message, Mumsys_Exception.ERRCODE_DEFAULT);
+        throw new Mumsys_File_Item_Exception( message, Mumsys_Exception.ERRCODE_DEFAULT );
     }
 
 }
@@ -284,7 +284,7 @@ class Mumsys_Generic_Exception
         return '3.0.0';
     }
 
-}
+};
 
 
 /**
@@ -321,7 +321,7 @@ class Mumsys_Generic_Item_Exception
         return '3.0.0';
     }
 
-}
+};
 
 
 /**
@@ -358,7 +358,7 @@ class Mumsys_Generic_Manager_Exception
         return '3.0.0';
     }
 
-}
+};
 
 
 /**
@@ -417,7 +417,7 @@ class Mumsys_Generic_Item_Default
      * @returns {Mumsys_Generic_Item}
      * @throws {Mumsys_Generic_Item_Exception} If params not of type object
      */
-    constructor( params ) 
+    constructor( params )
     {
         /**
          * Incomming properties to be used.
@@ -432,7 +432,7 @@ class Mumsys_Generic_Item_Default
          */
         this.__m = false;
 
-        if ( params instanceof Object ) 
+        if ( params instanceof Object )
         {
             this.__itemProps = params;
 
@@ -530,7 +530,7 @@ class Mumsys_Generic_Item_Default
     setModified( flag )
     {
         var _flag;
-        
+
         if ( flag === undefined ) {
             _flag = true;
         } else {
@@ -553,10 +553,10 @@ class Mumsys_Generic_Item_Default
     _checkId( oldID, newID )
     {
         if ( newID === undefined || oldID === undefined ) {
-            var message = 'Invalid ID given: old: "'+ oldID +'", new: "'+ newID +'"';
+            var message = 'Invalid ID given: old: "' + oldID + '", new: "' + newID + '"';
             throw new Mumsys_Generic_Item_Exception( message );
         }
-        
+
         if ( newID !== null && oldID !== null && oldID !== newID ) {
             var message = 'New item ID "' + newID + '" differs from old ID "' + oldID + '"';
             throw new Mumsys_Generic_Item_Exception( message );
@@ -567,6 +567,8 @@ class Mumsys_Generic_Item_Default
 
 }
 
+
+/* global Mumsys_Generic_Item_Default, Mumsys */
 
 /**
  * Mumsys_Generic_Manager_Default
@@ -596,7 +598,7 @@ class Mumsys_Generic_Manager_Default
      * Returns the version ID.
      * @returns {String} Version ID
      */
-    static getVersion() 
+    static getVersion()
     {
         return '3.1.0';
     }
@@ -642,7 +644,7 @@ class Mumsys_Generic_Manager_Default
          * Map as memory keeper to speed up item searches
          * @type Object
          */
-        this.__map = {};
+        this.__map = { };
     }
 
 
@@ -751,7 +753,7 @@ class Mumsys_Generic_Manager_Default
      * @return {Mumsys_Generic_Item_Default|defreturn} Generic item or undefined 
      * for not found
      */
-    getItem ( key, value, defreturn )
+    getItem( key, value, defreturn )
     {
         if ( key === 'idx' )
         {
@@ -845,7 +847,7 @@ class Mumsys_Generic_Manager_Default
      * @throws {Mumsys_Exception} On errors in response
      */
      loadItems( data, requestParams = false )
-     {
+    {
         /**
          * Request parameters. (finals for the server request)
          * @type {Object} Mixed key/value pairs
@@ -861,21 +863,21 @@ class Mumsys_Generic_Manager_Default
             , contentType: 'application/json'
             , dataType: 'json'
             , success: function ( obj )
-                {
-                    Mumsys.checkJsonRpcResponce( obj );
+            {
+                Mumsys.checkJsonRpcResponce( obj );
 
-                    for ( var i = 0; i < obj.result.list.length; i++ ) {
-                        _this.addItem( _this.createItem( obj.result.list[i] ) );
-                    }
-                    _this.__flags.isLoaded = true;
+                for ( var i = 0; i < obj.result.list.length; i++ ) {
+                    _this.addItem( _this.createItem( obj.result.list[i] ) );
                 }
-            , error: function ( obj/*, textStatus, errorThrown */)
-                {
-                    Mumsys.checkJsonRpcResponce( obj );
-                }
+                _this.__flags.isLoaded = true;
+            }
+            , error: function ( obj/*, textStatus, errorThrown */ )
+            {
+                Mumsys.checkJsonRpcResponce( obj );
+            }
         };
 
-       _reParams = this._buildParams(defaultParams, data, requestParams);
+        _reParams = this._buildParams( defaultParams, data, requestParams );
 
         jQuery.ajax( _reParams ).done( function ( obj ) {
             Mumsys.checkJsonRpcResponce( obj );
@@ -913,7 +915,7 @@ class Mumsys_Generic_Manager_Default
             throw new Mumsys_Generic_Manager_Exception( message );
         }
 
-        if (item.isModified())
+        if ( item.isModified() )
         {
             params.item = item.getProperties();
 
@@ -934,6 +936,7 @@ class Mumsys_Generic_Manager_Default
             var reqParams = this._buildParams(
                 defaultParams, params, requestOptions
             );
+            
             jQuery.ajax( reqParams ).done( function ( obj )
                 {
                     Mumsys.checkJsonRpcResponce( obj );
@@ -943,7 +946,7 @@ class Mumsys_Generic_Manager_Default
                 }
             );
 
-            item.setModified(false);
+            item.setModified( false );
         }
 
         return item;
@@ -964,7 +967,7 @@ class Mumsys_Generic_Manager_Default
      */
     _buildParams( defaultParams, dataParams, requestParams )
     {
-        var obj = {};
+        var obj = { };
 
         if ( requestParams )
         {
@@ -973,7 +976,7 @@ class Mumsys_Generic_Manager_Default
                     obj[keyA] = defaultParams[keyA];
                 }
             }
-            
+
             for ( var keyB in requestParams ) {
                 if ( requestParams[keyB] !== null ) {
                     obj[keyB] = requestParams[keyB];
@@ -1161,14 +1164,21 @@ Mumsys_Generic_Item.prototype.setModified = function ( flag )
  */
 Mumsys_Generic_Item.prototype._checkId = function (oldID, newID)
 {
-    if (newID != undefined && oldID != undefined && oldID != newID) {
+    if ( newID === undefined || oldID === undefined ) {
+        var message = 'Invalid ID given: old: "' + oldID + '", new: "' + newID + '"';
+        throw new Mumsys_Generic_Item_Exception( message );
+    }
+
+    if ( newID !== null && oldID !== null && oldID !== newID ) {
         var message = 'New item ID "' + newID + '" differs from old ID "' + oldID + '"';
-        throw new Error(message);
+        throw new Mumsys_Generic_Item_Exception( message );
     }
 
     return newID;
-}
+};
 
+
+/* global Mumsys_Generic_Item, Mumsys */
 
 /**
  * Mumsys_Generic_Manager
@@ -1257,32 +1267,32 @@ Mumsys_Generic_Manager.prototype.createItem = function (props)
         var message = 'Invalid properties';
         throw new Error(message);
     }
-}
+};
 
 
 /**
  * Adds a generic item interface to the list of items to work with.
  *
- * @param {Mumsys_Generic_Item} Generic item to add
+ * @param {Mumsys_Generic_Item} item Generic item to add
  */
-Mumsys_Generic_Manager.prototype.addItem = function (item)
+Mumsys_Generic_Manager.prototype.addItem = function ( item )
 {
-    if (item instanceof Mumsys_Generic_Item)
+    if ( item instanceof Mumsys_Generic_Item )
     {
-        var id = item.get('id');
+        var id = item.get( 'id' );
 
-        if (id !== undefined && this.__map[ id ] !== undefined) {
+        if ( id !== undefined && this.__map[ id ] !== undefined ) {
             var message = '"id" (' + id + ') is unique and already exists';
-            throw new Error(message);
+            throw new Error( message );
         }
 
-        if (id !== undefined) {
+        if ( id !== undefined ) {
             this.__map[ id ] = this.__itemList.length;
         }
 
-        this.__itemList.push(item);
+        this.__itemList.push( item );
     } else {
-        throw new Error('Invalid item');
+        throw new Error( 'Invalid item' );
     }
 };
 
@@ -1292,20 +1302,20 @@ Mumsys_Generic_Manager.prototype.addItem = function (item)
  *
  * @param {string|integer} id Unique ID of the item (array index)
  */
-Mumsys_Generic_Manager.prototype.removeItem = function (id)
+Mumsys_Generic_Manager.prototype.removeItem = function ( id )
 {
     var _tmp = [];
-    var _tmpmap = {};
-    
-    for (var i = 0; i < this.__itemList.length; i++) 
+    var _tmpmap = { };
+
+    for ( var i = 0; i < this.__itemList.length; i++ )
     {
-        var itemID = this.__itemList[i].get('id');
-        if (itemID !== id) {
-            _tmp.push(this.__itemList[i]);
+        var itemID = this.__itemList[i].get( 'id' );
+        if ( itemID !== id ) {
+            _tmp.push( this.__itemList[i] );
             _tmpmap[ itemID ] = i;
         }
     }
-    
+
     this.__itemList = _tmp;
     this.__map = _tmpmap;
 };
@@ -1316,7 +1326,8 @@ Mumsys_Generic_Manager.prototype.removeItem = function (id)
  *
  * @returns {Array} List of Mumsys_Generic_Item items
  */
-Mumsys_Generic_Manager.prototype.getItems = function () {
+Mumsys_Generic_Manager.prototype.getItems = function () 
+{
     return this.__itemList;
 };
 
@@ -1361,19 +1372,19 @@ Mumsys_Generic_Manager.prototype.getItem = function ( key, value, defreturn )
 
         return this.__itemList[ value ];
     }
-    
-    if (key === 'id' && this.__map[ key ] !== undefined) {
+
+    if ( key === 'id' && this.__map[ key ] !== undefined ) {
         return this.__itemList[ this.__map[ key ] ];
     }
-    
+
     for ( var i = 0; i < this.__itemList.length; i++ ) {
-        if ( this.__itemList[i].get(key) === value ) {
+        if ( this.__itemList[i].get( key ) === value ) {
             return this.__itemList[i];
         }
     }
 
     return defreturn;
-}
+};
 
 
 /**
@@ -1432,8 +1443,8 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
  * @return {void}
  * @throws {Exception} On errors in response
  */
- Mumsys_Generic_Manager.prototype.loadItems = function ( data, requestParams = false )
- {
+Mumsys_Generic_Manager.prototype.loadItems = function ( data, requestParams = false )
+{
     /**
      * Request parameters. (finals for the server request)
      * @type {Object} Mixed key/value pairs
@@ -1449,21 +1460,21 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
         , contentType: 'application/json'
         , dataType: 'json'
         , success: function ( obj )
-            {
-                Mumsys.checkJsonRpcResponce( obj );
-                
-                for ( var i = 0; i < obj.result.list.length; i++ ) {
-                    _this.addItem( _this.createItem( obj.result.list[i] ) );
-                }
-                _this.__flags.isLoaded = true;
+        {
+            Mumsys.checkJsonRpcResponce( obj );
+
+            for ( var i = 0; i < obj.result.list.length; i++ ) {
+                _this.addItem( _this.createItem( obj.result.list[i] ) );
             }
-        , error: function ( obj/*, textStatus, errorThrown */)
-            {
-                Mumsys.checkJsonRpcResponce( obj );
-            }
+            _this.__flags.isLoaded = true;
+        }
+        , error: function ( obj/*, textStatus, errorThrown */ )
+        {
+            Mumsys.checkJsonRpcResponce( obj );
+        }
     };
 
-   _reParams = this._buildParams(defaultParams, data, requestParams);
+    _reParams = this._buildParams( defaultParams, data, requestParams );
 
     jQuery.ajax( _reParams ).done( function ( obj ) {
         Mumsys.checkJsonRpcResponce( obj );
@@ -1484,7 +1495,7 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
  *  - error: {function} Callback for errors
  * </pre>
  *
- * @param {Mumsys_Generic_Item} Generic item object
+ * @param {Mumsys_Generic_Item} item Generic item object
  * @param {Object} params Request parameters to the server
  * @param {Object} requestParams Parameters to overwrite the ajax request defaults of jQuery.
  *
@@ -1494,40 +1505,40 @@ Mumsys_Generic_Manager.prototype.isLoaded = function ()
  */
 Mumsys_Generic_Manager.prototype.saveItem = function ( item, params, requestParams = false )
 {
-    if (params.item !== undefined) {
+    if ( params.item !== undefined ) {
         var message = 'params.item property already defined';
         throw new Error( message );
     }
 
-    if (item.isModified())
+    if ( item.isModified() )
     {
         params.item = item.getProperties();
 
         var defaultParams = {
             url: this.__url
             , type: 'POST'
-            , fail: function (obj, textStatus, errorThrown) 
+            , fail: function ( obj, textStatus, errorThrown )
                 {
-                    console.log("fail textStatus", textStatus);
-                    console.log("fail errorThrown", errorThrown);
+                    console.log( "fail textStatus", textStatus );
+                    console.log( "fail errorThrown", errorThrown );
 
-                    Mumsys.checkJsonRpcResponce(jQuery.parseJSON(obj.responseText));
+                    Mumsys.checkJsonRpcResponce( jQuery.parseJSON( obj.responseText ) );
                 }
         };
 
-        var reqParams = this._buildParams(defaultParams, params, requestParams);
+        var reqParams = this._buildParams( defaultParams, params, requestParams );
         jQuery.ajax( reqParams ).done( function ( obj )
             {
                 Mumsys.checkJsonRpcResponce( obj );
-                if (obj.result.item.id !== undefined) {
-                    item.set('id', obj.result.item.id);
+                if ( obj.result.item.id !== undefined ) {
+                    item.set( 'id', obj.result.item.id );
                 }
             }
         );
 
-        item.setModified(false);
+        item.setModified( false );
     }
-    
+
     return item;
 };
 
@@ -1542,7 +1553,7 @@ Mumsys_Generic_Manager.prototype.saveItem = function ( item, params, requestPara
  *
  * @returns {object} Parameters to be set to the jquery ajax request.
  */
-Mumsys_Generic_Manager.prototype._buildParams = function (defaultParams, dataParams, requestParams)
+Mumsys_Generic_Manager.prototype._buildParams = function ( defaultParams, dataParams, requestParams )
 {
     var obj = {};
 
@@ -1567,6 +1578,6 @@ Mumsys_Generic_Manager.prototype._buildParams = function (defaultParams, dataPar
     obj.data = dataParams;
 
     return obj;
-}
+};
 
 

@@ -168,10 +168,15 @@ Mumsys_Generic_Item.prototype.setModified = function ( flag )
  */
 Mumsys_Generic_Item.prototype._checkId = function (oldID, newID)
 {
-    if (newID != undefined && oldID != undefined && oldID != newID) {
+    if ( newID === undefined || oldID === undefined ) {
+        var message = 'Invalid ID given: old: "' + oldID + '", new: "' + newID + '"';
+        throw new Mumsys_Generic_Item_Exception( message );
+    }
+
+    if ( newID !== null && oldID !== null && oldID !== newID ) {
         var message = 'New item ID "' + newID + '" differs from old ID "' + oldID + '"';
-        throw new Error(message);
+        throw new Mumsys_Generic_Item_Exception( message );
     }
 
     return newID;
-}
+};

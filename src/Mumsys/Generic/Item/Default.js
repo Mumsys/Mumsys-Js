@@ -55,7 +55,7 @@ class Mumsys_Generic_Item_Default
      * @returns {Mumsys_Generic_Item}
      * @throws {Mumsys_Generic_Item_Exception} If params not of type object
      */
-    constructor( params ) 
+    constructor( params )
     {
         /**
          * Incomming properties to be used.
@@ -70,7 +70,7 @@ class Mumsys_Generic_Item_Default
          */
         this.__m = false;
 
-        if ( params instanceof Object ) 
+        if ( params instanceof Object )
         {
             this.__itemProps = params;
 
@@ -168,7 +168,7 @@ class Mumsys_Generic_Item_Default
     setModified( flag )
     {
         var _flag;
-        
+
         if ( flag === undefined ) {
             _flag = true;
         } else {
@@ -191,10 +191,10 @@ class Mumsys_Generic_Item_Default
     _checkId( oldID, newID )
     {
         if ( newID === undefined || oldID === undefined ) {
-            var message = 'Invalid ID given: old: "'+ oldID +'", new: "'+ newID +'"';
+            var message = 'Invalid ID given: old: "' + oldID + '", new: "' + newID + '"';
             throw new Mumsys_Generic_Item_Exception( message );
         }
-        
+
         if ( newID !== null && oldID !== null && oldID !== newID ) {
             var message = 'New item ID "' + newID + '" differs from old ID "' + oldID + '"';
             throw new Mumsys_Generic_Item_Exception( message );

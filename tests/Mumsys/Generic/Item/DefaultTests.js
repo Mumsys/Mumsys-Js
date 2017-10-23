@@ -11,39 +11,39 @@
  * @subpackage  Generic
  */
 
+"use strict";
 
 QUnit.test("Mumsys_Generic_Item_Default.js tests", function (assert)
 {
     var _expected, _mesgOut = '';
 
-    var props = {"id": 3, "name": "Item 3"};
+    var props = { "id": 3, "name": "Item 3" };
 
-    var _obj = new Mumsys_Generic_Item_Default(props);
+    var _obj = new Mumsys_Generic_Item_Default( props );
 
-    assert.ok(1 == "1", "Passed!");
+    assert.ok( 1 == "1", "Passed!" );
 
     //
     // construction
-    assert.ok( (_obj instanceof Mumsys_Generic_Item_Default), "instance Mumsys_Generic_Item_Default: Passed!");
-    assert.equal(Mumsys_Generic_Item_Default.getVersion(), '3.1.1', "static::getVersion(): Passed!");
+    assert.ok( ( _obj instanceof Mumsys_Generic_Item_Default ), "instance Mumsys_Generic_Item_Default: Passed!" );
+    assert.equal( Mumsys_Generic_Item_Default.getVersion(), '3.1.1', "static::getVersion(): Passed!" );
     try {
         var errA = new Mumsys_Generic_Item_Default();
-    } catch (e) {
+    } catch ( e ) {
         assert.ok(
-            (e.message == 'Invalid parameters'),
+            ( e.message == 'Invalid parameters' ),
             "Exception message: Passed!"
-        );
-        assert.ok((e.name==="Mumsys_Generic_Item_Exception"), "Expected exception: Passed!");
+            );
+        assert.ok( ( e.name === "Mumsys_Generic_Item_Exception" ), "Expected exception: Passed!" );
     }
 
     //
     // get/set()
     assert.equal( _obj.get( 'id' ), 3, "get/set(): Passed!" );
-    assert.equal( _obj.get( 'invalidkey', false ), false, "get() default: Passed!");
+    assert.equal( _obj.get( 'invalidkey', false ), false, "get() default: Passed!" );
     try {
         _obj.set( "id", 4 );
-    } 
-    catch ( e ) {
+    } catch ( e ) {
         _expected = 'New item ID "4" differs from old ID "3"';
         _mesgOut = 'set() Exception thrown when manipulate item ID: Passed!';
         assert.equal( e.message, _expected, _mesgOut );
@@ -80,4 +80,5 @@ QUnit.test("Mumsys_Generic_Item_Default.js tests", function (assert)
     assert.equal( _obj._checkId( null, 1 ), 1, "_checkId(): Passed!" );
     assert.equal( _obj._checkId( null, null ), null, "_checkId(): Passed!" );
     assert.equal( _obj._checkId( 1, null ), null, "_checkId(): Passed!" );
-});
+    
+} );
