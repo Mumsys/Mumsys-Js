@@ -77,11 +77,20 @@ if ( saveContent($includeSource, $buildFile) ) {
 //    echo $testsFile . PHP_EOL;
 //}
 
+try
+{
+    include('vendor/autoload.php');
+    $opts = array(
+        /* allow first jsdoc head */
+        'flaggedComments' => true
+    );
+    $minifiedCode = \JShrink\Minifier::minify(file_get_contents($buildFile), $opts);
+    file_put_contents($minifyFile, $minifiedCode);
 
-include('vendor/autoload.php');
-$minifiedCode = \JShrink\Minifier::minify(file_get_contents($buildFile), array('flaggedComments' => false));
-file_put_contents($minifyFile, $minifiedCode);
-
-echo $minifyFile . PHP_EOL;
+    echo $minifyFile . PHP_EOL;
+}
+catch (Exception $ex) {
+    throw $ex;
+}
 
 echo 'done.' . PHP_EOL;
