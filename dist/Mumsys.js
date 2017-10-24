@@ -1,5 +1,5 @@
 "use strict";
-/**
+/*!
  * Mumsys
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
