@@ -1,5 +1,3 @@
-/* global Mumsys_Generic_Item, Mumsys */
-
 /**
  * Mumsys_Generic_Manager
  * for MUMSYS Library for Multi User Management System (MUMSYS)
