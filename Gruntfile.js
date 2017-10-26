@@ -1,7 +1,7 @@
 module.exports = function( grunt ) {
     grunt.initConfig( {
         qunit: {
-            all: "run-tests-development.html"
+            all: "tests/run-tests-development.html"
         }
     } );
     grunt.loadNpmTasks( "grunt-contrib-qunit" );
