@@ -1,64 +1,35 @@
-#sudo: false
-#language: node_js
-#node_js:
-#  - "4"
-#  - "6"
-#  - "7"
-#  - "8"
-#env:
-#  - NPM_SCRIPT=test
-#matrix:
-#  fast_finish: true
-#  allow_failures:
-#    - env: NPM_SCRIPT=browserstack
-#  include:
-#    - node_js: "6"
-#      env: NPM_SCRIPT=browserstack
-#before_install:
-#  - true && `base64 --decode <<< ZXhwb3J0IEJST1dTRVJTVEFDS19VU0VSTkFNRT1icm93c2Vyc3RhY2txdW5pMQo=`
-#  - true && `base64 --decode <<< ZXhwb3J0IEJST1dTRVJTVEFDS19LRVk9SllzeHJrVWk5aGJGVndkdW44ZUsK=`
-#script:
-#  - npm run-script $NPM_SCRIPT
-#cache:
-#  yarn: true
-#  directories:
-#    - $HOME/.npm
-#    - $HOME/.cache
+language: php
+php:
+    - 5.6
+    - 7.0
+    - 7.1
+    - 7.2
+
+sudo: false
+
+env:
+  - JQUERY=1.12.4
+#  - JQUERY=1.11.0
+  
+install:
+  - npm install
+  - npm install jquery@$JQUERY
+  - npm install -g qunitjs@2.4.1
+  - npm install qunit-phantomjs-runner
+  - npm install grunt-contrib-qunit --save-dev
 
 
-#language: php
-#php:
-#    - 7.0
-#
-##language: node_js
-##node_js:
-##  - "0.10"
-##  - "stable"
-#
-#sudo: false
-#
-#env:
-#  - JQUERY=1.12.4
-##  - JQUERY=1.11.0
-#  
-#install:
-#  - npm install
-#  - npm install jquery@$JQUERY
-#  - npm install -g qunitjs@2.4.0
-#  - npm install qunit-phantomjs-runner
-#
-#
-#before_install:
-##    - gem install sass
-##    - gem install compass
-##    - gem install jsduck
-##    - npm install -g grunt
-##    - npm install -g grunt-cli
-##    - npm install
-#    - curl -s https://getcomposer.org/installer | php --
-#
-#before_script:
-#    - php composer.phar install --dev --no-interaction
-#    - php ./build/build.php
-#
-#script: phantomjs vendor/flobee/qunit-phantomjs-runner/runner.js tests/run-tests-development.html
+before_install:
+#    - gem install sass
+#    - gem install compass
+#    - gem install jsduck
+#    - npm install -g grunt
+#    - npm install -g grunt-cli
+#    - npm install
+    - curl -s https://getcomposer.org/installer | php --
+
+before_script:
+    - php composer.phar install --dev --no-interaction
+    - php ./build/build.php
+
+script: phantomjs vendor/flobee/qunit-phantomjs-runner/runner.js tests/run-tests-development.html

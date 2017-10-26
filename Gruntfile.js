@@ -1,17 +1,18 @@
-///*global module:false*/
-//module.exports = function(grunt) {
-//
-//    // Project configuration.
-//    grunt.initConfig({
-//        qunit: {
-//            'mumsys-js': [
-//                'tests/run-tests-development.html', 
-//                'tests/run-tests-standalone-version.html', 
-//                'tests/run-tests-minified-version.html'
-//            ]
-//        },
-//        jshint: {
-//            'mumsys-js': ['src/**/*.js', 'Grunfile.js', 'tests/testfiles/**/*.js'],
+/*global module:false*/
+module.exports = function(grunt) {
+
+    // Project configuration.
+    grunt.initConfig({
+        qunit: {
+            mumsysjs: [
+                'tests/run-tests-development.html', 
+                'tests/run-tests-standalone-version.html', 
+                'tests/run-tests-minified-version.html',
+                'tests/**/*.html'
+            ]
+        }
+//        , jshint: {
+//            'mumsysjs': ['src/**/*.js', 'Grunfile.js', 'tests/testfiles/**/*.js'],
 //            options: {
 //                jquery: true,
 //                curly: true,
@@ -57,19 +58,19 @@
 //                }
 //            }
 //        }
-//    });
-//
-//    // Load plugins
+    });
+    // Load plugins
 //    grunt.loadNpmTasks('grunt-contrib-jshint');
-//    grunt.loadNpmTasks('grunt-contrib-qunit');
-//
-//    // Default task.
-//    // grunt.registerTask('default', 'jshint:mumsys-js');
-//
-//    // Linting task.
-//    // grunt.registerTask('lint', 'jshint:mumsys-js');
-//
-//    // Travis CI task.
-//    //grunt.registerTask('travis', 'jshint:mumsys-js qunit:mumsys-js');
-//    grunt.registerTask('travis', 'qunit:mumsys-js');
-//};
+    grunt.loadNpmTasks('grunt-contrib-qunit');
+    
+
+    // Default task.
+    // grunt.registerTask('default', 'jshint:mumsysjs');
+
+    // Linting task.
+    // grunt.registerTask('lint', 'jshint:mumsysjs');
+
+    // Travis CI task.
+    //grunt.registerTask('travis', 'jshint:mumsysjs qunit:mumsysjs');
+    grunt.registerTask('travis', 'qunit:mumsysjs');
+};
