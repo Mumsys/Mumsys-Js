@@ -65,7 +65,8 @@ module.exports = function(grunt) {
     
 
     // Default task.
-    // grunt.registerTask('default', 'jshint:mumsysjs');
+//     grunt.registerTask('default', 'jshint:mumsysjs');
+     grunt.registerTask('default', 'qunit:mumsysjs');
 
     // Linting task.
     // grunt.registerTask('lint', 'jshint:mumsysjs');
