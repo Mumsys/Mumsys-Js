@@ -10,6 +10,7 @@ module.exports = function( grunt ) {
         }
     } );
     grunt.loadNpmTasks( "grunt-contrib-qunit" );
+    grunt.registerTask('default', 'qunit:mumsysjs');
 };
 
 /////*global module:false*/
