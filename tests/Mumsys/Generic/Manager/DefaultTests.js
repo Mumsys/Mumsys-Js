@@ -45,7 +45,7 @@ QUnit.test( "Mumsys_Generic_Manager_Default.js tests", function ( assert )
     //
     // construction
     assert.ok( ( _obj instanceof Mumsys_Generic_Manager_Default ), "Construction: Passed!" );
-    assert.equal( Mumsys_Generic_Manager_Default.getVersion(), '3.1.0', "static::getVersion(): Passed!" );
+    assert.equal( Mumsys_Generic_Manager_Default.getVersion(), '3.1.1', "static::getVersion(): Passed!" );
     assert.equal( _obj.getItems().length, _items.length, "getItems() length: Passed!" );
 
     //

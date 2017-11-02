@@ -31,7 +31,7 @@ class Mumsys_Generic_Manager_Default
      */
     static getVersion()
     {
-        return '3.1.0';
+        return '3.1.1';
     }
     
     
