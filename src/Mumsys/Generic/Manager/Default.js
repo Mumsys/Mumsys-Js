@@ -136,6 +136,14 @@ class Mumsys_Generic_Manager_Default
         var _tmp = [];
         var _tmpmap = {};
 
+        if ( this.__map[ id ] !== undefined ) {
+            this.__itemList.splice( this.__map[ id ], 1);
+            delete this.__map[ id ];
+            
+            return;
+        }
+        
+        // fallback
         for ( var i = 0; i < this.__itemList.length; i++ )
         {
             var itemID = this.__itemList[i].get( 'id' );
