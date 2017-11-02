@@ -10,6 +10,10 @@ This generic version has some BUTs but you will agree:
  - It will downgrade implementation time
  - Server requests will slow down (performance boost) because only changed data will be 
    served.
+ - Clean interface (But danger in detail! You may implement for each task individual 
+   items/manager interfaces)
+ - Closed data handling: Must have using get/set methodes to get or change data. Which 
+   helps to reduce memory/ GC.
 
 
 ## Usage
@@ -81,14 +85,14 @@ The answer must be a jsonrpc response and must be as follow:
         "id":null,      // future: request ID
     }
 
-Now the new item returns with the new value and will be updated in the manager to be 
-available for the next step.
+Now the new item returns with the new value the item already knows. 
+If the server updates some properties like ctime, mtime values you need to update the 
+item! It will not be set automatically (currently) and i want to keep that open for 
+individual requirements. Performance resons!
 
-Thats all. A very simple but powerful option to handle data.
+If you need it:
 
+    myManager.removeItem( itemID );
+    myManager.addItem( myManager.createItem( oJsonResponse.result.item ) );
 
-    
-    
-    
-
-    
+Thats all. A very simple but powerful option to handle data.    
