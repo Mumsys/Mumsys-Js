@@ -119,7 +119,7 @@ QUnit.test( "Mumsys_Generic_Manager.js tests", function ( assert )
 
     //
     // loadItems()
-    _obj.loadItems( { }, { "url": "testfiles/genericItemList.js", "async": false } );
+    _obj.loadItems( { }, { "url": "testfiles/genericItemList.200.json", "async": false } );
     assert.equal( _obj.getItems().length, 8, "loadItems(): Passed!" );
     assert.equal( _obj.isLoaded(), true, "loadItems(), isLoaded()::true: Passed!" );
     /** @todo to be implemented */
@@ -130,7 +130,7 @@ QUnit.test( "Mumsys_Generic_Manager.js tests", function ( assert )
     // saveItem()
     var expected = _obj.getItem( "id", 3 );
     var jqParams = {
-        "url": "testfiles/genericSaveItemResponse.js",
+        "url": "testfiles/genericSaveItemResponse.200.json",
         "async": false,
         "type": "GET",
         "dataType": 'json'
