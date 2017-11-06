@@ -72,7 +72,8 @@ class Mumsys_Generic_Manager_Default
         this.__flags = { "isLoaded": false };
 
         /**
-         * Map as memory keeper to speed up item searches
+         * Map as memory keeper to speed up item searches.
+         * @private Private property
          * @type Object
          */
         this.__map = { };
