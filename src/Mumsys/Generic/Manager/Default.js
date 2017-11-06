@@ -194,37 +194,46 @@ class Mumsys_Generic_Manager_Default
      */
     getItem( key, value, defreturn )
     {
-        if ( key === 'idx' )
+        var _k;
+
+        switch ( key ) 
         {
-            if ( value === -1 )
-            {
-                var k;
-                if ( ( this.__itemList.length - 1 ) < 0 ) {
-                    k = 0;
-                } else {
-                    k = this.__itemList.length - 1;
+            case 'idx':
+                if ( value === -1 )
+                {
+                    if ( ( this.__itemList.length - 1 ) < 0 ) {
+                        _k = 0;
+                    } else {
+                        _k = this.__itemList.length - 1;
+                    }
+                } 
+                else {
+                    _k = value;
                 }
-
-                return this.__itemList[ k ];
-            } 
-            else {
-                return this.__itemList[ value ];
-            }
-
-            return this.__itemList[ value ];
+                                
+                break;
+                
+            case ( 'id' && this.__map[ key ] !== undefined ):
+                _k = this.__map[ key ];
+                
+                break;
+                
+            default:
+                for ( var i = 0; i < this.__itemList.length; i++ ) {
+                    if ( this.__itemList[i].get( key ) === value ) {
+                        _k = i;
+                        break;
+                    }
+                }
+                
+                break;
         }
-
-        if ( key === 'id' && this.__map[ key ] !== undefined ) {
-            return this.__itemList[ this.__map[ key ] ];
+        
+        if ( _k === undefined ) {
+            return defreturn;
+        } else {
+            return this.__itemList[ _k ];
         }
-
-        for ( var i = 0; i < this.__itemList.length; i++ ) {
-            if ( this.__itemList[i].get( key ) === value ) {
-                return this.__itemList[i];
-            }
-        }
-
-        return defreturn;
     }
 
 
@@ -235,6 +244,7 @@ class Mumsys_Generic_Manager_Default
     {
         this.__itemList = [];
         this.__map = {};
+        this.__flags.isLoaded = false;
     }
 
 
@@ -285,7 +295,7 @@ class Mumsys_Generic_Manager_Default
      * @return {void}
      * @throws {Mumsys_Exception} On errors in response
      */
-     loadItems( data, requestParams = false )
+    loadItems( data, requestParams = false )
     {
         /**
          * Request parameters. (finals for the server request)
