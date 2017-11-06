@@ -174,35 +174,46 @@ Mumsys_Generic_Manager.prototype.getItems = function ()
  */
 Mumsys_Generic_Manager.prototype.getItem = function ( key, value, defreturn )
 {
-    if ( key === 'idx' )
+    var _k;
+
+    switch ( key ) 
     {
-        if ( value === -1 )
-        {
-            if ( ( this.__itemList.length - 1 ) < 0 ) {
-                var k = 0;
-            } else {
-                var k = this.__itemList.length - 1;
+        case 'idx':
+            if ( value === -1 )
+            {
+                if ( ( this.__itemList.length - 1 ) < 0 ) {
+                    _k = 0;
+                } else {
+                    _k = this.__itemList.length - 1;
+                }
+            } 
+            else {
+                _k = value;
             }
 
-            return this.__itemList[ k ];
-        } else {
-            return this.__itemList[ value ];
-        }
+            break;
 
-        return this.__itemList[ value ];
+        case ( 'id' && this.__map[ key ] !== undefined ):
+            _k = this.__map[ key ];
+
+            break;
+
+        default:
+            for ( var i = 0; i < this.__itemList.length; i++ ) {
+                if ( this.__itemList[i].get( key ) === value ) {
+                    _k = i;
+                    break;
+                }
+            }
+
+            break;
     }
 
-    if ( key === 'id' && this.__map[ key ] !== undefined ) {
-        return this.__itemList[ this.__map[ key ] ];
+    if ( _k === undefined ) {
+        return defreturn;
+    } else {
+        return this.__itemList[ _k ];
     }
-
-    for ( var i = 0; i < this.__itemList.length; i++ ) {
-        if ( this.__itemList[i].get( key ) === value ) {
-            return this.__itemList[i];
-        }
-    }
-
-    return defreturn;
 };
 
 
@@ -213,6 +224,7 @@ Mumsys_Generic_Manager.prototype.clear = function ()
 {
     this.__itemList = [];
     this.__map = {};
+    this.__flags.isLoaded = false;
 };
 
 
