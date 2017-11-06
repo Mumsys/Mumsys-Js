@@ -179,6 +179,7 @@ Mumsys_Generic_Manager.prototype.getItem = function ( key, value, defreturn )
     switch ( key ) 
     {
         case 'idx':
+            
             if ( value === -1 )
             {
                 if ( ( this.__itemList.length - 1 ) < 0 ) {
@@ -209,9 +210,10 @@ Mumsys_Generic_Manager.prototype.getItem = function ( key, value, defreturn )
             break;
     }
 
-    if ( _k === undefined ) {
+    if ( this.__itemList[ _k ] === undefined ) {
         return defreturn;
-    } else {
+    }
+    else {
         return this.__itemList[ _k ];
     }
 };
