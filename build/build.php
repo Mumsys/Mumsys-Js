@@ -23,7 +23,6 @@ chdir(__DIR__ . '/../');
 
 $buildFile = 'dist/Mumsys.js';
 $minifyFile = 'dist/Mumsys.min.js';
-$testsFile = 'tests/AllTests.travis.js';
 
 $includeSource = array(
     'src/Mumsys.js',
@@ -37,6 +36,12 @@ $includeSource = array(
     'src/Mumsys/Generic/Manager/Exception.js',
     'src/Mumsys/Generic/Item/Default.js',
     'src/Mumsys/Generic/Manager/Default.js',
+
+    'src/Mumsys/Common/Item/Abstract.js',
+
+    'src/Mumsys/Attribute/Exception.js',
+    'src/Mumsys/Attribute/Item/Default.js',
+
     // to be removed, not supported
     'src/Mumsys/Generic/Item.js',
     'src/Mumsys/Generic/Manager.js',
@@ -51,7 +56,6 @@ $includeSource = array(
 //    'tests/Mumsys/Generic/ItemTests.js',
 //    'tests/Mumsys/Generic/ManagerTests.js',
 //);
-
 
 
 function saveContent( $list, $target )
@@ -73,9 +77,6 @@ if ( saveContent($includeSource, $buildFile) ) {
     echo $buildFile . PHP_EOL;
 }
 
-//if ( saveContent($includeTests, $testsFile) ) {
-//    echo $testsFile . PHP_EOL;
-//}
 
 try
 {
