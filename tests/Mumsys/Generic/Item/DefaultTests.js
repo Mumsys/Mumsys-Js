@@ -11,6 +11,8 @@
  * @subpackage  Generic
  */
 
+/* global QUnit, Mumsys_Generic_Item_Default */
+
 "use strict";
 
 QUnit.test("Mumsys_Generic_Item_Default.js tests", function (assert)
@@ -25,13 +27,17 @@ QUnit.test("Mumsys_Generic_Item_Default.js tests", function (assert)
 
     //
     // construction
-    assert.ok( ( _obj instanceof Mumsys_Generic_Item_Default ), "instance Mumsys_Generic_Item_Default: Passed!" );
+    assert.ok( 
+        ( _obj instanceof Mumsys_Generic_Item_Default ), 
+        "instance Mumsys_Generic_Item_Default: Passed!" 
+    );
+
     assert.equal( Mumsys_Generic_Item_Default.getVersion(), '3.1.1', "static::getVersion(): Passed!" );
     try {
         var errA = new Mumsys_Generic_Item_Default();
     } catch ( e ) {
         assert.ok(
-            ( e.message == 'Invalid parameters' ),
+            ( e.message === 'Invalid parameters' ),
             "Exception message: Passed!"
             );
         assert.ok( ( e.name === "Mumsys_Generic_Item_Exception" ), "Expected exception: Passed!" );
@@ -62,7 +68,7 @@ QUnit.test("Mumsys_Generic_Item_Default.js tests", function (assert)
 
     //
     // getProperties()
-    assert.ok( ( _obj.getProperties() == props ), "getProperties(): Passed!" );
+    assert.ok( ( _obj.getProperties() === props ), "getProperties(): Passed!" );
 
     //
     // set/isModified()

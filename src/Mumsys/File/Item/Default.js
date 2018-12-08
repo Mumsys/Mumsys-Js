@@ -81,8 +81,8 @@ class Mumsys_File_Item_Default
             return this.path + '/' + this.name;
         }
 
-        var message = 'No path or file was set to get the location';
-        throw new Mumsys_File_Item_Exception( message, Mumsys_Exception.ERRCODE_DEFAULT );
+        var mesg = 'No path or file was set to get the location';
+        throw new Mumsys_File_Item_Exception( mesg, Mumsys_Exception.ERRCODE_DEFAULT );
     }
 
 }

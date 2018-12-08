@@ -13,7 +13,7 @@
 
 //QUnit.module( "Generic", function() 
 //{ 
-QUnit.test( "Mumsys_Generic_Manager_Default.js benchmark tests", function ( assert )
+QUnit.test( "Mumsys_Generic_Manager_Default.js benchmark tests (compare get(\"prop\") vs getProperties()", function ( assert )
 {
     function getTime() 
     {
@@ -89,9 +89,9 @@ QUnit.test( "Mumsys_Generic_Manager_Default.js benchmark tests", function ( asse
     
     var x;
     assert.ok( x = testGetPropsOfItem() , "testGetItems().getProperties() took: " + x + 'ms');
-    assert.ok( x = testGetItems() , "testGetItems() took: " + x + 'ms');
+    assert.ok( x = testGetItems() , "testGetItems().get(\"prop\"), .get(\"prop\") took: " + x + 'ms');
     assert.ok( x = testGetPropsOfItem() , "testGetItems().getProperties() took: " + x + 'ms');
-    assert.ok( x = testGetItems() , "testGetItems() took: " + x + 'ms');
+    assert.ok( x = testGetItems() , "testGetItems().get(\"prop\"), .get(\"prop\") took: " + x + 'ms');
 } );
 //
 //});
