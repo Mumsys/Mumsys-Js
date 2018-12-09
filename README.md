@@ -1,4 +1,4 @@
-# mumsys-js
+# Mumsys-Js
 MUMSYS Javascript Library
 
 Currently only DTO/DAO objects available. 
@@ -32,3 +32,12 @@ To build own additions:
 
 
 Future releases will also serve npm helper/ tests
+
+
+## Contributions:
+
+All changes follow the unstable -> testing -> stable branches concept. 
+
+    Hacking:                unstable branch
+    Testing:                testing branch
+    Deployment/ releases:   stable branch
