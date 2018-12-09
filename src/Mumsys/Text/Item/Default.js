@@ -1,5 +1,5 @@
 /**
- * Mumsys_Attribute_Item_Default
+ * Mumsys_Text_Item_Default
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
@@ -8,7 +8,7 @@
  *
  * @category    Mumsys
  * @package     Js
- * @subpackage  Attribute
+ * @subpackage  Text
  */
 
 "use strict";
@@ -20,14 +20,14 @@
  * get/set() methodes.
  *
  * Pro/Cons
- * Attribute items have a specific list of properties.
+ * Text items have a specific list of properties.
  * Items are managed through its own manager.
  *
  * @category    Mumsys
  * @package     Js
- * @subpackage  Attribute
+ * @subpackage  Text
  */
-class Mumsys_Attribute_Item_Default
+class Mumsys_Text_Item_Default
     extends Mumsys_Common_Item_Abstract
 {
     /**
@@ -45,19 +45,19 @@ class Mumsys_Attribute_Item_Default
      *
      * @param {Object} params Mixed parameters to set the item properties
      *
-     * @returns {Mumsys_Attribute_Item}
-     * @throws {Mumsys_Attribute_Exception} If params not of type object
+     * @returns {Mumsys_Text_Item}
+     * @throws {Mumsys_Text_Exception} If params not of type object
      */
     constructor( params )
     {
-        super( "attribute.", params );
+        super( "text.", params );
 
         /**
          * Possible properties to be used.
          * @private
          * @var Array
          */
-        //this.__defProps = ["domain", "typeid", "type", "code", "status", "position", "label"];
+        //this.__defProps = ["langid", "domain", "typeid", "type", "code", "status", "content"];
 
         /**
          * Private flag to detect if item was modified or not.
@@ -67,7 +67,7 @@ class Mumsys_Attribute_Item_Default
 
         if ( Array.isArray( params ) || !( params instanceof Object )  ) {
             var mesg = "Invalid parameters";
-            throw new Mumsys_Attribute_Exception( mesg );
+            throw new Mumsys_Text_Exception( mesg );
         }
 
         /**
@@ -77,6 +77,35 @@ class Mumsys_Attribute_Item_Default
          */
         this.__input = params;
 
+    }
+
+
+    /**
+     * Returns the language ID of the item.
+     *
+     * @return {string|null} Returns the language ID for this item e.g. de,
+     * en, ... or null for all languages
+     */
+    get langid()
+    {
+        return ( ! this.__input.langid ) ? null : this.__input.langid.toString();
+    }
+
+
+    /**
+     * Set the language ID for this item.
+     *
+     * @param {string} langid Name of the language ID e.g. de, en... or null
+     */
+    set langid( langid )
+    {
+        if ( langid === this.langid ) {
+            return;
+        }
+
+        super._checkLanguageId( langid );
+        this.__input.langid = langid;
+        this.setModified();
     }
 
 
@@ -121,7 +150,7 @@ class Mumsys_Attribute_Item_Default
     /**
      * Sets the type ID for this item.
      *
-     * @param {string} typeid Attribute type ID
+     * @param {string} typeid Text type ID
      */
     set typeid( typeid )
     {
@@ -146,6 +175,43 @@ class Mumsys_Attribute_Item_Default
 
 
     /**
+     * Returns the content of the item.
+     *
+     * @return {string} Returns the content for this item
+     */
+    get content()
+    {
+        return ( (this.__input.content === undefined) ? "" : this.__input.content.toString() );
+    }
+
+
+    /**
+     * Sets the code for this item.
+     *
+     * @param {string} code Text code
+     */
+    set content( content )
+    {
+        if ( content === this.content ) {
+            return;
+        }
+
+        this.__input.content = content.toString();
+        this.setModified();
+    }
+
+    /**
+     * Alias of get content() for generic usage.
+     *
+     * @return string Content of the item
+     */
+    get label()
+    {
+        return this.content;
+    }
+
+
+    /**
      * Returns the code of the item.
      *
      * @return {string} Returns the code for this item
@@ -159,7 +225,7 @@ class Mumsys_Attribute_Item_Default
     /**
      * Sets the code for this item.
      *
-     * @param {string} code Attribute code
+     * @param {string} code Text code
      */
     set code( code )
     {
@@ -186,7 +252,7 @@ class Mumsys_Attribute_Item_Default
     /**
      * Sets the status for this item.
      *
-     * @param {string} status Attribute status 0=Off, 1=On...
+     * @param {string} status Text status 0=Off, 1=On...
      */
     set status( status )
     {
@@ -200,67 +266,13 @@ class Mumsys_Attribute_Item_Default
 
 
     /**
-     * Returns the position of the item.
-     *
-     * @return {integer} Returns the position for this item
-     */
-    get position()
-    {
-        return ( Number( this.__input.position ) | 0 );
-    }
-
-
-    /**
-     * Sets the position for this item.
-     *
-     * @param {integer} position Position of the item
-     */
-    set position( position )
-    {
-        if ( position === this.position ) {
-            return;
-        }
-
-        this.__input.position = ( Number( position ) | 0 );
-        this.setModified();
-    }
-
-
-    /**
-     * Returns the label of the item.
-     *
-     * @return {string} Returns the label for this item
-     */
-    get label()
-    {
-        return ( ( this.__input.label === undefined ) ? "" : this.__input.label.toString() );
-    }
-
-
-    /**
-     * Sets the label for this item.
-     *
-     * @param {string} label Label of the item
-     */
-    set label( label )
-    {
-        if ( label === this.label ) {
-            return;
-        }
-
-        this.__input.label = label.toString();
-        this.setModified();
-    }
-
-
-    /**
      * Returns the item properties.
      *
      * @return {Object} List of key/value pairs including the domain
      */
     getProperties()
     {
-        return this._getProperties( "attribute." );
+        return this._getProperties( "text." );
     }
 
 
@@ -284,13 +296,13 @@ class Mumsys_Attribute_Item_Default
     {
         var objParent = super._getProperties( prefix );
         var objCurrent = {
+            [prefix + "langid"]: this.langid,
             [prefix + "domain"]: this.domain,
             [prefix + "typeid"]: this.typeid,
             [prefix + "type"]: this.type,
             [prefix + "code"]: this.code,
             [prefix + "status"]: this.status,
-            [prefix + "position"]: this.position,
-            [prefix + "label"]: this.label
+            [prefix + "content"]: this.content
         };
 
         return Object.assign( {}, objParent, objCurrent );

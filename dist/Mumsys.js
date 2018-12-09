@@ -28,7 +28,7 @@ class Mumsys
      */
     static getVersion()
     {
-        return "3.2.1";
+        return "3.3.1";
     }
 
     /**
@@ -1233,6 +1233,22 @@ class Mumsys_Common_Item_Abstract
         return newID;
     }
 
+
+    /**
+     * Check given langauage code for validity.
+     *
+     * @param {string|null} languageID Language ISO code or null
+     *
+     * @throw Mumsys_Exception If given parameter doest match the criteia
+     */
+    _checkLanguageId( languageID )
+    {
+        if ( languageID !== null && languageID.match( /^([a-z]{2})+(_[A-Z]{2})?$/ ) === null ) {
+            var mesg = "Invalid ISO language code \"" + languageID + "\"";
+            throw new Mumsys_Exception( mesg );
+        }
+    }
+
 }
 
 
@@ -1317,7 +1333,7 @@ class Mumsys_Attribute_Item_Default
     /**
      * Initialise the item
      *
-     * @param {Object} params Mixes parameters to set the item properties
+     * @param {Object} params Mixed parameters to set the item properties
      *
      * @returns {Mumsys_Attribute_Item}
      * @throws {Mumsys_Attribute_Exception} If params not of type object
@@ -1422,7 +1438,7 @@ class Mumsys_Attribute_Item_Default
     /**
      * Returns the code of the item.
      *
-     * @return {string} Returns the domain for this item e.g. text, attribute, ...
+     * @return {string} Returns the code for this item
      */
     get code()
     {
@@ -1574,600 +1590,351 @@ class Mumsys_Attribute_Item_Default
 
 
 /**
- * Mumsys_Generic_Item
+ * Mumsys_Text_Exception
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel
+ * @copyright Copyright (c) 2018 by Florian Blasel
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
  * @package     Js
- * @subpackage  Generic
+ * @subpackage  Text
  */
 
 
 /**
- * @deprecated Use Generic/Item/Default.js
- * @since version 3.0.0
+ * Mumsys text exception.
  *
- * Generic item (item interface, DTO).
+ * @category    Mumsys
+ * @package     Js
+ * @subpackage  Text
+ */
+class Mumsys_Text_Exception
+    extends Mumsys_Exception
+{
+    /**
+     * Returns the version ID.
+     *
+     * @returns {String} Version ID
+     */
+    static getVersion()
+    {
+        return "1.0.0";
+    }
+
+};
+
+
+/**
+ * Mumsys_Text_Item_Default
+ * for MUMSYS Library for Multi User Management System (MUMSYS)
+ *
+ * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
+ * @copyright Copyright (c) 2018 by Florian Blasel
+ * @author Florian Blasel <flobee.code@gmail.com>
+ *
+ * @category    Mumsys
+ * @package     Js
+ * @subpackage  Text
+ */
+
+
+/**
+ * Default attribute item (item interface, DTO).
  *
  * Item proprties are managed in this class and always are acceassible through
  * get/set() methodes.
  *
- * To get properties use the getter, e.g: item.get("name", "unknown"); which
- * returns the value of "name" property or the default value if "name" key
- * not exists. Then: "unknown" will return. If not given undefined will return.
- *
- * @param {Object} params Parameters to set the item properties
- */
-function Mumsys_Generic_Item( params )
-{
-    /**
-     * Incomming properties to be used.
-     * @private
-     * @var Object
-     */
-    this.__itemProps = {};
-
-    /**
-     * Private flag to detect if item was modified or not.
-     * @type Boolean
-     */
-    this.__m = false;
-
-    if ( params instanceof Object ) {
-        this.__itemProps = params;
-
-        if ( undefined !== params.id ) {
-            this.set( "id", params.id );
-        }
-    } else {
-        var message = "Invalid parameters";
-        throw new Error( message );
-    }
-
-    this.setModified( false );
-};
-
-
-/**
- * Returns the version ID.
- * @returns {String} Version ID
- */
-Mumsys_Generic_Item.prototype.getVersion = function ()
-{
-    return "3.0.0";
-};
-
-
-/**
- * Returns the value by given key name or "defVal" if the key not exists.
- *
- * @param {string} key Property to get
- * @param {mixed} defVal Value to return if key not exists.
- *
- * @returns {mixed} Item property
- */
-Mumsys_Generic_Item.prototype.get = function (key, defVal) {
-    if (this.__itemProps[key] === undefined) {
-        return defVal;
-    } else {
-        return this.__itemProps[key];
-    }
-};
-
-
-/**
- * Sets/ replaces a item property by given key and value.
- *
- * @param {String} key Key to update/create the value for
- * @param {Mixed} val Value to be set
- *
- * @returns {void}
- */
-Mumsys_Generic_Item.prototype.set = function (key, val)
-{
-    var v = this.get(key);
-
-    if (JSON.stringify(v) === JSON.stringify(val) ) {
-        return;
-    }
-
-    if (key === "id")
-    {
-        if ((this.__itemProps[key] = this._checkId(this.get("id"), val)) === null) {
-            this.setModified(true);
-        } else {
-            this.setModified(false);
-        }
-    } else {
-        this.__itemProps[key] = val;
-        this.setModified(true);
-    }
-};
-
-
-/**
- * Returns the item properties.
- *
- * Depending on your incoming structure: A list of key/value pairs.
- *
- * @returns {Object}
- */
-Mumsys_Generic_Item.prototype.getProperties = function () {
-    return this.__itemProps;
-};
-
-
-/**
- * Checks if the item was modified.
- *
- * @returns {Boolean}
- */
-Mumsys_Generic_Item.prototype.isModified = function () {
-    return this.__m;
-};
-
-
-/**
- * Set the modification status.
- *
- * By default set to true otherwise given boolean value
- *
- * @param {boolean} flag Flag to set. true or false, Default or without a value: true will be set.
- *
- * @returns {void}
- */
-Mumsys_Generic_Item.prototype.setModified = function ( flag )
-{
-    if (flag === undefined) {
-        var flag = true;
-    } else {
-        var flag = Boolean(flag);
-    }
-
-    this.__m = flag;
-};
-
-
-/**
- * Returns the item ID property if item ID seems not to be manipulated.
- *
- * @param {integer|string} oldID Old item ID
- * @param {integer|string} newID new item ID
- *
- * @returns {string|integer} New ID
- */
-Mumsys_Generic_Item.prototype._checkId = function (oldID, newID)
-{
-    if ( newID === undefined || oldID === undefined ) {
-        var message = "Invalid ID given: old: \"" + oldID + "\", new: \"" + newID + "\"";
-        throw new Mumsys_Generic_Item_Exception( message );
-    }
-
-    if ( newID !== null && oldID !== null && oldID !== newID ) {
-        var message = "New item ID \"" + newID + "\" differs from old ID \"" + oldID + "\"";
-        throw new Mumsys_Generic_Item_Exception( message );
-    }
-
-    return newID;
-};
-
-
-/**
- * Mumsys_Generic_Manager
- * for MUMSYS Library for Multi User Management System (MUMSYS)
- *
- * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel
- * @author Florian Blasel <flobee.code@gmail.com>
+ * Pro/Cons
+ * Text items have a specific list of properties.
+ * Items are managed through its own manager.
  *
  * @category    Mumsys
  * @package     Js
- * @subpackage  Generic
+ * @subpackage  Text
  */
-
-
-/**
- * @deprecated Use Generic/Manager/Default.js
- * @since version 3.0.0
- *
- * Generic manager (data container and data access handler DAO).
- *
- * Loads lists of items, handles and saves items in a generic way.
- *
- * @uses jQuery for ajax requests
- * @uses JSONRpc 2.0 API
- *
- * @param url Location to send post/get requests. Default "jsonrpc.php"
- */
-function Mumsys_Generic_Manager(url = false)
+class Mumsys_Text_Item_Default
+    extends Mumsys_Common_Item_Abstract
 {
     /**
-     * Location to send/get requests results.
-     * @private Private property
-     * @type {string}
+     * Returns the version ID.
+     * @returns {String} Version ID
      */
-    this.__url = "jsonrpc.php";
-
-    if (url) {
-        this.__url = url;
-    }
-
-    /**
-     * List of items.
-     * @private Private property
-     * @type Array
-     */
-    this.__itemList = [];
-
-    /**
-     * Private flag to detect if loading of data is finished.
-     * @private Private property: Use public methodes
-     * @type Boolean
-     */
-    this.__flags = {"isLoaded": false};
-
-    /**
-     * Map as memory keeper to speed up item searches
-     * @type Object
-     */
-    this.__map = {};
-}
-
-
-/**
- * Returns the version ID.
- * @returns {String} Version ID
- */
-Mumsys_Generic_Manager.prototype.getVersion = function ()
-{
-    return "3.0.0";
-};
-
-
-/**
- * Create a new generic item by given properties.
- *
- * @param {Object} props Properties to initialize the item
- *
- * @returns {Mumsys_Generic_Item} Generic item object
- */
-Mumsys_Generic_Manager.prototype.createItem = function (props)
-{
-    if (props instanceof Object) {
-        return new Mumsys_Generic_Item(props);
-    } else {
-        var message = "Invalid properties";
-        throw new Error(message);
-    }
-};
-
-
-/**
- * Adds a generic item interface to the list of items to work with.
- *
- * @param {Mumsys_Generic_Item} item Generic item to add
- */
-Mumsys_Generic_Manager.prototype.addItem = function ( item )
-{
-    if ( item instanceof Mumsys_Generic_Item )
+    static getVersion()
     {
-        var id = item.get( "id" );
-
-        if ( id !== undefined && this.__map[ id ] !== undefined ) {
-            var message = "\"id\" (" + id + ") is unique and already exists";
-            throw new Error( message );
-        }
-
-        if ( id !== undefined ) {
-            this.__map[ id ] = this.__itemList.length;
-        }
-
-        this.__itemList.push( item );
-    } else {
-        throw new Error( "Invalid item" );
-    }
-};
-
-
-/**
- * Remove an item by given id from memory/ current item list.
- *
- * @param {string|integer} id Unique ID of the item (array index)
- */
-Mumsys_Generic_Manager.prototype.removeItem = function ( id )
-{
-    var _tmp = [];
-    var _tmpmap = { };
-
-    for ( var i = 0; i < this.__itemList.length; i++ )
-    {
-        var itemID = this.__itemList[i].get( "id" );
-        if ( itemID !== id ) {
-            _tmp.push( this.__itemList[i] );
-            _tmpmap[ itemID ] = i;
-        }
+        return "1.0.0";
     }
 
-    this.__itemList = _tmp;
-    this.__map = _tmpmap;
-};
 
-
-/**
- * Returns the list of generic items.
- *
- * @returns {Array} List of Mumsys_Generic_Item items
- */
-Mumsys_Generic_Manager.prototype.getItems = function ()
-{
-    return this.__itemList;
-};
-
-
-/**
- * Returns a generic item by identifier and the expected value.
- *
- * The first match will return.
- * Alternativly you can also fetch an item by given array index as "idx" for
- * the key.
- * Warning: Be sure your data does not contain a idx key/property!
- * Note: Checks are type save! Be sure checking for integer, string...
- *
- * E.g:
- * getItem("idx", 0); // returns the first element of the item list
- * getItem("idx", -1);// returns the last  element of the item list
- * getItem("idx", 1); // returns the item with the internal key = 1
- * getItem("id", 3);  // returns the item with id=3 or undefined if not exists
- *
- * @param {String|integer} key Item property to look for. E.g: "id"
- * @param {Mixed} value Value you are looking for
- * @param {mixed|null} defreturn Default (null) return value if item was not found
- *
- * @return {Mumsys_Generic_Item|defreturn} Generic item or undefined for not found
- */
-Mumsys_Generic_Manager.prototype.getItem = function ( key, value, defreturn )
-{
-    var _k;
-
-    switch ( key )
-    {
-        case "idx":
-
-            if ( value === -1 )
-            {
-                if ( ( this.__itemList.length - 1 ) < 0 ) {
-                    _k = 0;
-                } else {
-                    _k = this.__itemList.length - 1;
-                }
-            }
-            else {
-                _k = value;
-            }
-
-            break;
-
-        case ( "id" && this.__map[ key ] !== undefined ):
-            _k = this.__map[ key ];
-
-            break;
-
-        default:
-            for ( var i = 0; i < this.__itemList.length; i++ ) {
-                if ( this.__itemList[i].get( key ) === value ) {
-                    _k = i;
-                    break;
-                }
-            }
-
-            break;
-    }
-
-    if ( this.__itemList[ _k ] === undefined ) {
-        return defreturn;
-    }
-    else {
-        return this.__itemList[ _k ];
-    }
-};
-
-
-/**
- * Clears the item list buffer.
- */
-Mumsys_Generic_Manager.prototype.clear = function ()
-{
-    this.__itemList = [];
-    this.__map = {};
-    this.__flags.isLoaded = false;
-};
-
-
-/**
- * Returns the status flag if loading of data was successful.
- *
- * @returns {Boolean} true on success or false on failure or on not finished yet
- */
-Mumsys_Generic_Manager.prototype.isLoaded = function ()
-{
-    return this.__flags.isLoaded;
-};
-
-
-/**
- * Loads a list of generic items. Wrapper method for jQuery.ajax()
- *
- * Warning: This methods load records and keeps existing data when loading
- * again. This can endup in very bad performance which huge lists of data!
- * You may call clear() method befor load again. Also loading duplicate items
- * will fail if item ID also exists.
- *
- * Parameters must be given like your backend to request the right address,
- * eg: {"program":"a","controller":"b","action":"c"} or other methodes
- * Server reponse must be a jsonrpc 2.0 result containing the list of items as
- * follow:
- * obj.result.list[ Mumsys_Generic_Item, Mumsys_Generic_Item, ... ]
- *  |    |      |
- *  |    |      + --- array containing objects to be initialised as generic item
- *  |    + ---------- json rpc api "result" property
- *  + --------------- response object
- *
- * Request params to be set:
- * <pre>
- *  - url: {String} Url to request to, Default; "jsonrpc.php"
- *  - async: {Boolean} Use asyc request or not; Default: true
- *  - type: {String} Request type. Default: "GET"
- *  - contentType: {String} Default: "application/json"
- *  - dataType: {String} Default: "json"
- * </pre>
- * Feel free also to overwrite jQuerys success, error callbacks
- *
- * @param {Object} data Mixed request parameters/ data
- * @param {Object} requestParams Parameters to overwrite the ajax request
- * defaults or to extend for jQuery.ajax().
- *
- * @return {void}
- * @throws {Exception} On errors in response
- */
-Mumsys_Generic_Manager.prototype.loadItems = function ( data, requestParams = false )
-{
     /**
-     * Request parameters. (finals for the server request)
-     * @type {Object} Mixed key/value pairs
+     * Initialise the item
+     *
+     * @param {Object} params Mixed parameters to set the item properties
+     *
+     * @returns {Mumsys_Text_Item}
+     * @throws {Mumsys_Text_Exception} If params not of type object
      */
-    var _reParams;
-    var _this = this;
-    this.__flags.isLoaded = false;
+    constructor( params )
+    {
+        super( "text.", params );
 
-    var defaultParams = {
-        url: this.__url
-        , async: true
-        , type: "GET"
-        , contentType: "application/json"
-        , dataType: "json"
-        , success: function ( obj )
-        {
-            Mumsys.checkJsonRpcResponce( obj );
+        /**
+         * Possible properties to be used.
+         * @private
+         * @var Array
+         */
+        //this.__defProps = ["langid", "domain", "typeid", "type", "code", "status", "content"];
 
-            for ( var i = 0; i < obj.result.list.length; i++ ) {
-                _this.addItem( _this.createItem( obj.result.list[i] ) );
-            }
-            _this.__flags.isLoaded = true;
+        /**
+         * Private flag to detect if item was modified or not.
+         * @type Boolean
+         */
+        this.__m = false;
+
+        if ( Array.isArray( params ) || !( params instanceof Object )  ) {
+            var mesg = "Invalid parameters";
+            throw new Mumsys_Text_Exception( mesg );
         }
-        , error: function ( obj/*, textStatus, errorThrown */ )
-        {
-            Mumsys.checkJsonRpcResponce( obj );
-        }
-    };
 
-    _reParams = this._buildParams( defaultParams, data, requestParams );
+        /**
+         * Incomming properties to be used.
+         * @private
+         * @var Object
+         */
+        this.__input = params;
 
-    jQuery.ajax( _reParams ).done( function ( obj ) {
-        Mumsys.checkJsonRpcResponce( obj );
-    } );
-};
-
-
-/**
- * Save a generic item.
- *
- * Note: the backend must check the "item" parameter where the item properties
- * will be set to.
- *
- * default request parameters:
- * <pre>
- *  - url: {String} Url to request to, Default; "jsonrpc.php"
- *  - type: {String} Request type. Default: "POST"
- *  - error: {function} Callback for errors
- * </pre>
- *
- * @param {Mumsys_Generic_Item} item Generic item object
- * @param {Object} params Request parameters to the server
- * @param {Object} requestParams Parameters to overwrite the ajax request defaults of jQuery.
- *
- * @returns {Object} Returns the updated generic item
- *
- * @throws {Exception} If json response is in error
- */
-Mumsys_Generic_Manager.prototype.saveItem = function ( item, params, requestParams = false )
-{
-    if ( params.item !== undefined ) {
-        var message = "params.item property already defined";
-        throw new Error( message );
     }
 
-    if ( item.isModified() )
+
+    /**
+     * Returns the language ID of the item.
+     *
+     * @return {string|null} Returns the language ID for this item e.g. de,
+     * en, ... or null for all languages
+     */
+    get langid()
     {
-        params.item = item.getProperties();
+        return ( ! this.__input.langid ) ? null : this.__input.langid.toString();
+    }
 
-        var defaultParams = {
-            url: this.__url
-            , type: "POST"
-            , fail: function ( obj, textStatus, errorThrown )
-                {
-                    console.log( "fail textStatus", textStatus );
-                    console.log( "fail errorThrown", errorThrown );
 
-                    Mumsys.checkJsonRpcResponce( jQuery.parseJSON( obj.responseText ) );
-                }
+    /**
+     * Set the language ID for this item.
+     *
+     * @param {string} langid Name of the language ID e.g. de, en... or null
+     */
+    set langid( langid )
+    {
+        if ( langid === this.langid ) {
+            return;
+        }
+
+        super._checkLanguageId( langid );
+        this.__input.langid = langid;
+        this.setModified();
+    }
+
+
+    /**
+     * Returns the domain of the item.
+     *
+     * @return {string} Returns the domain for this item e.g. text, attribute, ...
+     */
+    get domain()
+    {
+        return ( ( this.__input.domain === undefined ) ? "" : this.__input.domain.toString() );
+    }
+
+
+    /**
+     * Set the name of the domain for this item.
+     *
+     * @param {string} domain Name of the domain e.g. text, media, attribute...
+     */
+    set domain( domain )
+    {
+        if ( domain === this.domain ) {
+            return;
+        }
+
+        this.__input.domain = domain.toString();
+        this.setModified();
+    }
+
+
+    /**
+     * Returns the type ID of the item.
+     *
+     * @return {integer|null} Returns the type ID for this item
+     */
+    get typeid()
+    {
+        return ( ( this.__input.typeid === undefined ) ? null : ( Number( this.__input.typeid ) | 0 ) );
+    }
+
+
+    /**
+     * Sets the type ID for this item.
+     *
+     * @param {string} typeid Text type ID
+     */
+    set typeid( typeid )
+    {
+        if ( typeid === this.typeid ) {
+            return;
+        }
+
+        this.__input.typeid = Number( typeid ) | 0;
+        this.setModified();
+    }
+
+
+    /**
+     * Returns the item type code of the item if available.
+     *
+     * @return {string} Returns the type code for this item
+     */
+    get type()
+    {
+        return ( ( this.__input.type === undefined ) ? "" : this.__input.type.toString() );
+    }
+
+
+    /**
+     * Returns the content of the item.
+     *
+     * @return {string} Returns the content for this item
+     */
+    get content()
+    {
+        return ( (this.__input.content === undefined) ? "" : this.__input.content.toString() );
+    }
+
+
+    /**
+     * Sets the code for this item.
+     *
+     * @param {string} code Text code
+     */
+    set content( content )
+    {
+        if ( content === this.content ) {
+            return;
+        }
+
+        this.__input.content = content.toString();
+        this.setModified();
+    }
+
+    /**
+     * Alias of get content() for generic usage.
+     *
+     * @return string Content of the item
+     */
+    get label()
+    {
+        return this.content;
+    }
+
+
+    /**
+     * Returns the code of the item.
+     *
+     * @return {string} Returns the code for this item
+     */
+    get code()
+    {
+        return ( (this.__input.code === undefined) ? "" : this.__input.code.toString() );
+    }
+
+
+    /**
+     * Sets the code for this item.
+     *
+     * @param {string} code Text code
+     */
+    set code( code )
+    {
+        if ( code === this.code ) {
+            return;
+        }
+
+        this.__input.code = code.toString();
+        this.setModified();
+    }
+
+
+    /**
+     * Returns the status of the item.
+     *
+     * @return {integer} Returns the status for this item 0=Off, 1=On
+     */
+    get status()
+    {
+        return ( Number( this.__input.status ) | 0 );
+    }
+
+
+    /**
+     * Sets the status for this item.
+     *
+     * @param {string} status Text status 0=Off, 1=On...
+     */
+    set status( status )
+    {
+        if ( status === this.status ) {
+            return;
+        }
+
+        this.__input.status = ( Number( status ) | 0 );
+        this.setModified();
+    }
+
+
+    /**
+     * Returns the item properties.
+     *
+     * @return {Object} List of key/value pairs including the domain
+     */
+    getProperties()
+    {
+        return this._getProperties( "text." );
+    }
+
+
+    /**
+     * Returns the raw item properties.
+     *
+     * @return {Object} List of key/value pairs
+     */
+    getRawProperties()
+    {
+        return this._getProperties( "" );
+    }
+
+
+    /**
+     * Returns the item values as list of key/value pairs prefixed by prefix
+     *
+     * @return {Object} Associative list of item properties and their values
+     */
+    _getProperties( prefix )
+    {
+        var objParent = super._getProperties( prefix );
+        var objCurrent = {
+            [prefix + "langid"]: this.langid,
+            [prefix + "domain"]: this.domain,
+            [prefix + "typeid"]: this.typeid,
+            [prefix + "type"]: this.type,
+            [prefix + "code"]: this.code,
+            [prefix + "status"]: this.status,
+            [prefix + "content"]: this.content
         };
 
-        var reqParams = this._buildParams( defaultParams, params, requestParams );
-        jQuery.ajax( reqParams ).done( function ( obj )
-            {
-                Mumsys.checkJsonRpcResponce( obj );
-                if ( obj.result.item.id !== undefined ) {
-                    item.set( "id", obj.result.item.id );
-                }
-            }
-        );
-
-        item.setModified( false );
+        return Object.assign( {}, objParent, objCurrent );
     }
 
-    return item;
-};
-
-
-/**
- * Returns a build parameter object for the jquery ajax request.
- *
- * @param {object} defaultParams Parameters for the jquery ajax request ($.ajax( params )...)
- * @param {object} dataParams Your data to request or send
- * @param {object} requestParams Parameters to overwrite or reset keys of the default
- * parameters or to add additionals jquery ajax() request can handle.
- *
- * @returns {object} Parameters to be set to the jquery ajax request.
- */
-Mumsys_Generic_Manager.prototype._buildParams = function ( defaultParams, dataParams, requestParams )
-{
-    var obj = {};
-
-    if ( requestParams )
-    {
-        for ( var keyA in defaultParams )
-        {
-            if ( requestParams[keyA] === undefined ) {
-                obj[keyA] = defaultParams[keyA];
-            }
-        }
-        for ( var keyB in requestParams ) {
-            if ( requestParams[keyB] !== null ) {
-                obj[keyB] = requestParams[keyB];
-            }
-        }
-
-    } else {
-        obj = defaultParams;
-    }
-
-    obj.data = dataParams;
-
-    return obj;
-};
+}
 
 

@@ -13,17 +13,22 @@ Development goes in single files at src/.
 Also have a look at the html files in tests/ folder to run tests or to get into it in 
 detail.
 
-For distribution/ builds you can use composer:
+For distribution builds you can use composer:
 
     composer require mumsys/mumsys-js
 
-For own builds (requires php 5.6+, 7.* cli version):
+For own builds (requires php 5.6+, 7.* php-cli version):
 
     composer require mumsys/mumsys-js
     cd vendor/mumsys/mumsys-js
     composer install
 
 to the get dependencies for builds.
+
+
+To build own additions:
+
+    php7.2 build/build.php # to create Mumsys.js and Mumsys.min.js bundels
 
 
 Future releases will also serve npm helper/ tests

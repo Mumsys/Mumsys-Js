@@ -218,4 +218,20 @@ class Mumsys_Common_Item_Abstract
         return newID;
     }
 
+
+    /**
+     * Check given langauage code for validity.
+     *
+     * @param {string|null} languageID Language ISO code or null
+     *
+     * @throw Mumsys_Exception If given parameter doest match the criteia
+     */
+    _checkLanguageId( languageID )
+    {
+        if ( languageID !== null && languageID.match( /^([a-z]{2})+(_[A-Z]{2})?$/ ) === null ) {
+            var mesg = "Invalid ISO language code \"" + languageID + "\"";
+            throw new Mumsys_Exception( mesg );
+        }
+    }
+
 }

@@ -5,7 +5,7 @@
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @copyright Copyright (c) 2017-2018 by Florian Blasel for FloWorks Company
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
@@ -42,9 +42,12 @@ $includeSource = array(
     'src/Mumsys/Attribute/Exception.js',
     'src/Mumsys/Attribute/Item/Default.js',
 
+    'src/Mumsys/Text/Exception.js',
+    'src/Mumsys/Text/Item/Default.js',
+
     // to be removed, not supported
-    'src/Mumsys/Generic/Item.js',
-    'src/Mumsys/Generic/Manager.js',
+//    'src/Mumsys/Generic/Item.js',
+//    'src/Mumsys/Generic/Manager.js',
 );
 
 //$includeTests = array(
