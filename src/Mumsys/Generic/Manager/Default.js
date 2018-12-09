@@ -19,7 +19,7 @@
  * Default generic manager (data container and data access handler DAO).
  *
  * Loads lists of items, handles and saves items in a generic way.
- * 
+ *
  * @uses jQuery for ajax requests
  * @uses JSONRpc 2.0 API
  */
@@ -31,16 +31,16 @@ class Mumsys_Generic_Manager_Default
      */
     static getVersion()
     {
-        return '3.1.1';
+        return "3.1.1";
     }
-    
-    
+
+
     /**
      * Initialize the manager object.
-     * 
-     * @param url Location to send post/get requests. Default 'jsonrpc.php'; 
+     *
+     * @param url Location to send post/get requests. Default "jsonrpc.php";
      * Optional
-     * 
+     *
      * @returns {Mumsys_Generic_Manager_Default}
      */
     constructor( url = false )
@@ -50,7 +50,7 @@ class Mumsys_Generic_Manager_Default
          * @private Private property
          * @type {string}
          */
-        this.__url = 'jsonrpc.php';
+        this.__url = "jsonrpc.php";
 
         if ( url ) {
             this.__url = url;
@@ -93,7 +93,7 @@ class Mumsys_Generic_Manager_Default
         if ( props instanceof Object ) {
             return new Mumsys_Generic_Item_Default( props );
         } else {
-            var message = 'Invalid properties';
+            var message = "Invalid properties";
             throw new Mumsys_Generic_Manager_Exception( message );
         }
     }
@@ -108,10 +108,10 @@ class Mumsys_Generic_Manager_Default
     {
         if ( item instanceof Mumsys_Generic_Item_Default )
         {
-            var id = item.get( 'id' );
+            var id = item.get( "id" );
 
             if ( id !== undefined && this.__map[ id ] !== undefined ) {
-                var message = '"id" (' + id + ') is unique and already exists';
+                var message = "\"id\" (" + id + ") is unique and already exists";
                 throw new Mumsys_Generic_Manager_Exception( message );
             }
 
@@ -120,9 +120,9 @@ class Mumsys_Generic_Manager_Default
             }
 
             this.__itemList.push( item );
-        } 
+        }
         else {
-            throw new Mumsys_Generic_Manager_Exception( 'Invalid item' );
+            throw new Mumsys_Generic_Manager_Exception( "Invalid item" );
         }
     }
 
@@ -140,14 +140,14 @@ class Mumsys_Generic_Manager_Default
         if ( this.__map[ id ] !== undefined ) {
             this.__itemList.splice( this.__map[ id ], 1);
             delete this.__map[ id ];
-            
+
             return;
         }
-        
+
         // fallback
         for ( var i = 0; i < this.__itemList.length; i++ )
         {
-            var itemID = this.__itemList[i].get( 'id' );
+            var itemID = this.__itemList[i].get( "id" );
             if ( itemID !== id ) {
                 _tmp.push( this.__itemList[i] );
                 _tmpmap[ itemID ] = i;
@@ -172,34 +172,34 @@ class Mumsys_Generic_Manager_Default
 
     /**
      * Returns a generic item by identifier and the expected value.
-     * 
+     *
      * The first match will return.
-     * Alternativly you can also fetch an item by given array index as "idx" for 
-     * the key. 
+     * Alternativly you can also fetch an item by given array index as "idx" for
+     * the key.
      * Warning: Be sure your data does not contain a idx key/property!
      * Note: Checks are type save! Be sure checking for integer, string...
      *
      * E.g:
-     * getItem('idx', 0); // returns the first element of the item list
-     * getItem('idx', -1);// returns the last  element of the item list
-     * getItem('idx', 1); // returns the item with the internal key = 1
-     * getItem('id', 3);  // returns the item with id=3 or undefined if not set
+     * getItem("idx", 0); // returns the first element of the item list
+     * getItem("idx", -1);// returns the last  element of the item list
+     * getItem("idx", 1); // returns the item with the internal key = 1
+     * getItem("id", 3);  // returns the item with id=3 or undefined if not set
      *
-     * @param {String|integer} key Item property to look for. E.g: 'id'
+     * @param {String|integer} key Item property to look for. E.g: "id"
      * @param {Mixed} value Value you are looking for
-     * @param {mixed|null} defreturn Default return value if item was not 
+     * @param {mixed|null} defreturn Default return value if item was not
      * found. Optional, otherwise undefined will return
-     * 
-     * @return {Mumsys_Generic_Item_Default|defreturn} Generic item or undefined 
+     *
+     * @return {Mumsys_Generic_Item_Default|defreturn} Generic item or undefined
      * for not found
      */
     getItem( key, value, defreturn )
     {
         var _k;
 
-        switch ( key ) 
+        switch ( key )
         {
-            case 'idx':
+            case "idx":
                 if ( value === -1 )
                 {
                     if ( ( this.__itemList.length - 1 ) < 0 ) {
@@ -207,18 +207,18 @@ class Mumsys_Generic_Manager_Default
                     } else {
                         _k = this.__itemList.length - 1;
                     }
-                } 
+                }
                 else {
                     _k = value;
                 }
-                                
+
                 break;
-                
-            case ( 'id' && this.__map[ key ] !== undefined ):
+
+            case ( "id" && this.__map[ key ] !== undefined ):
                 _k = this.__map[ key ];
-                
+
                 break;
-                
+
             default:
                 for ( var i = 0; i < this.__itemList.length; i++ ) {
                     if ( this.__itemList[i].get( key ) === value ) {
@@ -226,10 +226,10 @@ class Mumsys_Generic_Manager_Default
                         break;
                     }
                 }
-                
+
                 break;
         }
-        
+
         if ( _k === undefined ) {
             return defreturn;
         } else {
@@ -252,7 +252,7 @@ class Mumsys_Generic_Manager_Default
     /**
      * Returns the status flag if loading of data was successful.
      *
-     * @returns {Boolean} true on success or false on failure or on not finished 
+     * @returns {Boolean} true on success or false on failure or on not finished
      * yet
      */
     isLoaded()
@@ -264,14 +264,14 @@ class Mumsys_Generic_Manager_Default
     /**
      * Loads a list of generic items. Wrapper method for jQuery.ajax()
      *
-     * Warning: This methods load records and keeps existing data when loading 
+     * Warning: This methods load records and keeps existing data when loading
      * again. This can endup in very bad performance which huge lists of data!
-     * You may call clear() method befor load again. Also loading duplicate 
+     * You may call clear() method befor load again. Also loading duplicate
      * items will fail if item ID also exists.
      *
-     * Parameters must be given like your backend to request the right address, 
+     * Parameters must be given like your backend to request the right address,
      * eg: {"program":"a","controller":"b","action":"c"} or other methodes
-     * Server reponse must be a jsonrpc 2.0 result containing the list of items 
+     * Server reponse must be a jsonrpc 2.0 result containing the list of items
      * as follow:
      * obj.result.list[ .._Generic_Item_.., .._Generic_Item_.., ... ]
      *  |    |      |
@@ -281,16 +281,16 @@ class Mumsys_Generic_Manager_Default
      *
      * Request params to be set:
      * <pre>
-     *  - url: {String} Url to request to, Default; 'jsonrpc.php'
+     *  - url: {String} Url to request to, Default; "jsonrpc.php"
      *  - async: {Boolean} Use asyc request or not; Default: true
-     *  - type: {String} Request type. Default: 'GET'
-     *  - contentType: {String} Default: 'application/json'
-     *  - dataType: {String} Default: 'json'
+     *  - type: {String} Request type. Default: "GET"
+     *  - contentType: {String} Default: "application/json"
+     *  - dataType: {String} Default: "json"
      * </pre>
      * Feel free also to overwrite jQuerys success, error callbacks
      *
      * @param {Object} data Mixed request parameters/ data
-     * @param {Object} requestParams Parameters to overwrite the ajax request 
+     * @param {Object} requestParams Parameters to overwrite the ajax request
      * defaults or to extend for jQuery.ajax().
      *
      * @return {void}
@@ -309,9 +309,9 @@ class Mumsys_Generic_Manager_Default
         var defaultParams = {
             url: this.__url
             , async: true
-            , type: 'GET'
-            , contentType: 'application/json'
-            , dataType: 'json'
+            , type: "GET"
+            , contentType: "application/json"
+            , dataType: "json"
             , success: function ( obj )
             {
                 Mumsys.checkJsonRpcResponce( obj );
@@ -338,19 +338,19 @@ class Mumsys_Generic_Manager_Default
     /**
      * Save a generic item. Wrapper method for jQuery.ajax()
      *
-     * Note: the backend must check the "item" parameter where the item 
+     * Note: the backend must check the "item" parameter where the item
      * properties will be send to. ( Dont set params.item!)
      *
      * default request parameters:
      * <pre>
-     *  - url: {String} Url to request to, Default; 'jsonrpc.php'
-     *  - type: {String} Request type. Default: 'POST'
+     *  - url: {String} Url to request to, Default; "jsonrpc.php"
+     *  - type: {String} Request type. Default: "POST"
      *  - error: {function} Callback for errors
      * </pre>
      *
      * @param {Mumsys_Generic_Item_Default} item Generic item object
      * @param {Object} params Request parameters to the server
-     * @param {Object} requestOptions Parameters to overwrite the ajax request 
+     * @param {Object} requestOptions Parameters to overwrite the ajax request
      * defaults of jQuery.
      *
      * @returns {Object} Returns the updated generic item
@@ -361,7 +361,7 @@ class Mumsys_Generic_Manager_Default
     saveItem( item, params, requestOptions = false )
     {
         if ( params.item !== undefined ) {
-            var message = 'params.item property already defined';
+            var message = "params.item property already defined";
             throw new Mumsys_Generic_Manager_Exception( message );
         }
 
@@ -372,7 +372,7 @@ class Mumsys_Generic_Manager_Default
             var defaultParams = {
                 url: this.__url
                 , type: "POST"
-                , fail: function ( obj, textStatus, errorThrown ) 
+                , fail: function ( obj, textStatus, errorThrown )
                     {
                         console.log("fail textStatus", textStatus);
                         console.log("fail errorThrown", errorThrown);
@@ -386,12 +386,12 @@ class Mumsys_Generic_Manager_Default
             var reqParams = this._buildParams(
                 defaultParams, params, requestOptions
             );
-            
+
             jQuery.ajax( reqParams ).done( function ( obj )
                 {
                     Mumsys.checkJsonRpcResponce( obj );
                     if (obj.result.item.id !== undefined) {
-                        item.set('id', obj.result.item.id);
+                        item.set("id", obj.result.item.id);
                     }
                 }
             );
@@ -406,11 +406,11 @@ class Mumsys_Generic_Manager_Default
     /**
      * Returns a build parameter object for the jquery ajax request.
      *
-     * @param {object} defaultParams Parameters for the jquery ajax request 
+     * @param {object} defaultParams Parameters for the jquery ajax request
      * ($.ajax( params )...)
      * @param {object} dataParams Your data to request or send
-     * @param {object} requestParams Parameters to overwrite or reset keys of 
-     * the default parameters or to add additionals jquery ajax() request can 
+     * @param {object} requestParams Parameters to overwrite or reset keys of
+     * the default parameters or to add additionals jquery ajax() request can
      * handle.
      *
      * @returns {object} Parameters to be set to the jquery ajax request.
@@ -432,7 +432,7 @@ class Mumsys_Generic_Manager_Default
                     obj[keyB] = requestParams[keyB];
                 }
             }
-        } 
+        }
         else {
             obj = defaultParams;
         }

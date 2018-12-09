@@ -15,7 +15,7 @@
 
 /**
  * Mumsys generic exception.
- * 
+ *
  * @category    Mumsys
  * @package     Js
  * @subpackage  Generic
@@ -25,12 +25,12 @@ class Mumsys_Generic_Exception
 {
     /**
      * Returns the version ID.
-     * 
+     *
      * @returns {String} Version ID
      */
     static getVersion()
     {
-        return '3.0.0';
+        return "3.0.0";
     }
 
 };

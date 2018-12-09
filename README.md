@@ -15,13 +15,15 @@ detail.
 
 For distribution/ builds you can use composer:
 
-    composer require flobee/mumsys-js
+    composer require mumsys/mumsys-js
 
 For own builds (requires php 5.6+, 7.* cli version):
 
-    composer require flobee/mumsys-js
-    cd vendor/flobee/mumsys-js
+    composer require mumsys/mumsys-js
+    cd vendor/mumsys/mumsys-js
     composer install
 
 to the get dependencies for builds.
-    
+
+
+Future releases will also serve npm helper/ tests

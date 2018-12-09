@@ -26,12 +26,12 @@ class Mumsys_File_Item_Default
      * Returns the version ID.
      * @returns {String} Version ID
      */
-    static getVersion() 
+    static getVersion()
     {
-        return '3.0.1';
+        return "3.0.1";
     }
-    
-    
+
+
     /**
      * Initialize the object.
      *
@@ -71,17 +71,17 @@ class Mumsys_File_Item_Default
     /**
      * Returns the location of the file.
      *
-     * @return {String} Location of the file (depending on type: a path +/ or 
+     * @return {String} Location of the file (depending on type: a path +/ or
      * with the file name)
      * @throws {Mumsys_File_Item_Exception} If whether path nor file was set
      */
     get location()
     {
         if ( this.path !== undefined && this.name !== undefined ) {
-            return this.path + '/' + this.name;
+            return this.path + "/" + this.name;
         }
 
-        var mesg = 'No path or file was set to get the location';
+        var mesg = "No path or file was set to get the location";
         throw new Mumsys_File_Item_Exception( mesg, Mumsys_Exception.ERRCODE_DEFAULT );
     }
 

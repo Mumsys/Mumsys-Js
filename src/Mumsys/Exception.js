@@ -14,7 +14,7 @@
 
 /**
  * Default mumsys exception and exception expanding.
- * 
+ *
  * @extends Error
  * @type Mumsys_Exception
  */
@@ -23,11 +23,11 @@ class Mumsys_Exception extends Error
     /**
      * Default error code for technical errors, no futher reason,
      * discribed in the error message.
-     * 
+     *
      * @var constant
      */
     static get ERRCODE_DEFAULT() { return 1; }
-    
+
 
     /**
      * Returns the version ID.
@@ -35,16 +35,16 @@ class Mumsys_Exception extends Error
      */
     static getVersion()
     {
-        return '3.0.0';
+        return "3.0.0";
     }
 
     /**
      * Initialize the mumsys exception.
-     * 
+     *
      * @param {String} message Exception message
-     * @param {String|integer} code Exception code or number; Optional, 
+     * @param {String|integer} code Exception code or number; Optional,
      * Default: 0
-     * 
+     *
      * @returns {Extend_Exceptions}
      */
     constructor( message, code = 0 )
@@ -54,7 +54,7 @@ class Mumsys_Exception extends Error
         this.name = this.constructor.name;
         this.code = code;
 
-        if ( typeof Error.captureStackTrace === 'function' ) {
+        if ( typeof Error.captureStackTrace === "function" ) {
             Error.captureStackTrace( this, this.constructor );
         } else {
             this.stack = ( new Error( message ) ).stack;

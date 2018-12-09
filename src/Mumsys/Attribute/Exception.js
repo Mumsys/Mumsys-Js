@@ -15,7 +15,7 @@
 
 /**
  * Mumsys attribute exception.
- * 
+ *
  * @category    Mumsys
  * @package     Js
  * @subpackage  Attribute
@@ -25,12 +25,12 @@ class Mumsys_Attribute_Exception
 {
     /**
      * Returns the version ID.
-     * 
+     *
      * @returns {String} Version ID
      */
     static getVersion()
     {
-        return '1.0.0';
+        return "1.0.0";
     }
 
 };

@@ -15,22 +15,22 @@
 
 /**
  * Mumsys generic item exception.
- * 
+ *
  * @category    Mumsys
  * @package     Js
  * @subpackage  File
  */
-class Mumsys_File_Item_Exception 
-    extends Mumsys_Exception 
+class Mumsys_File_Item_Exception
+    extends Mumsys_Exception
 {
     /**
      * Returns the version ID.
-     * 
+     *
      * @returns {String} Version ID
      */
     static getVersion()
     {
-        return '3.0.0';
+        return "3.0.0";
     }
 
 };

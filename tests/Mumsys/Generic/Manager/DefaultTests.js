@@ -11,7 +11,9 @@
  * @subpackage  Generic
  */
 
-//QUnit.module( "Generic", function() 
+/* global QUnit, Mumsys_Generic_Manager_Default, Mumsys_Generic_Item_Default */
+
+//QUnit.module( "Mumsys Generic", function() 
 //{ 
 QUnit.test( "Mumsys_Generic_Manager_Default.js tests", function ( assert )
 {

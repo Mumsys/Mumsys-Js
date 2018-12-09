@@ -16,19 +16,19 @@
 /**
  * @deprecated Use Generic/Item/Default.js
  * @since version 3.0.0
- *  
+ *
  * Generic item (item interface, DTO).
  *
- * Item proprties are managed in this class and always are acceassible through 
+ * Item proprties are managed in this class and always are acceassible through
  * get/set() methodes.
- * 
- * To get properties use the getter, e.g: item.get('name', 'unknown'); which 
- * returns the value of "name" property or the default value if 'name' key
- * not exists. Then: 'unknown' will return. If not given undefined will return.
+ *
+ * To get properties use the getter, e.g: item.get("name", "unknown"); which
+ * returns the value of "name" property or the default value if "name" key
+ * not exists. Then: "unknown" will return. If not given undefined will return.
  *
  * @param {Object} params Parameters to set the item properties
  */
-function Mumsys_Generic_Item( params ) 
+function Mumsys_Generic_Item( params )
 {
     /**
      * Incomming properties to be used.
@@ -47,10 +47,10 @@ function Mumsys_Generic_Item( params )
         this.__itemProps = params;
 
         if ( undefined !== params.id ) {
-            this.set( 'id', params.id );
+            this.set( "id", params.id );
         }
     } else {
-        var message = 'Invalid parameters';
+        var message = "Invalid parameters";
         throw new Error( message );
     }
 
@@ -64,7 +64,7 @@ function Mumsys_Generic_Item( params )
  */
 Mumsys_Generic_Item.prototype.getVersion = function ()
 {
-    return '3.0.0';
+    return "3.0.0";
 };
 
 
@@ -101,7 +101,7 @@ Mumsys_Generic_Item.prototype.set = function (key, val)
         return;
     }
 
-    if (key === 'id')
+    if (key === "id")
     {
         if ((this.__itemProps[key] = this._checkId(this.get("id"), val)) === null) {
             this.setModified(true);
@@ -114,7 +114,7 @@ Mumsys_Generic_Item.prototype.set = function (key, val)
     }
 };
 
-    
+
 /**
  * Returns the item properties.
  *
@@ -160,21 +160,21 @@ Mumsys_Generic_Item.prototype.setModified = function ( flag )
 
 /**
  * Returns the item ID property if item ID seems not to be manipulated.
- * 
+ *
  * @param {integer|string} oldID Old item ID
  * @param {integer|string} newID new item ID
- * 
+ *
  * @returns {string|integer} New ID
  */
 Mumsys_Generic_Item.prototype._checkId = function (oldID, newID)
 {
     if ( newID === undefined || oldID === undefined ) {
-        var message = 'Invalid ID given: old: "' + oldID + '", new: "' + newID + '"';
+        var message = "Invalid ID given: old: \"" + oldID + "\", new: \"" + newID + "\"";
         throw new Mumsys_Generic_Item_Exception( message );
     }
 
     if ( newID !== null && oldID !== null && oldID !== newID ) {
-        var message = 'New item ID "' + newID + '" differs from old ID "' + oldID + '"';
+        var message = "New item ID \"" + newID + "\" differs from old ID \"" + oldID + "\"";
         throw new Mumsys_Generic_Item_Exception( message );
     }
 

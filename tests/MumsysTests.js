@@ -10,9 +10,13 @@
  * @package     Js
  */
 
-//QUnit.module( "Mumsys.js", function() 
-//{ 
-    QUnit.test("Mumsys.js test", function (assert) 
+/* global QUnit, Mumsys */
+
+"use strict";
+
+//QUnit.module( "Mumsys.js", function()
+//{
+    QUnit.test("Mumsys.js test", function (assert)
     {
         var _obj = new Mumsys();
 
@@ -20,17 +24,21 @@
         assert.ok( (document.location.href.search("^file") === -1), "Warning: url file:// use http://");
 
         assert.ok( (_obj instanceof Mumsys), "Mumsys::construct: Passed!");
-        assert.equal(Mumsys.getVersion(), '3.1.1', "getVersion(): Passed!");
+        assert.equal(Mumsys.getVersion(), '3.2.1', "getVersion(): Passed!");
 
         try {
-            var errA = Mumsys.checkJsonRpcResponce(true);
-        } catch (e) {
-            assert.ok(e, "checkJsonRpcResponce() in error: Passed!");
+            var errA = Mumsys.checkJsonRpcResponce( true );
+        }
+        catch ( e ) {
+            assert.ok( e, "checkJsonRpcResponce() in error: Passed!" );
             assert.ok(
-                    (e.message == 'Invalid json rpc resopnse'), 
-                    "checkJsonRpcResponce() error message: Passed!"
+                ( e.message === 'Invalid json rpc resopnse' ),
+                "checkJsonRpcResponce() error message: Passed!"
             );
-            assert.ok((e.name=="Mumsys_Exception"), "checkJsonRpcResponce() expected exception: Passed!");
+            assert.ok(
+                ( e.name === "Mumsys_Exception" ),
+                "checkJsonRpcResponce() expected exception: Passed!"
+            );
         }
 
 

@@ -16,21 +16,21 @@
 /**
  * Default generic item (item interface, DTO).
  *
- * Item proprties are managed in this class and always are acceassible through 
- * get/set() methodes. 
- * 
+ * Item proprties are managed in this class and always are acceassible through
+ * get/set() methodes.
+ *
  * Pro/Cons
- * Generic items have a variable list of properties. So getter/setter work 
- * different than standard handling in js ( item.get('id') vs. item.id ). 
- * Items are managed through its own generic manager. 
- * If you have special requirements and want to use getter/setter handling in 
- * a normal way you need to implement your own item/ manager objects or 
+ * Generic items have a variable list of properties. So getter/setter work
+ * different than standard handling in js ( item.get("id") vs. item.id ).
+ * Items are managed through its own generic manager.
+ * If you have special requirements and want to use getter/setter handling in
+ * a normal way you need to implement your own item/ manager objects or
  * extending this set of item/manager classes.
- * 
- * To get properties use the getter, e.g: item.get('name', 'unknown'); which 
- * returns the value of "name" property or the default value if 'name' key
- * not exists. Then: 'unknown' will return. If not given undefined will return.
- * 
+ *
+ * To get properties use the getter, e.g: item.get("name", "unknown"); which
+ * returns the value of "name" property or the default value if "name" key
+ * not exists. Then: "unknown" will return. If not given undefined will return.
+ *
  * @category    Mumsys
  * @package     Js
  * @subpackage  Generic
@@ -41,17 +41,17 @@ class Mumsys_Generic_Item_Default
      * Returns the version ID.
      * @returns {String} Version ID
      */
-    static getVersion() 
+    static getVersion()
     {
-        return '3.1.1';
+        return "3.1.1";
     }
-    
-    
+
+
     /**
      * Initialise the item
-     * 
+     *
      * @param {Object} params Mixes parameters to set the item properties
-     * 
+     *
      * @returns {Mumsys_Generic_Item}
      * @throws {Mumsys_Generic_Item_Exception} If params not of type object
      */
@@ -70,22 +70,22 @@ class Mumsys_Generic_Item_Default
          */
         this.__m = false;
 
-        if ( params instanceof Object )
+        if ( params instanceof Object && Array.isArray( params ) === false )
         {
             this.__itemProps = params;
 
             if ( undefined !== params.id ) {
-                this.set( 'id', params.id );
+                this.set( "id", params.id );
             }
         } else {
-            var message = 'Invalid parameters';
+            var message = "Invalid parameters";
             throw new Mumsys_Generic_Item_Exception( message );
         }
 
         this.setModified( false );
     }
-    
-    
+
+
     /**
      * Returns the value by given key name or "defVal" if the key not exists.
      *
@@ -101,8 +101,8 @@ class Mumsys_Generic_Item_Default
             return this.__itemProps[key];
         }
     }
-    
-    
+
+
     /**
      * Sets/ replaces a item property by given key and value.
      *
@@ -119,7 +119,7 @@ class Mumsys_Generic_Item_Default
             return;
         }
 
-        if ( key === 'id' )
+        if ( key === "id" )
         {
             if ( ( this.__itemProps[key] = this._checkId( this.get( "id" ), val ) ) === null ) {
                 this.setModified( true );
@@ -131,8 +131,8 @@ class Mumsys_Generic_Item_Default
             this.setModified( true );
         }
     }
-    
-    
+
+
     /**
      * Returns the item properties.
      *
@@ -160,7 +160,7 @@ class Mumsys_Generic_Item_Default
      *
      * By default set to true otherwise given boolean value
      *
-     * @param {boolean} flag Flag to set. true or false, Default or without a 
+     * @param {boolean} flag Flag to set. true or false, Default or without a
      * value: true will be set.
      *
      * @returns {void}
@@ -181,22 +181,22 @@ class Mumsys_Generic_Item_Default
 
     /**
      * Returns the item ID property if item ID seems not to be manipulated.
-     * 
+     *
      * @param {integer|string|null} oldID Old item ID
      * @param {integer|string|null} newID N ew item ID
-     * 
+     *
      * @returns {string|integer} New ID
      * @throws {Mumsys_Generic_Item_Exception} If ID differs
      */
     _checkId( oldID, newID )
     {
         if ( newID === undefined || oldID === undefined ) {
-            var message = 'Invalid ID given: old: "' + oldID + '", new: "' + newID + '"';
+            var message = "Invalid ID given: old: \"" + oldID + "\", new: \"" + newID + "\"";
             throw new Mumsys_Generic_Item_Exception( message );
         }
 
         if ( newID !== null && oldID !== null && oldID !== newID ) {
-            var message = 'New item ID "' + newID + '" differs from old ID "' + oldID + '"';
+            var message = "New item ID \"" + newID + "\" differs from old ID \"" + oldID + "\"";
             throw new Mumsys_Generic_Item_Exception( message );
         }
 

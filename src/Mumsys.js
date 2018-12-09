@@ -3,7 +3,7 @@
  * for MUMSYS Library for Multi User Management System (MUMSYS)
  *
  * @license LGPL Version 3 http://www.gnu.org/licenses/lgpl-3.0.txt
- * @copyright Copyright (c) 2017 by Florian Blasel for FloWorks Company
+ * @copyright Copyright (c) 2017-2018 by Florian Blasel for FloWorks Company
  * @author Florian Blasel <flobee.code@gmail.com>
  *
  * @category    Mumsys
@@ -14,13 +14,13 @@
 
 /**
  * Mumsys object.
- * 
+ *
  * Helpers: http://jshint.com/
- * 
+ *
  * @category Mumsys
  * @package  Js
  */
-class Mumsys 
+class Mumsys
 {
     /**
      * Returns the version ID.
@@ -28,12 +28,12 @@ class Mumsys
      */
     static getVersion()
     {
-        return '3.1.1';
+        return "3.2.1";
     }
 
     /**
-     *  Initilizes the Mumsys object.
-     *  
+     * Initilizes the Mumsys object.
+     *
      * @returns {Mumsys} Mumsys object
      */
     constructor()
@@ -42,18 +42,18 @@ class Mumsys
 
     /**
      * Checks json rpc 2.0 responce for validity.
-     * 
+     *
      * @param {Object} response object
-     * 
-     * @return {void} 
+     *
+     * @return {void}
      * @throws {Mumsys_Exception} If response seems to be invalid
      */
     static checkJsonRpcResponce( response )
     {
         if ( !( response instanceof Object ) ) {
-            var message = 'Invalid json rpc resopnse';
-            throw new Mumsys_Exception( message );
+            var mesg = "Invalid json rpc resopnse";
+            throw new Mumsys_Exception( mesg );
         }
     }
-    
+
 }
